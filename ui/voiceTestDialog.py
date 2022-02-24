@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ui/voiceTestDialog.ui'
+# Form implementation generated from reading ui file 'ui/qtDesigner/voiceTestDialog.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #
@@ -50,7 +50,7 @@ class Ui_VoiceTestDialog(object):
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
 
         self.retranslateUi(VoiceTestDialog)
-        self.play_button.clicked.connect(self.text_to_play_box.copy) # type: ignore
+        self.play_button.clicked.connect(VoiceTestDialog.playVoice) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(VoiceTestDialog)
 
     def retranslateUi(self, VoiceTestDialog):

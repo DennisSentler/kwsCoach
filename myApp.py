@@ -2,52 +2,72 @@ import sys
 import qdarkstyle
 import traceback
 from os import environ
+from pydub import AudioSegment
+from pydub.playback import play
+from io import BytesIO
 
 from PyQt5.QtWidgets import (
-    QTreeView, QApplication, QMainWindow, QDialog, QMessageBox, QTextEdit, QLabel, QTreeWidget, QTreeWidgetItem
+    QApplication, QMainWindow, QDialog, QMessageBox
 )
-from PyQt5.Qt import Qt
-
-from test import Ui_myApp
-from connectProviderDialog import Ui_ConnectProviderDialog
-from lib import googleTTS, baseTTS
+from tts.myTypes import Provider
+from ui.mainWindow import Ui_myApp
+from ui.connectProviderDialog import Ui_ConnectProviderDialog
+from ui.voiceTestDialog import Ui_VoiceTestDialog
 from voiceListView import VoiceListView
-from voiceTestDialog import Ui_VoiceTestDialog
+import tts
 
 class Window(QMainWindow, Ui_myApp):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
-        self.__voices = []
+        #create voice list view
         self.voice_list_view = VoiceListView(self)
         self.voice_list_view.setObjectName("voice_list_view")
         self.gridLayout_4.addWidget(self.voice_list_view, 1, 0, 1, 1)
+
+        # create tts service handler
+        self._voices = []
+        self._tts = tts.TTSServiceHandler()
         
     def openConnectGoogleDialog(self):
-        diag = ConnectGoogleDialog(self)
+        diag = ConnectGoogleDialog(self, self._tts)
         if diag.exec_():
-            self.__voices.extend(diag.voices)
+            self._voices.extend(diag.voices)
             self.voice_list_view.addVoices(diag.voices)
 
     def openVoiceTestDialog(self, voice):
         print("open voice test for", str(voice))
-        dialog = VoiceTestDialog(voice,parent=self)
+        dialog = VoiceTestDialog(self, voice, self._tts)
         dialog.exec()
 
 
 
 class VoiceTestDialog(QDialog, Ui_VoiceTestDialog):
-    def __init__(self, voice, parent=None):
+    def __init__(self, parent, voice, tts_handler: tts.TTSServiceHandler):
         super().__init__(parent)
         self.setupUi(self)
+        self._tts = tts_handler
+        self._selected_voice = voice
         self.voice_details_placeholder.setText(str(voice))
-        
+
+    def playVoice(self):
+        text_to_play = self.text_to_play_box.text()
+        audio = self._tts.synthesizeSpeech(
+            Provider.GOOGLE,
+            text_to_play,
+            self._selected_voice
+        )
+        speech = AudioSegment.from_wav(BytesIO(audio))
+        play(speech)
+
+
 
 class ConnectGoogleDialog(QDialog, Ui_ConnectProviderDialog):
-    def __init__(self, parent=None):
+    def __init__(self, parent, tts_handler: tts.TTSServiceHandler):
         super().__init__(parent)
         self.setupUi(self)
         self.voices = []
+        self._tts = tts_handler
         self.provider_label_placeholder.setText("Google Cloud TTS")
         help_link = "http://example.com/"
         self.help_link_placeholder.setText(f"<a href=\"{help_link}\">{help_link}</a>")
@@ -60,14 +80,14 @@ class ConnectGoogleDialog(QDialog, Ui_ConnectProviderDialog):
             self.exportCredentials()
         except:
             pass
-        self.__g_tts = googleTTS.GoogleTTS()
+        
     
     def exportCredentials(self):
         environ['GOOGLE_APPLICATION_CREDENTIALS'] = self.__credentials_path
 
     def saveCredentials(self):
         credentials = self.credentials_textedit.toPlainText()
-        msg = QMessageBox()
+        msg = QMessageBox(self)
         try:
             
             with open(self.__credentials_path, 'w') as f:
@@ -90,7 +110,7 @@ class ConnectGoogleDialog(QDialog, Ui_ConnectProviderDialog):
     def testConnection(self):
         msg = QMessageBox(self)
         try:
-            self.__g_tts.connect()
+            self._tts.connect(tts.Provider.GOOGLE)
         except Exception:
             msg.setWindowTitle("Connecting ...")
             msg.setText("Error occurred!")
@@ -108,7 +128,7 @@ class ConnectGoogleDialog(QDialog, Ui_ConnectProviderDialog):
         msg = QMessageBox(self)
         voices = []
         try:
-            voices = self.__g_tts.getVoices()
+            voices = self._tts.getVoices(tts.Provider.GOOGLE)
         except Exception:
             msg.setWindowTitle("Loading Voices ...")
             msg.setText("Error occurred!")
@@ -127,7 +147,6 @@ class ConnectGoogleDialog(QDialog, Ui_ConnectProviderDialog):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setStyleSheet(qdarkstyle.load_stylesheet(qt_api='pyqt5'))
-
     win = Window()
     win.show()
     sys.exit(app.exec())

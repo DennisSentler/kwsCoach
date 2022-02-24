@@ -88,18 +88,21 @@
   <connection>
    <sender>play_button</sender>
    <signal>clicked()</signal>
-   <receiver>text_to_play_box</receiver>
-   <slot>copy()</slot>
+   <receiver>VoiceTestDialog</receiver>
+   <slot>playVoice()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>411</x>
-     <y>44</y>
+     <x>418</x>
+     <y>58</y>
     </hint>
     <hint type="destinationlabel">
-     <x>344</x>
-     <y>55</y>
+     <x>440</x>
+     <y>34</y>
     </hint>
    </hints>
   </connection>
  </connections>
+ <slots>
+  <slot>playVoice()</slot>
+ </slots>
 </ui>

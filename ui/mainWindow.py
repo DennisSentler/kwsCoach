@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ui/mainWindow.ui'
+# Form implementation generated from reading ui file 'ui/qtDesigner/mainWindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #
@@ -171,6 +171,12 @@ class Ui_myApp(object):
         self.refresh_button.setFlat(False)
         self.refresh_button.setObjectName("refresh_button")
         self.gridLayout_4.addWidget(self.refresh_button, 0, 0, 1, 1)
+        self.voice_list_view = QtWidgets.QTreeView(self.voices_box)
+        self.voice_list_view.setEditTriggers(QtWidgets.QAbstractItemView.EditKeyPressed)
+        self.voice_list_view.setSortingEnabled(True)
+        self.voice_list_view.setObjectName("voice_list_view")
+        self.voice_list_view.header().setStretchLastSection(False)
+        self.gridLayout_4.addWidget(self.voice_list_view, 1, 0, 1, 1)
         self.gridLayout_8.addWidget(self.voices_box, 1, 0, 1, 2)
         self.gridLayout_9.addLayout(self.gridLayout_8, 0, 0, 1, 1)
         myApp.setCentralWidget(self.centralwidget)

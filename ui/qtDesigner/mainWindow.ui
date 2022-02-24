@@ -364,7 +364,17 @@
           </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QTreeView" name="voice_list_view"/>
+          <widget class="QTreeView" name="voice_list_view">
+           <property name="editTriggers">
+            <set>QAbstractItemView::EditKeyPressed</set>
+           </property>
+           <property name="sortingEnabled">
+            <bool>true</bool>
+           </property>
+           <attribute name="headerStretchLastSection">
+            <bool>false</bool>
+           </attribute>
+          </widget>
          </item>
         </layout>
        </widget>
