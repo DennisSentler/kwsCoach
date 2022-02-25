@@ -50,17 +50,35 @@ class VoiceTestDialog(QDialog, Ui_VoiceTestDialog):
         self.voice_details_placeholder.setText(str(voice))
 
     def playVoice(self):
-        text_to_play = self.text_to_play_box.text()
-        audio = self._tts.synthesizeSpeech(
-            Provider.GOOGLE,
-            text_to_play,
-            self._selected_voice,
-            testonly=True
-        )
-        speech = AudioSegment.from_wav(audio)
-        play(speech)
+        try:
+            text_to_play = self.text_to_play_box.text()
+            if len(text_to_play) > 0:
+                audio = self._tts.synthesizeSpeech(
+                    Provider.GOOGLE,
+                    text_to_play,
+                    self._selected_voice,
+                    testonly=True
+                )
+                speech = AudioSegment.from_wav(audio)
+                play(speech)
+        except Exception:
+            ErrorMessageBox(self).exec()
+            return
 
+class ErrorMessageBox(QMessageBox):
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.setWindowTitle("Internal Error")
+        self.setText("Error occurred!")
+        self.setDetailedText(traceback.format_exc())
+        self.setIcon(QMessageBox.Warning)
 
+class InfoMessageBox(QMessageBox):
+    def __init__(self, parent, text: str):
+        super().__init__(parent)
+        self.setWindowTitle("Info")
+        self.setText(text)
+        self.setIcon(QMessageBox.Information)
 
 class ConnectGoogleDialog(QDialog, Ui_ConnectProviderDialog):
     def __init__(self, parent, tts_handler: tts.TTSServiceHandler):
@@ -87,60 +105,33 @@ class ConnectGoogleDialog(QDialog, Ui_ConnectProviderDialog):
 
     def saveCredentials(self):
         credentials = self.credentials_textedit.toPlainText()
-        msg = QMessageBox(self)
         try:
             
             with open(self.__credentials_path, 'w') as f:
                 f.write(credentials)
             self.exportCredentials()
         except Exception:
-            msg.setWindowTitle("Saving ...")
-            msg.setText("Error occurred!")
-            msg.setDetailedText(traceback.format_exc())
-            msg.setIcon(QMessageBox.Warning)
-            msg.exec_()
+            ErrorMessageBox(self).exec()
             return
-
-        msg.setWindowTitle("Saving ...")
-        msg.setText("Saved succesfully!")
-        msg.setIcon(QMessageBox.Information)
-        msg.exec_()
+        InfoMessageBox(self, "Saved succesfully!").exec()
         return
 
     def testConnection(self):
-        msg = QMessageBox(self)
         try:
             self._tts.connect(tts.Provider.GOOGLE)
         except Exception:
-            msg.setWindowTitle("Connecting ...")
-            msg.setText("Error occurred!")
-            msg.setDetailedText(traceback.format_exc())
-            msg.setIcon(QMessageBox.Warning)
-            msg.exec_()
+            ErrorMessageBox(self).exec()
             return
-
-        msg.setWindowTitle("Connecting ...")
-        msg.setText("Connected succesfully!")
-        msg.setIcon(QMessageBox.Information)
-        msg.exec()
+        InfoMessageBox(self, "Connected succesfully!").exec()
 
     def loadVoices(self):
-        msg = QMessageBox(self)
         voices = []
         try:
             voices = self._tts.getVoices(tts.Provider.GOOGLE)
         except Exception:
-            msg.setWindowTitle("Loading Voices ...")
-            msg.setText("Error occurred!")
-            msg.setDetailedText(traceback.format_exc())
-            msg.setIcon(QMessageBox.Warning)
-            msg.exec_()
+            ErrorMessageBox(self).exec()
             return
-
-        msg.setWindowTitle("Loading Voices ...")
-        msg.setText(f"Loaded {len(voices)} succesfully!")
-        msg.setIcon(QMessageBox.Information)
-        msg.exec()
+        InfoMessageBox(self, f"Loaded {len(voices)} succesfully!").exec()
         self.voices.extend(voices)
         return
 

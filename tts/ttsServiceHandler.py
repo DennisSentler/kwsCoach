@@ -28,7 +28,7 @@ class TTSServiceHandler():
         }
         synthesizeSpeech = switcher.get(provider, lambda: "Service not found")
         if testonly:
-            synthesis_path = f"app_cache/{text}_{str(voice)}.wav"
+            synthesis_path = f".app_cache/{text}_{str(voice)}.wav"
         else:
             synthesis_path = f"synthesis/{text}_{str(voice)}.wav"
 

@@ -15,6 +15,11 @@ class Ui_VoiceTestDialog(object):
     def setupUi(self, VoiceTestDialog):
         VoiceTestDialog.setObjectName("VoiceTestDialog")
         VoiceTestDialog.resize(445, 75)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(VoiceTestDialog.sizePolicy().hasHeightForWidth())
+        VoiceTestDialog.setSizePolicy(sizePolicy)
         VoiceTestDialog.setMaximumSize(QtCore.QSize(16777215, 75))
         self.gridLayout_2 = QtWidgets.QGridLayout(VoiceTestDialog)
         self.gridLayout_2.setObjectName("gridLayout_2")
