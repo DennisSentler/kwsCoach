@@ -18,4 +18,4 @@ class Voice:
     gender: Gender
 
     def __str__(self):
-        return f"{self.provider} - {self.name} - {self.language} - {self.gender}"
+        return f"{self.provider}_{self.name}_{self.language}_{self.gender}"

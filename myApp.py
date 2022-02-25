@@ -4,7 +4,6 @@ import traceback
 from os import environ
 from pydub import AudioSegment
 from pydub.playback import play
-from io import BytesIO
 
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QDialog, QMessageBox
@@ -55,9 +54,10 @@ class VoiceTestDialog(QDialog, Ui_VoiceTestDialog):
         audio = self._tts.synthesizeSpeech(
             Provider.GOOGLE,
             text_to_play,
-            self._selected_voice
+            self._selected_voice,
+            testonly=True
         )
-        speech = AudioSegment.from_wav(BytesIO(audio))
+        speech = AudioSegment.from_wav(audio)
         play(speech)
 
 

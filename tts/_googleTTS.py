@@ -29,7 +29,7 @@ def getVoices() -> list[myTypes.Voice]:
         generic_voices.append(generic_voice)
     return generic_voices
 
-def synthesizeSpeech(text: str, voice: myTypes.Voice) -> bytes:
+def synthesizeSpeech(text: str, voice: myTypes.Voice, path: str):
     input_text = texttospeech.SynthesisInput(text=text)
     voice_config = texttospeech.VoiceSelectionParams(
                 language_code=voice.language, name=voice.name
@@ -38,6 +38,5 @@ def synthesizeSpeech(text: str, voice: myTypes.Voice) -> bytes:
         audio_encoding=texttospeech.AudioEncoding.LINEAR16
     )
     response = __client.synthesize_speech(input=input_text, voice=voice_config, audio_config=audio_config)
-    with open("test.wav", "wb") as f:
+    with open(path, "wb") as f:
                 f.write(response.audio_content)
-    return response.audio_content
