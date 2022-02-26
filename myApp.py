@@ -1,11 +1,11 @@
 # system modules
-import sys
+import sys, os
 # foreign modules
 import qdarkstyle
 from pydub import AudioSegment
 from pydub.playback import play
 from PyQt5.QtWidgets import (
-    QApplication, QMainWindow, QDialog
+    QApplication, QMainWindow, QDialog, QFileDialog
 )
 # qt designer modules
 from ui.voiceTestDialog import Ui_VoiceTestDialog
@@ -24,13 +24,15 @@ class MyApp(QMainWindow, Ui_myApp):
         super().__init__(parent)
         self.setupUi(self)
         #create voice list view
+        default_directory = os.path.abspath(os.path.dirname(__file__))
+        self.path_input_text.setText(default_directory)
         self.voice_list_view = VoiceListView(parent=self)
         self.voice_list_view.setObjectName("voice_list_view")
         self.gridLayout_4.addWidget(self.voice_list_view, 1, 0, 1, 5)
 
         # create tts service handler
         self._voices = []
-        self._tts = tts.TTSServiceHandler()
+        self._tts = tts.TTSServiceHandler(default_directory)
         
     def openConnectGoogleDialog(self):
         diag = ConnectGoogleDialog(self, self._tts)
@@ -55,6 +57,11 @@ class MyApp(QMainWindow, Ui_myApp):
         dialog = VoiceTestDialog(self, voice, self._tts)
         dialog.exec()
 
+    def openDirectorySelectDialog(self):
+        dir = QFileDialog.getExistingDirectory(self, 'Select Directory')
+        self.path_input_text.setText(str(dir))
+        self._tts.changeDirectory(dir)
+
 class VoiceTestDialog(QDialog, Ui_VoiceTestDialog):
     def __init__(self, parent, voice, tts_handler: tts.TTSServiceHandler):
         super().__init__(parent)
@@ -62,13 +69,14 @@ class VoiceTestDialog(QDialog, Ui_VoiceTestDialog):
         self._tts = tts_handler
         self._selected_voice = voice
         self.voice_details_placeholder.setText(str(voice))
+        self
 
     def playVoice(self):
         try:
             text_to_play = self.text_to_play_box.text()
             if len(text_to_play) > 0:
                 audio_file = self._tts.synthesizeSpeech(
-                    Provider.GOOGLE,
+                    self._selected_voice.provider,
                     text_to_play,
                     self._selected_voice,
                     testonly=True
@@ -79,9 +87,35 @@ class VoiceTestDialog(QDialog, Ui_VoiceTestDialog):
             ErrorMessageBox(self).exec()
             return
 
+    def synthesizeVoiceAndSaveToFile(self):
+        try:
+            text_to_play = self.text_to_play_box.text()
+            if len(text_to_play) > 0:
+                audio_file_dir = self._tts.synthesizeSpeech(
+                    self._selected_voice.provider,
+                    text_to_play,
+                    self._selected_voice,
+                    testonly=False
+                )
+                InfoMessageBox(self, f"Saved file in\r\n{audio_file_dir}").exec()
+        except Exception:
+            ErrorMessageBox(self).exec()
+            return
+            
+def clearApplicationCache(workingDirectory: str):
+    dir = f"{workingDirectory}/.app_cache"
+    for f in os.listdir(dir):
+        if f != ".gitkeep":
+            os.remove(os.path.join(dir, f))
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setStyleSheet(qdarkstyle.load_stylesheet(qt_api='pyqt5'))
     win = MyApp()
     win.show()
-    sys.exit(app.exec())
+    app.exec()
+
+    # delete app cache, from working directory
+    clearApplicationCache(win.path_input_text.text())
+    sys.exit()
+

@@ -133,17 +133,17 @@ class ConnectAzureDialog(QDialog, Ui_ConnectProviderDialog):
         self.help_link_placeholder.setText(f"<a href=\"{help_link}\">{help_link}</a>")
         self.place_here_your_placeholder.setText("Paste Key:")
         self.__credentials_path = 'credentials/azure_key.json'
-        json_file_template = '{"key":"place-your-key-here","location":"place-server-location-here"}'
-        json_file_template = json.loads(json_file_template)
-        json_file_template = json.dumps(json_file_template, indent=2)
+        json_file_template = prettyJson('{"key":"place-your-key-here","location":"place-server-location-here"}')
         self.credentials_textedit.setText(json_file_template)
         try:
             credentials = ""
             with open(self.__credentials_path, 'r') as f:
                 credentials = f.read()
-                self.credentials_textedit.setText(credentials)
+                self.credentials_textedit.setText(prettyJson(credentials))
         except:
             pass
+    
+    
 
     def saveCredentials(self):
         credentials = self.credentials_textedit.toPlainText()
@@ -151,7 +151,7 @@ class ConnectAzureDialog(QDialog, Ui_ConnectProviderDialog):
             json_credentials = json.loads(credentials)
             credentials = json.dumps(json_credentials)
             with open(self.__credentials_path, 'w') as f:
-                f.write(credentials)
+                f.write(prettyJson(credentials))
         except Exception:
             ErrorMessageBox(self).exec()
             return
@@ -176,3 +176,8 @@ class ConnectAzureDialog(QDialog, Ui_ConnectProviderDialog):
         InfoMessageBox(self, f"Loaded {len(voices)} succesfully!").exec()
         self.voices.extend(voices)
         return
+
+def prettyJson(json_string: str):
+        json_string = json.loads(json_string)
+        json_string = json.dumps(json_string, indent=2)
+        return json_string

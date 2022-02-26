@@ -331,7 +331,7 @@
          <item row="0" column="2">
           <widget class="QPushButton" name="select_path_button">
            <property name="text">
-            <string>...</string>
+            <string>Select</string>
            </property>
           </widget>
          </item>
@@ -551,10 +551,27 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>select_path_button</sender>
+   <signal>clicked()</signal>
+   <receiver>myApp</receiver>
+   <slot>openDirectorySelectDialog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1069</x>
+     <y>716</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1004</x>
+     <y>742</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>openConnectGoogleDialog()</slot>
   <slot>openConnectWatsonDialog()</slot>
   <slot>openConnectAzureDialog()</slot>
+  <slot>openDirectorySelectDialog()</slot>
  </slots>
 </ui>

@@ -51,11 +51,15 @@ class Ui_VoiceTestDialog(object):
         self.play_button.setMaximumSize(QtCore.QSize(50, 16777215))
         self.play_button.setObjectName("play_button")
         self.horizontalLayout.addWidget(self.play_button)
+        self.pushButton = QtWidgets.QPushButton(VoiceTestDialog)
+        self.pushButton.setObjectName("pushButton")
+        self.horizontalLayout.addWidget(self.pushButton)
         self.gridLayout.addLayout(self.horizontalLayout, 1, 0, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
 
         self.retranslateUi(VoiceTestDialog)
         self.play_button.clicked.connect(VoiceTestDialog.playVoice) # type: ignore
+        self.pushButton.clicked.connect(VoiceTestDialog.synthesizeVoiceAndSaveToFile) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(VoiceTestDialog)
 
     def retranslateUi(self, VoiceTestDialog):
@@ -65,3 +69,4 @@ class Ui_VoiceTestDialog(object):
         self.voice_details_placeholder.setText(_translate("VoiceTestDialog", "voice_details_placeholder"))
         self.label_2.setText(_translate("VoiceTestDialog", "Your Text"))
         self.play_button.setText(_translate("VoiceTestDialog", "Play"))
+        self.pushButton.setText(_translate("VoiceTestDialog", "Save as File"))

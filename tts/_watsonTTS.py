@@ -1,3 +1,4 @@
+import os
 from ibm_watson import TextToSpeechV1
 from . import myTypes
 
@@ -30,5 +31,6 @@ def getVoices() -> list[myTypes.Voice]:
 
 def synthesizeSpeech(text: str, voice: myTypes.Voice, path: str):
     response = __client.synthesize(text=text, voice=voice.name, accept="audio/wav")
+    os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "wb") as f:
-                f.write(response.audio_content)
+        f.write(response.get_result().content)

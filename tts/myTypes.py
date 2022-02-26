@@ -2,13 +2,13 @@ from dataclasses import dataclass
 from enum import Enum
 
 class Provider(Enum):
-    GOOGLE = 0
-    WATSON = 1
-    AZURE = 3
+    GOOGLE = "GOOGLE"
+    WATSON = "WATSON"
+    AZURE = "AZURE"
 
 class Gender(Enum):
-    MALE = 0
-    FEMALE = 1
+    MALE = "MALE"
+    FEMALE = "FEMALE"
 
 @dataclass
 class Voice:

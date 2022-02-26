@@ -4,8 +4,11 @@ import tts._azureTTS as _azureTTS
 from . import myTypes
 
 class TTSServiceHandler():
-    def __init__(self) -> None:
-        pass
+    def __init__(self, workingDir: str) -> None:
+        self.dir = workingDir
+
+    def changeDirectory(self, workingDir: str) -> str:
+        self.dir = workingDir
 
     def connect(self, provider: myTypes.Provider) -> bool:
         switcher = {
@@ -35,9 +38,9 @@ class TTSServiceHandler():
         }
         synthesizeSpeech = switcher.get(provider, lambda: "Service not found")
         if testonly:
-            synthesis_path = f".app_cache/{text}_{str(voice)}.wav"
+            synthesis_path = f"{self.dir}/.app_cache/{text}_{str(voice)}.wav"
         else:
-            synthesis_path = f"synthesis/{text}_{str(voice)}.wav"
+            synthesis_path = f"{self.dir}/synthesis/{text}/{text}_{str(voice)}.wav"
 
         synthesizeSpeech(text, voice, synthesis_path)
         return synthesis_path

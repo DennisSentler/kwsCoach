@@ -4,7 +4,7 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.Qt import Qt
 from PyQt5.QtGui import QStandardItem
 # own modules
-from tts import Voice
+from tts import Voice, Provider
 
 
 class VoiceListView(QtWidgets.QTreeView):
@@ -66,4 +66,4 @@ class VoiceListView(QtWidgets.QTreeView):
 
 
 def _rowToVoice(row: list) -> Voice:
-    return Voice(row[1].data(), row[2].data(), row[3].data(), row[4].data())
+    return Voice(Provider(row[1].data()), row[2].data(), row[3].data(), row[4].data())

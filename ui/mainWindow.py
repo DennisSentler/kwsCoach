@@ -250,6 +250,7 @@ class Ui_myApp(object):
         self.connect_button_google.clicked.connect(myApp.openConnectGoogleDialog) # type: ignore
         self.connect_button_2.clicked.connect(myApp.openConnectWatsonDialog) # type: ignore
         self.connect_button_3.clicked.connect(myApp.openConnectAzureDialog) # type: ignore
+        self.select_path_button.clicked.connect(myApp.openDirectorySelectDialog) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(myApp)
 
     def retranslateUi(self, myApp):
@@ -286,7 +287,7 @@ class Ui_myApp(object):
         self.connect_button_3.setText(_translate("myApp", "Connect"))
         self.dir_box.setTitle(_translate("myApp", "Working Directory"))
         self.path_text.setText(_translate("myApp", "Path:"))
-        self.select_path_button.setText(_translate("myApp", "..."))
+        self.select_path_button.setText(_translate("myApp", "Select"))
         self.voices_box.setTitle(_translate("myApp", "Voices"))
         self.label_3.setText(_translate("myApp", "Selected Voices:"))
         self.sel_voices_placeholder.setText(_translate("myApp", "NA"))

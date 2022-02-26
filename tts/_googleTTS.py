@@ -1,3 +1,4 @@
+import os
 from google.cloud import texttospeech
 from . import myTypes
 
@@ -38,5 +39,6 @@ def synthesizeSpeech(text: str, voice: myTypes.Voice, path: str):
         audio_encoding=texttospeech.AudioEncoding.LINEAR16
     )
     response = __client.synthesize_speech(input=input_text, voice=voice_config, audio_config=audio_config)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "wb") as f:
                 f.write(response.audio_content)
