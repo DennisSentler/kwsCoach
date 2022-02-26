@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ui/connectProviderDialog.ui'
+# Form implementation generated from reading ui file 'ui/qtDesigner/connectProviderDialog.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #
@@ -53,12 +53,12 @@ class Ui_ConnectProviderDialog(object):
         self.gridLayout_3.addWidget(self.credentials_textedit, 1, 0, 1, 1)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.ping_connection_button = QtWidgets.QPushButton(ConnectProviderDialog)
-        self.ping_connection_button.setObjectName("ping_connection_button")
-        self.horizontalLayout_2.addWidget(self.ping_connection_button)
         self.save_config_button = QtWidgets.QPushButton(ConnectProviderDialog)
         self.save_config_button.setObjectName("save_config_button")
         self.horizontalLayout_2.addWidget(self.save_config_button)
+        self.ping_connection_button = QtWidgets.QPushButton(ConnectProviderDialog)
+        self.ping_connection_button.setObjectName("ping_connection_button")
+        self.horizontalLayout_2.addWidget(self.ping_connection_button)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
         self.gridLayout_3.addLayout(self.horizontalLayout_2, 2, 0, 1, 1)
@@ -107,8 +107,8 @@ class Ui_ConnectProviderDialog(object):
         self.label_3.setText(_translate("ConnectProviderDialog", "Get your credentials: "))
         self.help_link_placeholder.setText(_translate("ConnectProviderDialog", "<html><head/><body><p><a href=\"http://dummy.com\"><span style=\" text-decoration: underline; color:#0000ff;\">help_link_placeholder</span></a></p></body></html>"))
         self.place_here_your_placeholder.setText(_translate("ConnectProviderDialog", "paste_here_your_placeholder:"))
-        self.ping_connection_button.setText(_translate("ConnectProviderDialog", "Test Connection"))
         self.save_config_button.setText(_translate("ConnectProviderDialog", "Save Credentials"))
+        self.ping_connection_button.setText(_translate("ConnectProviderDialog", "Test Connection"))
         self.load_voices_button.setText(_translate("ConnectProviderDialog", "Load Voices"))
         self.close_button.setText(_translate("ConnectProviderDialog", "Close"))
         self.confirm_button.setText(_translate("ConnectProviderDialog", "Confirm"))

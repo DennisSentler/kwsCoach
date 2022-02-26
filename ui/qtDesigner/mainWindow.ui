@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1126</width>
-    <height>771</height>
+    <height>730</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -47,11 +47,22 @@
          <bool>false</bool>
         </property>
         <layout class="QGridLayout" name="gridLayout_6">
-         <property name="sizeConstraint">
-          <enum>QLayout::SetMaximumSize</enum>
-         </property>
-         <item row="0" column="0">
-          <widget class="QTreeWidget" name="words_list_view">
+         <item row="1" column="1">
+          <widget class="QPushButton" name="removeWordButton">
+           <property name="text">
+            <string>Remove Word</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QPushButton" name="addWordButton">
+           <property name="text">
+            <string>Add Word</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0" colspan="2">
+          <widget class="QTreeWidget" name="words_list_widget">
            <property name="indentation">
             <number>0</number>
            </property>
@@ -68,13 +79,13 @@
             <bool>false</bool>
            </attribute>
            <attribute name="headerDefaultSectionSize">
-            <number>51</number>
+            <number>80</number>
            </attribute>
            <attribute name="headerHighlightSections">
             <bool>false</bool>
            </attribute>
            <attribute name="headerStretchLastSection">
-            <bool>true</bool>
+            <bool>false</bool>
            </attribute>
            <column>
             <property name="text">
@@ -94,34 +105,9 @@
            </column>
            <column>
             <property name="text">
-             <string>Lang.</string>
+             <string>Languages</string>
             </property>
            </column>
-           <item>
-            <property name="text">
-             <string>1</string>
-            </property>
-            <property name="text">
-             <string>Husky</string>
-            </property>
-            <property name="text">
-             <string>de-DE</string>
-            </property>
-            <property name="flags">
-             <set>ItemIsSelectable|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>2</string>
-            </property>
-            <property name="text">
-             <string>Stop</string>
-            </property>
-            <property name="text">
-             <string>de-DE</string>
-            </property>
-           </item>
           </widget>
          </item>
         </layout>
@@ -156,37 +142,66 @@
            <property name="frameShadow">
             <enum>QFrame::Raised</enum>
            </property>
-           <layout class="QGridLayout" name="gridLayout_2">
+           <layout class="QGridLayout" name="gridLayout_11">
             <item row="0" column="0">
-             <widget class="QLabel" name="provider_text_2">
-              <property name="text">
-               <string>provider</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="status_text_2">
-              <property name="text">
-               <string>status</string>
-              </property>
-             </widget>
+             <layout class="QGridLayout" name="gridLayout_2">
+              <item row="0" column="0">
+               <widget class="QLabel" name="provider_text_2">
+                <property name="text">
+                 <string>Provider:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLabel" name="provider_name_2">
+                <property name="font">
+                 <font>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Watson</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0" colspan="2">
+               <widget class="Line" name="line_2">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="status_text_2">
+                <property name="text">
+                 <string>Status:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLabel" name="status_label_watson">
+                <property name="font">
+                 <font>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Disconnected</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
             <item row="1" column="0">
-             <widget class="QLabel" name="provider_name_2">
-              <property name="text">
-               <string>Watson</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLabel" name="status_label_2">
-              <property name="text">
-               <string>N/A</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0" colspan="2">
-             <widget class="QPushButton" name="connect_button_2">
+             <widget class="QPushButton" name="connect_button_watson">
               <property name="text">
                <string>Connect</string>
               </property>
@@ -203,42 +218,77 @@
            <property name="frameShadow">
             <enum>QFrame::Raised</enum>
            </property>
-           <layout class="QGridLayout" name="gridLayout">
+           <layout class="QGridLayout" name="gridLayout_10">
             <item row="0" column="0">
-             <widget class="QLabel" name="provider_text">
-              <property name="text">
-               <string>provider</string>
-              </property>
-              <property name="buddy">
-               <cstring>provider_text</cstring>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="status_text">
-              <property name="text">
-               <string>status</string>
-              </property>
-             </widget>
+             <layout class="QGridLayout" name="gridLayout">
+              <item row="0" column="0">
+               <widget class="QLabel" name="provider_text">
+                <property name="text">
+                 <string>Provider:</string>
+                </property>
+                <property name="buddy">
+                 <cstring>provider_text</cstring>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLabel" name="provider_name_google">
+                <property name="font">
+                 <font>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Google</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+                <property name="buddy">
+                 <cstring>provider_name_google</cstring>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0" colspan="2">
+               <widget class="Line" name="line_3">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="status_text">
+                <property name="text">
+                 <string>Status:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLabel" name="status_label_google">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="font">
+                 <font>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Disconnected</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
             <item row="1" column="0">
-             <widget class="QLabel" name="provider_name">
-              <property name="text">
-               <string>Google</string>
-              </property>
-              <property name="buddy">
-               <cstring>provider_name</cstring>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLabel" name="status_label">
-              <property name="text">
-               <string>N/A</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0" colspan="2">
              <widget class="QPushButton" name="connect_button_google">
               <property name="text">
                <string>Connect</string>
@@ -256,37 +306,66 @@
            <property name="frameShadow">
             <enum>QFrame::Raised</enum>
            </property>
-           <layout class="QGridLayout" name="gridLayout_3">
+           <layout class="QGridLayout" name="gridLayout_12">
             <item row="0" column="0">
-             <widget class="QLabel" name="provider_text_3">
-              <property name="text">
-               <string>provider</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="status_text_3">
-              <property name="text">
-               <string>status</string>
-              </property>
-             </widget>
+             <layout class="QGridLayout" name="gridLayout_3">
+              <item row="2" column="1">
+               <widget class="QLabel" name="status_label_azure">
+                <property name="font">
+                 <font>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Disconnected</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="status_text_3">
+                <property name="text">
+                 <string>Status:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLabel" name="provider_name_3">
+                <property name="font">
+                 <font>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Azure</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QLabel" name="provider_text_3">
+                <property name="text">
+                 <string>Provider:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0" colspan="2">
+               <widget class="Line" name="line">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
             <item row="1" column="0">
-             <widget class="QLabel" name="provider_name_3">
-              <property name="text">
-               <string>Azure</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLabel" name="status_label_3">
-              <property name="text">
-               <string>N/A</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="0" colspan="2">
-             <widget class="QPushButton" name="connect_button_3">
+             <widget class="QPushButton" name="connect_button_azure">
               <property name="text">
                <string>Connect</string>
               </property>
@@ -520,7 +599,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>connect_button_2</sender>
+   <sender>connect_button_watson</sender>
    <signal>clicked()</signal>
    <receiver>myApp</receiver>
    <slot>openConnectWatsonDialog()</slot>
@@ -536,7 +615,7 @@
    </hints>
   </connection>
   <connection>
-   <sender>connect_button_3</sender>
+   <sender>connect_button_azure</sender>
    <signal>clicked()</signal>
    <receiver>myApp</receiver>
    <slot>openConnectAzureDialog()</slot>
@@ -559,11 +638,43 @@
    <hints>
     <hint type="sourcelabel">
      <x>1069</x>
-     <y>716</y>
+     <y>675</y>
     </hint>
     <hint type="destinationlabel">
      <x>1004</x>
-     <y>742</y>
+     <y>729</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>addWordButton</sender>
+   <signal>clicked()</signal>
+   <receiver>myApp</receiver>
+   <slot>openAddNewWordListDialog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>882</x>
+     <y>603</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>797</x>
+     <y>622</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>removeWordButton</sender>
+   <signal>clicked()</signal>
+   <receiver>myApp</receiver>
+   <slot>removeWordFromList()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1015</x>
+     <y>605</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>979</x>
+     <y>628</y>
     </hint>
    </hints>
   </connection>
@@ -573,5 +684,7 @@
   <slot>openConnectWatsonDialog()</slot>
   <slot>openConnectAzureDialog()</slot>
   <slot>openDirectorySelectDialog()</slot>
+  <slot>openAddNewWordListDialog()</slot>
+  <slot>removeWordFromList()</slot>
  </slots>
 </ui>

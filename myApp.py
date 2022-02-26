@@ -5,7 +5,7 @@ import qdarkstyle
 from pydub import AudioSegment
 from pydub.playback import play
 from PyQt5.QtWidgets import (
-    QApplication, QMainWindow, QDialog, QFileDialog
+    QApplication, QMainWindow, QDialog, QFileDialog, QTreeWidgetItem
 )
 # qt designer modules
 from ui.voiceTestDialog import Ui_VoiceTestDialog
@@ -14,6 +14,7 @@ from ui.mainWindow import Ui_myApp
 from tts.myTypes import Provider
 from voiceListViewImpl import VoiceListView
 from messageBoxImpl import ErrorMessageBox, InfoMessageBox
+from addNewWordDialogImpl import AddNewWordDialog
 from connectProviderDialogImpl import (
     ConnectGoogleDialog, ConnectWatsonDialog, ConnectAzureDialog
 )
@@ -33,24 +34,43 @@ class MyApp(QMainWindow, Ui_myApp):
         # create tts service handler
         self._voices = []
         self._tts = tts.TTSServiceHandler(default_directory)
+        self.words_counter = 0
         
     def openConnectGoogleDialog(self):
-        diag = ConnectGoogleDialog(self, self._tts)
-        if diag.exec_():
-            self._voices.extend(diag.voices)
-            self.voice_list_view.addVoices(diag.voices)
+        try:
+            diag = ConnectGoogleDialog(self, self._tts)
+            if diag.exec_():
+                self._voices.extend(diag.voices)
+                self.voice_list_view.addVoices(diag.voices)
+                if len(diag.voices) > 0:
+                    self.connect_button_google.setEnabled(False)
+            self.status_label_google.setText("Connected" if diag.isConnected() else "Dicsonnected")
+        except Exception:
+            ErrorMessageBox(self).exec()
 
     def openConnectWatsonDialog(self):
-        diag = ConnectWatsonDialog(self, self._tts)
-        if diag.exec_():
-            self._voices.extend(diag.voices)
-            self.voice_list_view.addVoices(diag.voices)
+        try:
+            diag = ConnectWatsonDialog(self, self._tts)
+            if diag.exec_():
+                self._voices.extend(diag.voices)
+                self.voice_list_view.addVoices(diag.voices)
+                if len(diag.voices) > 0:
+                    self.connect_button_watson.setEnabled(False)
+            self.status_label_watson.setText("Connected" if diag.isConnected() else "Dicsonnected")
+        except Exception:
+            ErrorMessageBox(self).exec()
 
     def openConnectAzureDialog(self):
-        diag = ConnectAzureDialog(self, self._tts)
-        if diag.exec_():
-            self._voices.extend(diag.voices)
-            self.voice_list_view.addVoices(diag.voices)
+        try:
+            diag = ConnectAzureDialog(self, self._tts)
+            if diag.exec_():
+                self._voices.extend(diag.voices)
+                self.voice_list_view.addVoices(diag.voices)
+                if len(diag.voices) > 0:
+                    self.connect_button_azure.setEnabled(False)
+            self.status_label_azure.setText("Connected" if diag.isConnected() else "Dicsonnected")
+        except Exception:
+            ErrorMessageBox(self).exec()
 
     def openVoiceTestDialog(self, voice):
         print("open voice test for", str(voice))
@@ -59,8 +79,34 @@ class MyApp(QMainWindow, Ui_myApp):
 
     def openDirectorySelectDialog(self):
         dir = QFileDialog.getExistingDirectory(self, 'Select Directory')
-        self.path_input_text.setText(str(dir))
-        self._tts.changeDirectory(dir)
+        if dir != "":
+            self.path_input_text.setText(str(dir))
+            self._tts.changeDirectory(dir)
+
+    def openAddNewWordListDialog(self):
+        all_languages = []
+        for voice in self._voices:
+            all_languages.append(voice.language)
+        all_languages = set(all_languages)
+        all_languages = list(all_languages)
+        all_languages.sort()
+        dialog = AddNewWordDialog(self, all_languages)
+        if dialog.exec():
+            self.words_counter += 1
+            word_item = QTreeWidgetItem(self.words_list_widget)
+            word_item.setData(0, 0, self.words_counter)
+            word_item.setData(1, 0, dialog.word)
+            word_item.setData(2, 0, str(dialog.selected_languages))
+            self.words_list_widget.addTopLevelItem(word_item)
+            for column in range(self.words_list_widget.columnCount()):
+                self.words_list_widget.resizeColumnToContents(column)
+
+    def removeWordFromList(self):
+        items = self.words_list_widget.selectedItems()
+        for item in items:
+            index = self.words_list_widget.indexOfTopLevelItem(item)
+            self.words_list_widget.takeTopLevelItem(index)
+
 
 class VoiceTestDialog(QDialog, Ui_VoiceTestDialog):
     def __init__(self, parent, voice, tts_handler: tts.TTSServiceHandler):
@@ -69,7 +115,6 @@ class VoiceTestDialog(QDialog, Ui_VoiceTestDialog):
         self._tts = tts_handler
         self._selected_voice = voice
         self.voice_details_placeholder.setText(str(voice))
-        self
 
     def playVoice(self):
         try:
@@ -101,7 +146,7 @@ class VoiceTestDialog(QDialog, Ui_VoiceTestDialog):
         except Exception:
             ErrorMessageBox(self).exec()
             return
-            
+
 def clearApplicationCache(workingDirectory: str):
     dir = f"{workingDirectory}/.app_cache"
     for f in os.listdir(dir):

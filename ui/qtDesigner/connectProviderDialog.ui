@@ -79,16 +79,16 @@
        <item row="2" column="0">
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
-          <widget class="QPushButton" name="ping_connection_button">
+          <widget class="QPushButton" name="save_config_button">
            <property name="text">
-            <string>Test Connection</string>
+            <string>Save Credentials</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="save_config_button">
+          <widget class="QPushButton" name="ping_connection_button">
            <property name="text">
-            <string>Save Credentials</string>
+            <string>Test Connection</string>
            </property>
           </widget>
          </item>

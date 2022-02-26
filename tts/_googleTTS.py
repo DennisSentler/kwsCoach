@@ -1,5 +1,5 @@
 import os
-from google.cloud import texttospeech
+import google.cloud.texttospeech as texttospeech
 from . import myTypes
 
 

@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import (
     QDialog
 )
 import json
+from tts.myTypes import Provider
 # qt designer modules
 from ui.connectProviderDialog import Ui_ConnectProviderDialog
 # own modules
@@ -25,11 +26,10 @@ class ConnectGoogleDialog(QDialog, Ui_ConnectProviderDialog):
         try:
             with open(self.__credentials_path, 'r') as f:
                 credentials = f.read()
-                self.credentials_textedit.setText(credentials)
+                self.credentials_textedit.setText(prettyJson(credentials))
             self.exportCredentials()
         except:
             pass
-        
     
     def exportCredentials(self):
         environ['GOOGLE_APPLICATION_CREDENTIALS'] = self.__credentials_path
@@ -47,9 +47,12 @@ class ConnectGoogleDialog(QDialog, Ui_ConnectProviderDialog):
         InfoMessageBox(self, "Saved succesfully!").exec()
         return
 
+    def isConnected(self) -> bool:
+        return self._tts.connect(tts.Provider.GOOGLE)
+
     def testConnection(self):
         try:
-            self._tts.connect(tts.Provider.GOOGLE)
+            self.isConnected()
         except Exception:
             ErrorMessageBox(self).exec()
             return
@@ -64,6 +67,7 @@ class ConnectGoogleDialog(QDialog, Ui_ConnectProviderDialog):
             return
         InfoMessageBox(self, f"Loaded {len(voices)} succesfully!").exec()
         self.voices.extend(voices)
+        self.load_voices_button.setEnabled(False)
         return
 
 
@@ -93,7 +97,6 @@ class ConnectWatsonDialog(QDialog, Ui_ConnectProviderDialog):
     def saveCredentials(self):
         credentials = self.credentials_textedit.toPlainText()
         try:
-            
             with open(self.__credentials_path, 'w') as f:
                 f.write(credentials)
             self.exportCredentials()
@@ -103,9 +106,12 @@ class ConnectWatsonDialog(QDialog, Ui_ConnectProviderDialog):
         InfoMessageBox(self, "Saved succesfully!").exec()
         return
 
+    def isConnected(self) -> bool:
+        return self._tts.connect(tts.Provider.WATSON)
+
     def testConnection(self):
         try:
-            self._tts.connect(tts.Provider.WATSON)
+            self.isConnected()
         except Exception:
             ErrorMessageBox(self).exec()
             return
@@ -120,6 +126,7 @@ class ConnectWatsonDialog(QDialog, Ui_ConnectProviderDialog):
             return
         InfoMessageBox(self, f"Loaded {len(voices)} succesfully!").exec()
         self.voices.extend(voices)
+        self.load_voices_button.setEnabled(False)
         return
 
 class ConnectAzureDialog(QDialog, Ui_ConnectProviderDialog):
@@ -140,11 +147,10 @@ class ConnectAzureDialog(QDialog, Ui_ConnectProviderDialog):
             with open(self.__credentials_path, 'r') as f:
                 credentials = f.read()
                 self.credentials_textedit.setText(prettyJson(credentials))
+                self._tts.connect(Provider.AZURE)
         except:
             pass
     
-    
-
     def saveCredentials(self):
         credentials = self.credentials_textedit.toPlainText()
         try:
@@ -158,9 +164,12 @@ class ConnectAzureDialog(QDialog, Ui_ConnectProviderDialog):
         InfoMessageBox(self, "Saved succesfully!").exec()
         return
 
+    def isConnected(self) -> bool:
+        return self._tts.connect(tts.Provider.AZURE)
+
     def testConnection(self):
         try:
-            self._tts.connect(tts.Provider.AZURE)
+            self.isConnected()
         except Exception:
             ErrorMessageBox(self).exec()
             return
@@ -175,6 +184,7 @@ class ConnectAzureDialog(QDialog, Ui_ConnectProviderDialog):
             return
         InfoMessageBox(self, f"Loaded {len(voices)} succesfully!").exec()
         self.voices.extend(voices)
+        self.load_voices_button.setEnabled(False)
         return
 
 def prettyJson(json_string: str):
