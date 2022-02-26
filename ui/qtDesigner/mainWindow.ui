@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1102</width>
-    <height>737</height>
+    <width>1126</width>
+    <height>771</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -149,7 +149,7 @@
         </property>
         <layout class="QGridLayout" name="gridLayout_7">
          <item row="0" column="1">
-          <widget class="QFrame" name="provider_frame_2">
+          <widget class="QFrame" name="provider_watson_frame">
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
            </property>
@@ -174,7 +174,7 @@
             <item row="1" column="0">
              <widget class="QLabel" name="provider_name_2">
               <property name="text">
-               <string>Azure</string>
+               <string>Watson</string>
               </property>
              </widget>
             </item>
@@ -196,7 +196,7 @@
           </widget>
          </item>
          <item row="0" column="0">
-          <widget class="QFrame" name="provider_frame">
+          <widget class="QFrame" name="provider_google_frame">
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
            </property>
@@ -249,7 +249,7 @@
           </widget>
          </item>
          <item row="0" column="2">
-          <widget class="QFrame" name="provider_frame_3">
+          <widget class="QFrame" name="provider_azure_frame">
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
            </property>
@@ -274,7 +274,7 @@
             <item row="1" column="0">
              <widget class="QLabel" name="provider_name_3">
               <property name="text">
-               <string>IBM</string>
+               <string>Azure</string>
               </property>
              </widget>
             </item>
@@ -351,19 +351,89 @@
         </property>
         <layout class="QGridLayout" name="gridLayout_4">
          <item row="0" column="0">
-          <widget class="QPushButton" name="refresh_button">
+          <widget class="QLabel" name="label_3">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="text">
-            <string>Refresh</string>
-           </property>
-           <property name="default">
-            <bool>false</bool>
-           </property>
-           <property name="flat">
-            <bool>false</bool>
+            <string>Selected Voices:</string>
            </property>
           </widget>
          </item>
-         <item row="1" column="0">
+         <item row="0" column="1">
+          <widget class="QLabel" name="sel_voices_placeholder">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>NA</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item row="0" column="3">
+          <widget class="QLabel" name="label">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>150</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>Total Voices:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="4">
+          <widget class="QLabel" name="total_voices_placeholder">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>0</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="5">
           <widget class="QTreeView" name="voice_list_view">
            <property name="editTriggers">
             <set>QAbstractItemView::EditKeyPressed</set>
@@ -449,8 +519,42 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>connect_button_2</sender>
+   <signal>clicked()</signal>
+   <receiver>myApp</receiver>
+   <slot>openConnectWatsonDialog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>418</x>
+     <y>113</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>152</x>
+     <y>183</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>connect_button_3</sender>
+   <signal>clicked()</signal>
+   <receiver>myApp</receiver>
+   <slot>openConnectAzureDialog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>665</x>
+     <y>109</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>538</x>
+     <y>139</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>openConnectGoogleDialog()</slot>
+  <slot>openConnectWatsonDialog()</slot>
+  <slot>openConnectAzureDialog()</slot>
  </slots>
 </ui>
