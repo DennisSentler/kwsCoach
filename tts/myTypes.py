@@ -19,3 +19,11 @@ class Voice:
 
     def __str__(self):
         return f"{self.provider}_{self.name}_{self.language}_{self.gender}"
+
+@dataclass
+class Word:
+    text: str
+    languages: list[str]
+    
+    def __str__(self):
+        return f"{self.text} - {self.languages}"

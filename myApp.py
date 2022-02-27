@@ -10,7 +10,6 @@ from PyQt5.QtWidgets import (
 
 from ui.mainWindow import Ui_myApp
 # own modules
-from tts.myTypes import Provider
 from voiceListViewImpl import VoiceListView
 from messageBoxImpl import ErrorMessageBox, InfoMessageBox
 from addNewWordDialogImpl import AddNewWordDialog
@@ -43,7 +42,6 @@ class MyApp(QMainWindow, Ui_myApp):
         self.menu_action_dataset.setChecked(False)
         self.menu_action_training.setChecked(False)
         self.menu_action_about.setChecked(False)
-        pass
 
     def switchToDataset(self):
         self.stackedWidget.setCurrentIndex(1)
@@ -51,7 +49,6 @@ class MyApp(QMainWindow, Ui_myApp):
         self.menu_action_dataset.setChecked(True)
         self.menu_action_training.setChecked(False)
         self.menu_action_about.setChecked(False)
-        pass
 
     def switchToTraining(self):
         self.stackedWidget.setCurrentIndex(2)
@@ -59,14 +56,13 @@ class MyApp(QMainWindow, Ui_myApp):
         self.menu_action_dataset.setChecked(False)
         self.menu_action_training.setChecked(True)
         self.menu_action_about.setChecked(False)
-        pass
+
     def switchToAbout(self):
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(3)
         self.menu_action_sythesis.setChecked(False)
         self.menu_action_dataset.setChecked(False)
         self.menu_action_training.setChecked(False)
         self.menu_action_about.setChecked(True)
-        pass
 
     # synthesis page
     def openConnectGoogleDialog(self):
@@ -80,6 +76,7 @@ class MyApp(QMainWindow, Ui_myApp):
             self.status_label_google.setText("Connected" if diag.isConnected() else "Dicsonnected")
         except Exception:
             ErrorMessageBox(self).exec()
+        self.ifSynthesisReadyActivateButton()
 
     def openConnectWatsonDialog(self):
         try:
@@ -92,6 +89,7 @@ class MyApp(QMainWindow, Ui_myApp):
             self.status_label_watson.setText("Connected" if diag.isConnected() else "Dicsonnected")
         except Exception:
             ErrorMessageBox(self).exec()
+        self.ifSynthesisReadyActivateButton()
 
     def openConnectAzureDialog(self):
         try:
@@ -104,6 +102,7 @@ class MyApp(QMainWindow, Ui_myApp):
             self.status_label_azure.setText("Connected" if diag.isConnected() else "Dicsonnected")
         except Exception:
             ErrorMessageBox(self).exec()
+        self.ifSynthesisReadyActivateButton()
 
     def openVoiceTestDialog(self, voice):
         print("open voice test for", str(voice))
@@ -133,12 +132,20 @@ class MyApp(QMainWindow, Ui_myApp):
             self.words_list_widget.addTopLevelItem(word_item)
             for column in range(self.words_list_widget.columnCount()):
                 self.words_list_widget.resizeColumnToContents(column)
+        self.ifSynthesisReadyActivateButton()
 
     def removeWordFromList(self):
         items = self.words_list_widget.selectedItems()
         for item in items:
             index = self.words_list_widget.indexOfTopLevelItem(item)
             self.words_list_widget.takeTopLevelItem(index)
+        self.ifSynthesisReadyActivateButton()
+
+    def ifSynthesisReadyActivateButton(self):
+        words_ready = True if self.words_counter > 0 else False
+        voices_ready = True if len(self.voice_list_view.getCheckedVoices()) > 0 else False
+        self.start_synthesis_button.setEnabled(words_ready and voices_ready)
+
 
     # augmentation page
 

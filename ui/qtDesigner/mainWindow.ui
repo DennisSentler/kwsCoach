@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1019</width>
-    <height>735</height>
+    <width>941</width>
+    <height>788</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -46,7 +46,7 @@
        <number>0</number>
       </property>
       <widget class="QWidget" name="synthesis_page">
-       <layout class="QGridLayout" name="gridLayout_9">
+       <layout class="QGridLayout" name="gridLayout_13">
         <item row="0" column="0">
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
@@ -85,6 +85,11 @@
                    <layout class="QGridLayout" name="gridLayout_2">
                     <item row="0" column="0">
                      <widget class="QLabel" name="provider_text_2">
+                      <property name="font">
+                       <font>
+                        <pointsize>10</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Provider:</string>
                       </property>
@@ -94,6 +99,7 @@
                      <widget class="QLabel" name="provider_name_2">
                       <property name="font">
                        <font>
+                        <pointsize>10</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
                        </font>
@@ -115,6 +121,11 @@
                     </item>
                     <item row="2" column="0">
                      <widget class="QLabel" name="status_text_2">
+                      <property name="font">
+                       <font>
+                        <pointsize>10</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Status:</string>
                       </property>
@@ -124,6 +135,7 @@
                      <widget class="QLabel" name="status_label_watson">
                       <property name="font">
                        <font>
+                        <pointsize>10</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
                        </font>
@@ -140,6 +152,11 @@
                   </item>
                   <item row="1" column="0">
                    <widget class="QPushButton" name="connect_button_watson">
+                    <property name="font">
+                     <font>
+                      <pointsize>10</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
                      <string>Connect</string>
                     </property>
@@ -171,6 +188,11 @@
                    <layout class="QGridLayout" name="gridLayout">
                     <item row="0" column="0">
                      <widget class="QLabel" name="provider_text">
+                      <property name="font">
+                       <font>
+                        <pointsize>10</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Provider:</string>
                       </property>
@@ -183,6 +205,7 @@
                      <widget class="QLabel" name="provider_name_google">
                       <property name="font">
                        <font>
+                        <pointsize>10</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
                        </font>
@@ -207,6 +230,11 @@
                     </item>
                     <item row="2" column="0">
                      <widget class="QLabel" name="status_text">
+                      <property name="font">
+                       <font>
+                        <pointsize>10</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Status:</string>
                       </property>
@@ -222,6 +250,7 @@
                       </property>
                       <property name="font">
                        <font>
+                        <pointsize>10</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
                        </font>
@@ -238,6 +267,11 @@
                   </item>
                   <item row="1" column="0">
                    <widget class="QPushButton" name="connect_button_google">
+                    <property name="font">
+                     <font>
+                      <pointsize>10</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
                      <string>Connect</string>
                     </property>
@@ -274,6 +308,7 @@
                      <widget class="QLabel" name="status_label_azure">
                       <property name="font">
                        <font>
+                        <pointsize>10</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
                        </font>
@@ -288,6 +323,11 @@
                     </item>
                     <item row="2" column="0">
                      <widget class="QLabel" name="status_text_3">
+                      <property name="font">
+                       <font>
+                        <pointsize>10</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Status:</string>
                       </property>
@@ -297,6 +337,7 @@
                      <widget class="QLabel" name="provider_name_3">
                       <property name="font">
                        <font>
+                        <pointsize>10</pointsize>
                         <weight>75</weight>
                         <bold>true</bold>
                        </font>
@@ -311,6 +352,11 @@
                     </item>
                     <item row="0" column="0">
                      <widget class="QLabel" name="provider_text_3">
+                      <property name="font">
+                       <font>
+                        <pointsize>10</pointsize>
+                       </font>
+                      </property>
                       <property name="text">
                        <string>Provider:</string>
                       </property>
@@ -327,6 +373,11 @@
                   </item>
                   <item row="1" column="0">
                    <widget class="QPushButton" name="connect_button_azure">
+                    <property name="font">
+                     <font>
+                      <pointsize>10</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
                      <string>Connect</string>
                     </property>
@@ -360,6 +411,39 @@
                <string>Voices</string>
               </property>
               <layout class="QGridLayout" name="gridLayout_4">
+               <item row="0" column="2">
+                <spacer name="horizontalSpacer">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="0" column="0">
+                <widget class="QLabel" name="label_3">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Selected Voices:</string>
+                 </property>
+                </widget>
+               </item>
                <item row="0" column="1">
                 <widget class="QLabel" name="sel_voices_placeholder">
                  <property name="sizePolicy">
@@ -367,6 +451,11 @@
                    <horstretch>0</horstretch>
                    <verstretch>0</verstretch>
                   </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
                  </property>
                  <property name="text">
                   <string>NA</string>
@@ -381,42 +470,28 @@
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
                  <property name="text">
                   <string>0</string>
                  </property>
                 </widget>
                </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_3">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
+               <item row="1" column="0" colspan="5">
+                <widget class="QTreeView" name="voice_list_view">
+                 <property name="editTriggers">
+                  <set>QAbstractItemView::EditKeyPressed</set>
                  </property>
-                 <property name="font">
-                  <font>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
+                 <property name="sortingEnabled">
+                  <bool>true</bool>
                  </property>
-                 <property name="text">
-                  <string>Selected Voices:</string>
-                 </property>
+                 <attribute name="headerStretchLastSection">
+                  <bool>false</bool>
+                 </attribute>
                 </widget>
-               </item>
-               <item row="0" column="2">
-                <spacer name="horizontalSpacer">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
                </item>
                <item row="0" column="3">
                 <widget class="QLabel" name="label">
@@ -434,6 +509,7 @@
                  </property>
                  <property name="font">
                   <font>
+                   <pointsize>10</pointsize>
                    <weight>75</weight>
                    <bold>true</bold>
                   </font>
@@ -441,19 +517,6 @@
                  <property name="text">
                   <string>Total Voices:</string>
                  </property>
-                </widget>
-               </item>
-               <item row="1" column="0" colspan="5">
-                <widget class="QTreeView" name="voice_list_view">
-                 <property name="editTriggers">
-                  <set>QAbstractItemView::EditKeyPressed</set>
-                 </property>
-                 <property name="sortingEnabled">
-                  <bool>true</bool>
-                 </property>
-                 <attribute name="headerStretchLastSection">
-                  <bool>false</bool>
-                 </attribute>
                 </widget>
                </item>
               </layout>
@@ -478,7 +541,7 @@
                 <widget class="QLabel" name="path_text">
                  <property name="font">
                   <font>
-                   <pointsize>11</pointsize>
+                   <pointsize>10</pointsize>
                   </font>
                  </property>
                  <property name="text">
@@ -491,6 +554,11 @@
                </item>
                <item row="0" column="2">
                 <widget class="QPushButton" name="select_path_button">
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
                  <property name="text">
                   <string>Select</string>
                  </property>
@@ -518,15 +586,8 @@
             <property name="checkable">
              <bool>false</bool>
             </property>
-            <layout class="QGridLayout" name="gridLayout_6">
-             <item row="1" column="0">
-              <widget class="QPushButton" name="add_word_button">
-               <property name="text">
-                <string>Add Word</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0" colspan="2">
+            <layout class="QGridLayout" name="gridLayout_9">
+             <item row="0" column="0">
               <widget class="QTreeWidget" name="words_list_widget">
                <property name="indentation">
                 <number>0</number>
@@ -575,12 +636,107 @@
                </column>
               </widget>
              </item>
-             <item row="1" column="1">
-              <widget class="QPushButton" name="remove_word_button">
-               <property name="text">
-                <string>Remove Word</string>
-               </property>
-              </widget>
+             <item row="1" column="0">
+              <layout class="QGridLayout" name="gridLayout_6">
+               <item row="0" column="0">
+                <widget class="QPushButton" name="add_word_button">
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Add Word</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="1">
+                <widget class="QPushButton" name="remove_word_button">
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
+                 <property name="text">
+                  <string>Remove Word</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0" colspan="2">
+                <widget class="Line" name="line_4">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0" colspan="2">
+                <layout class="QHBoxLayout" name="horizontalLayout_2">
+                 <item>
+                  <spacer name="horizontalSpacer_2">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="start_synthesis_button">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>140</width>
+                     <height>35</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <pointsize>10</pointsize>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Start Synthesis</string>
+                   </property>
+                   <property name="icon">
+                    <iconset resource="resources/ui.resources.qrc">
+                     <normaloff>:/icons8/icons8/submit_progress_30px_white.png</normaloff>:/icons8/icons8/submit_progress_30px_white.png</iconset>
+                   </property>
+                   <property name="iconSize">
+                    <size>
+                     <width>20</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <spacer name="horizontalSpacer_3">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                </layout>
+               </item>
+              </layout>
              </item>
             </layout>
            </widget>
@@ -601,6 +757,11 @@
      <horstretch>0</horstretch>
      <verstretch>0</verstretch>
     </sizepolicy>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
    </property>
    <property name="contextMenuPolicy">
     <enum>Qt::NoContextMenu</enum>
@@ -704,30 +865,14 @@
  </resources>
  <connections>
   <connection>
-   <sender>connect_button_google</sender>
-   <signal>clicked()</signal>
-   <receiver>myApp</receiver>
-   <slot>openConnectGoogleDialog()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>224</x>
-     <y>124</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>152</x>
-     <y>143</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>connect_button_watson</sender>
    <signal>clicked()</signal>
    <receiver>myApp</receiver>
    <slot>openConnectWatsonDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>378</x>
-     <y>124</y>
+     <x>340</x>
+     <y>170</y>
     </hint>
     <hint type="destinationlabel">
      <x>152</x>
@@ -742,8 +887,8 @@
    <slot>openConnectAzureDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>532</x>
-     <y>124</y>
+     <x>513</x>
+     <y>170</y>
     </hint>
     <hint type="destinationlabel">
      <x>538</x>
@@ -759,10 +904,10 @@
    <hints>
     <hint type="sourcelabel">
      <x>542</x>
-     <y>684</y>
+     <y>736</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1004</x>
+     <x>940</x>
      <y>729</y>
     </hint>
    </hints>
@@ -774,8 +919,8 @@
    <slot>openAddNewWordListDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>763</x>
-     <y>685</y>
+     <x>737</x>
+     <y>684</y>
     </hint>
     <hint type="destinationlabel">
      <x>797</x>
@@ -790,11 +935,11 @@
    <slot>removeWordFromList()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>987</x>
-     <y>682</y>
+     <x>910</x>
+     <y>681</y>
     </hint>
     <hint type="destinationlabel">
-     <x>979</x>
+     <x>940</x>
      <y>628</y>
     </hint>
    </hints>
@@ -847,6 +992,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>menu_action_about</sender>
+   <signal>triggered()</signal>
+   <receiver>myApp</receiver>
+   <slot>switchToAbout()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>470</x>
+     <y>393</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>connect_button_google</sender>
+   <signal>clicked()</signal>
+   <receiver>myApp</receiver>
+   <slot>openConnectGoogleDialog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>108</x>
+     <y>167</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>418</x>
+     <y>43</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>openConnectGoogleDialog()</slot>
@@ -858,5 +1035,6 @@
   <slot>switchToSynthesis()</slot>
   <slot>switchToDataset()</slot>
   <slot>switchToTraining()</slot>
+  <slot>switchToAbout()</slot>
  </slots>
 </ui>

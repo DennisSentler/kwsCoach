@@ -36,6 +36,7 @@ class VoiceListView(QtWidgets.QTreeView):
             sel = self.selectionModel().selectedIndexes()
             voice = _rowToVoice(sel)
             self.parent.openVoiceTestDialog(voice)
+        self.parent.ifSynthesisReadyActivateButton()
 
     def addVoices(self, voices: list[Voice]):
         for v in voices:
@@ -54,6 +55,7 @@ class VoiceListView(QtWidgets.QTreeView):
             self.resizeColumnToContents(i)
 
     def getCheckedVoices(self) -> list[Voice]:
+        # FIXME: get checked voices
         voices = []
         for row in range(self.model.rowCount()):
             item_checkbox = self.model.item(row)
@@ -63,6 +65,7 @@ class VoiceListView(QtWidgets.QTreeView):
                     items_from_row += self.model.item(row, header)
                 voice = _rowToVoice(items_from_row)
                 voices += voice
+        return voices
 
 
 def _rowToVoice(row: list) -> Voice:
