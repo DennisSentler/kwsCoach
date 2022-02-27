@@ -2,13 +2,12 @@
 import sys, os
 # foreign modules
 import qdarkstyle
-from pydub import AudioSegment
-from pydub.playback import play
+
 from PyQt5.QtWidgets import (
-    QApplication, QMainWindow, QDialog, QFileDialog, QTreeWidgetItem
+    QApplication, QMainWindow, QDialog, QFileDialog, QTreeWidgetItem, QSizePolicy
 )
 # qt designer modules
-from ui.voiceTestDialog import Ui_VoiceTestDialog
+
 from ui.mainWindow import Ui_myApp
 # own modules
 from tts.myTypes import Provider
@@ -18,6 +17,7 @@ from addNewWordDialogImpl import AddNewWordDialog
 from connectProviderDialogImpl import (
     ConnectGoogleDialog, ConnectWatsonDialog, ConnectAzureDialog
 )
+from voiceTestDialogImpl import VoiceTestDialog
 import tts
 
 class MyApp(QMainWindow, Ui_myApp):
@@ -36,6 +36,39 @@ class MyApp(QMainWindow, Ui_myApp):
         self._tts = tts.TTSServiceHandler(default_directory)
         self.words_counter = 0
         
+    # menu
+    def switchToSynthesis(self):
+        self.stackedWidget.setCurrentIndex(0)
+        self.menu_action_sythesis.setChecked(True)
+        self.menu_action_dataset.setChecked(False)
+        self.menu_action_training.setChecked(False)
+        self.menu_action_about.setChecked(False)
+        pass
+
+    def switchToDataset(self):
+        self.stackedWidget.setCurrentIndex(1)
+        self.menu_action_sythesis.setChecked(False)
+        self.menu_action_dataset.setChecked(True)
+        self.menu_action_training.setChecked(False)
+        self.menu_action_about.setChecked(False)
+        pass
+
+    def switchToTraining(self):
+        self.stackedWidget.setCurrentIndex(2)
+        self.menu_action_sythesis.setChecked(False)
+        self.menu_action_dataset.setChecked(False)
+        self.menu_action_training.setChecked(True)
+        self.menu_action_about.setChecked(False)
+        pass
+    def switchToAbout(self):
+        self.stackedWidget.setCurrentIndex(2)
+        self.menu_action_sythesis.setChecked(False)
+        self.menu_action_dataset.setChecked(False)
+        self.menu_action_training.setChecked(False)
+        self.menu_action_about.setChecked(True)
+        pass
+
+    # synthesis page
     def openConnectGoogleDialog(self):
         try:
             diag = ConnectGoogleDialog(self, self._tts)
@@ -107,45 +140,10 @@ class MyApp(QMainWindow, Ui_myApp):
             index = self.words_list_widget.indexOfTopLevelItem(item)
             self.words_list_widget.takeTopLevelItem(index)
 
+    # augmentation page
 
-class VoiceTestDialog(QDialog, Ui_VoiceTestDialog):
-    def __init__(self, parent, voice, tts_handler: tts.TTSServiceHandler):
-        super().__init__(parent)
-        self.setupUi(self)
-        self._tts = tts_handler
-        self._selected_voice = voice
-        self.voice_details_placeholder.setText(str(voice))
+    # training page
 
-    def playVoice(self):
-        try:
-            text_to_play = self.text_to_play_box.text()
-            if len(text_to_play) > 0:
-                audio_file = self._tts.synthesizeSpeech(
-                    self._selected_voice.provider,
-                    text_to_play,
-                    self._selected_voice,
-                    testonly=True
-                )
-                speech = AudioSegment.from_wav(audio_file)
-                play(speech)
-        except Exception:
-            ErrorMessageBox(self).exec()
-            return
-
-    def synthesizeVoiceAndSaveToFile(self):
-        try:
-            text_to_play = self.text_to_play_box.text()
-            if len(text_to_play) > 0:
-                audio_file_dir = self._tts.synthesizeSpeech(
-                    self._selected_voice.provider,
-                    text_to_play,
-                    self._selected_voice,
-                    testonly=False
-                )
-                InfoMessageBox(self, f"Saved file in\r\n{audio_file_dir}").exec()
-        except Exception:
-            ErrorMessageBox(self).exec()
-            return
 
 def clearApplicationCache(workingDirectory: str):
     dir = f"{workingDirectory}/.app_cache"
@@ -161,6 +159,9 @@ if __name__ == "__main__":
     app.exec()
 
     # delete app cache, from working directory
-    clearApplicationCache(win.path_input_text.text())
+    try:
+        clearApplicationCache(win.path_input_text.text())
+    except Exception:
+        pass
     sys.exit()
 

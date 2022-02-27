@@ -4,7 +4,6 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtCore import Qt 
 from ui.addNewWordDialog import Ui_AddNewWordDialog
 
-
 class AddNewWordDialog(QDialog, Ui_AddNewWordDialog):
     def __init__(self, parent, languages: list[str]):
         super().__init__(parent)

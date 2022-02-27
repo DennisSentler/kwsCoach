@@ -1,0 +1,22 @@
+<RCC>
+  <qresource prefix="icons8">
+    <file>icons8/info_30px_white.png</file>
+    <file>icons8/artificial_intelligence_30px_white.png</file>
+    <file>icons8/creative_commons_sampling_30px_white.png</file>
+    <file>icons8/language_30px_white.png</file>
+    <file>icons8/reconstruction_plan_30px_white.png</file>
+    <file>icons8/artificial_intelligence_30px.png</file>
+    <file>icons8/creative_commons_sampling_30px.png</file>
+    <file>icons8/reconstruction_plan_30px.png</file>
+  </qresource>
+  <qresource prefix="provider">
+    <file>provider/icons8-ibm-watson.svg</file>
+    <file>provider/icons8-ibm-light.svg</file>
+    <file>provider/icons8-azurblau.svg</file>
+    <file>provider/icons8-google-cloud.svg</file>
+    <file>provider/icons8-ibm.svg</file>
+  </qresource>
+  <qresource prefix="app-icon">
+    <file>app-icon/icons8_bmo.ico</file>
+  </qresource>
+</RCC>
