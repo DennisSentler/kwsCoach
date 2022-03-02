@@ -16,8 +16,10 @@ class Ui_ConnectProviderDialog(object):
         ConnectProviderDialog.setObjectName("ConnectProviderDialog")
         ConnectProviderDialog.resize(567, 646)
         self.gridLayout_5 = QtWidgets.QGridLayout(ConnectProviderDialog)
+        self.gridLayout_5.setContentsMargins(0, 9, 0, 0)
         self.gridLayout_5.setObjectName("gridLayout_5")
         self.gridLayout_4 = QtWidgets.QGridLayout()
+        self.gridLayout_4.setContentsMargins(9, -1, 9, 9)
         self.gridLayout_4.setObjectName("gridLayout_4")
         self.gridLayout_3 = QtWidgets.QGridLayout()
         self.gridLayout_3.setObjectName("gridLayout_3")
@@ -91,6 +93,10 @@ class Ui_ConnectProviderDialog(object):
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_4.addItem(spacerItem2, 2, 2, 1, 1)
         self.gridLayout_5.addLayout(self.gridLayout_4, 0, 0, 1, 1)
+        self.status_bar_layout = QtWidgets.QVBoxLayout()
+        self.status_bar_layout.setSpacing(0)
+        self.status_bar_layout.setObjectName("status_bar_layout")
+        self.gridLayout_5.addLayout(self.status_bar_layout, 1, 0, 1, 1)
 
         self.retranslateUi(ConnectProviderDialog)
         self.close_button.clicked.connect(ConnectProviderDialog.reject) # type: ignore

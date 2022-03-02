@@ -501,7 +501,7 @@ class Ui_myApp(object):
         self.start_synthesis_button.setText(_translate("myApp", "Start Synthesis"))
         self.menu.setWindowTitle(_translate("myApp", "menu"))
         self.menu_action_sythesis.setText(_translate("myApp", "Sythesis"))
-        self.menu_action_dataset.setText(_translate("myApp", "Dataset"))
+        self.menu_action_dataset.setText(_translate("myApp", "Data Augmentation"))
         self.menu_action_dataset.setToolTip(_translate("myApp", "Dataset"))
         self.menu_action_training.setText(_translate("myApp", "Training"))
         self.menu_action_about.setText(_translate("myApp", "About"))

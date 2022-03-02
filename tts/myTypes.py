@@ -18,7 +18,7 @@ class Voice:
     gender: Gender
 
     def __str__(self):
-        return f"{self.provider}_{self.name}_{self.language}_{self.gender}"
+        return f"{self.provider.name}_{self.name}_{self.language}_{self.gender}"
 
 @dataclass
 class Word:

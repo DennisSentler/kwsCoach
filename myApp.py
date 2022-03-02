@@ -143,8 +143,9 @@ class MyApp(QMainWindow, Ui_myApp):
 
     def ifSynthesisReadyActivateButton(self):
         words_ready = True if self.words_counter > 0 else False
-        voices_ready = True if len(self.voice_list_view.getCheckedVoices()) > 0 else False
-        self.start_synthesis_button.setEnabled(words_ready and voices_ready)
+        #TODO: call getCheckVoices, if ready
+        #voices_ready = True if len(self.voice_list_view.getCheckedVoices()) > 0 else False
+        self.start_synthesis_button.setEnabled(words_ready)
 
 
     # augmentation page

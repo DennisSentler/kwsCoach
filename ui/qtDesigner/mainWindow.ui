@@ -829,7 +829,7 @@
      <normaloff>:/icons8/icons8/reconstruction_plan_30px_white.png</normaloff>:/icons8/icons8/reconstruction_plan_30px_white.png</iconset>
    </property>
    <property name="text">
-    <string>Dataset</string>
+    <string>Data Augmentation</string>
    </property>
    <property name="toolTip">
     <string>Dataset</string>

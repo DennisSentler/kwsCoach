@@ -13,5 +13,5 @@ class SynthesisDialog(QDialog, Ui_SynthesisDialog):
         super().__init__(parent)
         self.setupUi(self)
         total_calls = len(words) * len(voices)
-        # TODO imlement loading alle requests data
+        # TODO imlement loading all requests data
         
