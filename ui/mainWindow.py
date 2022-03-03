@@ -366,7 +366,7 @@ class Ui_myApp(object):
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem1)
         self.start_synthesis_button = QtWidgets.QPushButton(self.words_box)
-        self.start_synthesis_button.setEnabled(False)
+        self.start_synthesis_button.setEnabled(True)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -415,9 +415,9 @@ class Ui_myApp(object):
         self.menu.setFloatable(False)
         self.menu.setObjectName("menu")
         myApp.addToolBar(QtCore.Qt.TopToolBarArea, self.menu)
-        self.statusBar = QtWidgets.QStatusBar(myApp)
-        self.statusBar.setObjectName("statusBar")
-        myApp.setStatusBar(self.statusBar)
+        self.status_bar = QtWidgets.QStatusBar(myApp)
+        self.status_bar.setObjectName("status_bar")
+        myApp.setStatusBar(self.status_bar)
         self.menu_action_sythesis = QtWidgets.QAction(myApp)
         self.menu_action_sythesis.setCheckable(True)
         self.menu_action_sythesis.setChecked(True)
@@ -463,6 +463,7 @@ class Ui_myApp(object):
         self.menu_action_training.triggered.connect(myApp.switchToTraining) # type: ignore
         self.menu_action_about.triggered.connect(myApp.switchToAbout) # type: ignore
         self.connect_button_google.clicked.connect(myApp.openConnectGoogleDialog) # type: ignore
+        self.start_synthesis_button.clicked.connect(myApp.openSynthesisDialog) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(myApp)
 
     def retranslateUi(self, myApp):

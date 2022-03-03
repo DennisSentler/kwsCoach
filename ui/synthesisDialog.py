@@ -28,7 +28,7 @@ class Ui_SynthesisDialog(object):
         self.log_textedit.setObjectName("log_textedit")
         self.gridLayout.addWidget(self.log_textedit, 1, 0, 1, 2)
         self.progress_bar = QtWidgets.QProgressBar(SynthesisDialog)
-        self.progress_bar.setProperty("value", 24)
+        self.progress_bar.setProperty("value", 0)
         self.progress_bar.setTextVisible(True)
         self.progress_bar.setOrientation(QtCore.Qt.Horizontal)
         self.progress_bar.setInvertedAppearance(False)
@@ -39,26 +39,28 @@ class Ui_SynthesisDialog(object):
         self.horizontalLayout.setObjectName("horizontalLayout")
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
-        self.confirm_button = QtWidgets.QPushButton(SynthesisDialog)
-        self.confirm_button.setEnabled(False)
-        self.confirm_button.setObjectName("confirm_button")
-        self.horizontalLayout.addWidget(self.confirm_button)
-        self.cancel_button = QtWidgets.QPushButton(SynthesisDialog)
-        self.cancel_button.setObjectName("cancel_button")
-        self.horizontalLayout.addWidget(self.cancel_button)
+        self.ok_button = QtWidgets.QPushButton(SynthesisDialog)
+        self.ok_button.setEnabled(False)
+        self.ok_button.setMinimumSize(QtCore.QSize(75, 0))
+        self.ok_button.setObjectName("ok_button")
+        self.horizontalLayout.addWidget(self.ok_button)
+        self.close_button = QtWidgets.QPushButton(SynthesisDialog)
+        self.close_button.setMinimumSize(QtCore.QSize(75, 0))
+        self.close_button.setObjectName("close_button")
+        self.horizontalLayout.addWidget(self.close_button)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem1)
-        self.gridLayout.addLayout(self.horizontalLayout, 3, 1, 1, 1)
+        self.gridLayout.addLayout(self.horizontalLayout, 3, 0, 1, 2)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
 
         self.retranslateUi(SynthesisDialog)
-        self.cancel_button.clicked.connect(SynthesisDialog.reject) # type: ignore
-        self.confirm_button.clicked.connect(SynthesisDialog.accept) # type: ignore
+        self.close_button.clicked.connect(SynthesisDialog.reject) # type: ignore
+        self.ok_button.clicked.connect(SynthesisDialog.accept) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(SynthesisDialog)
 
     def retranslateUi(self, SynthesisDialog):
         _translate = QtCore.QCoreApplication.translate
         SynthesisDialog.setWindowTitle(_translate("SynthesisDialog", "Synthesis in progress"))
         self.label.setText(_translate("SynthesisDialog", "Log"))
-        self.confirm_button.setText(_translate("SynthesisDialog", "OK"))
-        self.cancel_button.setText(_translate("SynthesisDialog", "Cancel"))
+        self.ok_button.setText(_translate("SynthesisDialog", "OK"))
+        self.close_button.setText(_translate("SynthesisDialog", "Cancel"))

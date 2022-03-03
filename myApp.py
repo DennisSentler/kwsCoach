@@ -1,13 +1,16 @@
 # system modules
 import sys, os
+from pyparsing import col
 # foreign modules
 import qdarkstyle
+from ast import literal_eval
 
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QDialog, QFileDialog, QTreeWidgetItem, QSizePolicy
 )
+from PyQt5.QtGui import QIcon
+from synthesisDialogImpl import SynthesisDialog
 # qt designer modules
-
 from ui.mainWindow import Ui_myApp
 # own modules
 from voiceListViewImpl import VoiceListView
@@ -23,6 +26,7 @@ class MyApp(QMainWindow, Ui_myApp):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
+        QIcon.setThemeName("ubuntu-mono-dark")
         #create voice list view
         default_directory = os.path.abspath(os.path.dirname(__file__))
         self.path_input_text.setText(default_directory)
@@ -76,7 +80,6 @@ class MyApp(QMainWindow, Ui_myApp):
             self.status_label_google.setText("Connected" if diag.isConnected() else "Dicsonnected")
         except Exception:
             ErrorMessageBox(self).exec()
-        self.ifSynthesisReadyActivateButton()
 
     def openConnectWatsonDialog(self):
         try:
@@ -89,7 +92,6 @@ class MyApp(QMainWindow, Ui_myApp):
             self.status_label_watson.setText("Connected" if diag.isConnected() else "Dicsonnected")
         except Exception:
             ErrorMessageBox(self).exec()
-        self.ifSynthesisReadyActivateButton()
 
     def openConnectAzureDialog(self):
         try:
@@ -102,7 +104,6 @@ class MyApp(QMainWindow, Ui_myApp):
             self.status_label_azure.setText("Connected" if diag.isConnected() else "Dicsonnected")
         except Exception:
             ErrorMessageBox(self).exec()
-        self.ifSynthesisReadyActivateButton()
 
     def openVoiceTestDialog(self, voice):
         print("open voice test for", str(voice))
@@ -132,7 +133,6 @@ class MyApp(QMainWindow, Ui_myApp):
             self.words_list_widget.addTopLevelItem(word_item)
             for column in range(self.words_list_widget.columnCount()):
                 self.words_list_widget.resizeColumnToContents(column)
-        self.ifSynthesisReadyActivateButton()
 
     def removeWordFromList(self):
         items = self.words_list_widget.selectedItems()
@@ -141,13 +141,25 @@ class MyApp(QMainWindow, Ui_myApp):
             self.words_list_widget.takeTopLevelItem(index)
         self.ifSynthesisReadyActivateButton()
 
-    def ifSynthesisReadyActivateButton(self):
-        words_ready = True if self.words_counter > 0 else False
-        #TODO: call getCheckVoices, if ready
-        voices_ready = True if len(self.voice_list_view.getCheckedVoices()) > 0 else False
-        self.start_synthesis_button.setEnabled(words_ready)
+    def getWordsFromList(self) -> list[tts.Word]:
+        words = []
+        for row in range(self.words_list_widget.topLevelItemCount()):
+            word_widget_item = (self.words_list_widget.itemAt(row, 0))
+            word_name = word_widget_item.data(1,0)
+            word_languages = literal_eval(word_widget_item.data(2,0))
+            words.append(tts.Word(word_name, word_languages))
+        return words
 
-
+    def openSynthesisDialog(self):
+        self.status_bar.showMessage("checking synthesis requirements ...")
+        voices = self.voice_list_view.getCheckedVoices()
+        words = self.getWordsFromList()
+        self.status_bar.clearMessage()
+        if (len(words) == 0 or len(voices) == 0):
+            self.status_bar.showMessage("condition not met! please select at least one voice and one word!", 5000)
+            return
+        synthesis = SynthesisDialog(self, words, voices, self._tts)
+        synthesis.exec()
     # augmentation page
 
     # training page

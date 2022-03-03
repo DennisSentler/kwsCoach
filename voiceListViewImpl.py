@@ -32,17 +32,17 @@ class VoiceListView(QtWidgets.QTreeView):
 
     def slotClicked(self, mi):
         mi = self.proxyModel.mapToSource(mi)
-        if mi.column() != 0:        
+        if mi.column() != 0: #clicked not on checkbox        
             sel = self.selectionModel().selectedIndexes()
-            voice = _rowToVoice(sel)
+            voice = Voice(Provider(sel[1].data()), sel[2].data(), sel[3].data(), sel[4].data())
             self.parent.openVoiceTestDialog(voice)
-        self.parent.ifSynthesisReadyActivateButton()
 
     def addVoices(self, voices: list[Voice]):
         for v in voices:
             checkbox = QStandardItem()
             checkbox.setData("checkbox")
             checkbox.setCheckable(True)
+            checkbox.setCheckState(Qt.Checked)
             self.model.appendRow([
                 checkbox,
                 QStandardItem(str(v.provider.name)),
@@ -60,13 +60,9 @@ class VoiceListView(QtWidgets.QTreeView):
         for row in range(self.model.rowCount()):
             item_checkbox = self.model.item(row, 0) #get checkbox
             if item_checkbox.checkState() == Qt.Checked:
-                items_from_row = []
+                sel = []
                 for header in range(len(self.headers)):
-                    items_from_row += self.model.item(row, header)
-                voice = _rowToVoice(items_from_row)
-                voices += voice
+                    sel.append(self.model.item(row, header))
+                voice = Voice(Provider(sel[1].text()), sel[2].text(), sel[3].text(), sel[4].text())
+                voices.append(voice)
         return voices
-
-
-def _rowToVoice(row: list) -> Voice:
-    return Voice(Provider(row[1].data()), row[2].data(), row[3].data(), row[4].data())

@@ -687,7 +687,7 @@
                  <item>
                   <widget class="QPushButton" name="start_synthesis_button">
                    <property name="enabled">
-                    <bool>false</bool>
+                    <bool>true</bool>
                    </property>
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -801,7 +801,7 @@
    <addaction name="menu_action_training"/>
    <addaction name="menu_action_about"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QStatusBar" name="status_bar"/>
   <action name="menu_action_sythesis">
    <property name="checkable">
     <bool>true</bool>
@@ -1024,6 +1024,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>start_synthesis_button</sender>
+   <signal>clicked()</signal>
+   <receiver>myApp</receiver>
+   <slot>openSynthesisDialog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>749</x>
+     <y>714</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>937</x>
+     <y>764</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>openConnectGoogleDialog()</slot>
@@ -1036,5 +1052,6 @@
   <slot>switchToDataset()</slot>
   <slot>switchToTraining()</slot>
   <slot>switchToAbout()</slot>
+  <slot>openSynthesisDialog()</slot>
  </slots>
 </ui>
