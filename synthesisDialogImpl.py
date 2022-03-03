@@ -1,4 +1,5 @@
 from itertools import count
+from signal import raise_signal
 from time import sleep
 from PyQt5.QtWidgets import (
     QDialog, QListWidgetItem
@@ -14,32 +15,40 @@ from ui.synthesisDialog import Ui_SynthesisDialog
 from tts.myTypes import Voice, Word
 
 class Downloader(QObject):
-    def __init__(self, parent, words: list[Word], voices: list[Voice], tts_handler: TTSServiceHandler):
-        super().__init__(parent)
+
+    def config(self, words: list[Word], voices: list[Voice], tts_handler: TTSServiceHandler):
+        """ATTENTION, please call this config function before calling "runt"
+
+        Args:
+            words (list[Word]): _description_
+            voices (list[Voice]): _description_
+            tts_handler (TTSServiceHandler): _description_
+        """
         self.words = words
         self.voices = voices
         self.tts = tts_handler
-        self.owner = parent
 
     finished = pyqtSignal()
     progress = pyqtSignal(int)
     logs = pyqtSignal(str)
+    exception = pyqtSignal(Exception)
 
     def run(self):
         try:
             call_counter = 0
             for word in self.words:
-                self.logs.emit(f"starting with word '{word.text}'")
+                self.logs.emit(f" + starting with word '{word.text}'")
                 for voice in self.voices:
                     if voice.language in word.languages: 
                         call_counter += 1
+                        self.logs.emit(f" + getting voice '{voice.name}' from {voice.provider.name}")
                         path = self.tts.synthesizeSpeech(voice.provider, word.text, voice)
+                        self.logs.emit(f" + saved voice to '{path}'")
                         self.progress.emit(call_counter)
-                        sleep(0.1)
             self.finished.emit()
-        except Exception:
+        except Exception as exc:
+            self.exception.emit(exc)
             self.finished.emit()
-            ErrorMessageBox(self.owner).exec()
 
 
 class SynthesisDialog(QDialog, Ui_SynthesisDialog):
@@ -52,15 +61,17 @@ class SynthesisDialog(QDialog, Ui_SynthesisDialog):
 
         # create own thread for synthesizer for parallel downloads
         self.thread = QThread()
-        self.downloader = Downloader(self, words, voices, ttsHandler)
+        self.downloader = Downloader()
+        self.downloader.config(words, voices, ttsHandler)
         self.downloader.moveToThread(self.thread)
         # Connect signals and slots
         self.thread.started.connect(self.downloader.run)
         self.downloader.finished.connect(self.thread.quit)
         self.downloader.finished.connect(self.downloader.deleteLater)
         self.thread.finished.connect(self.thread.deleteLater)
-        self.downloader.progress.connect(self.updateProgressBar)
-        self.downloader.logs.connect(self.printLogsOnTextEdit)
+        self.downloader.progress.connect(self._updateProgressBar)
+        self.downloader.logs.connect(self._printLogsOnTextEdit)
+        self.downloader.exception.connect(self._receiveExceptionFromDownloader)
         # Start the thread
         self.thread.start()
 
@@ -75,8 +86,14 @@ class SynthesisDialog(QDialog, Ui_SynthesisDialog):
                 if voice.language in word.languages: counter += 1
         return counter
 
-    def printLogsOnTextEdit(self, log_line: str):
+    def _printLogsOnTextEdit(self, log_line: str):
         self.log_textedit.appendPlainText(log_line)
 
-    def updateProgressBar(self, job_number: int):
+    def _updateProgressBar(self, job_number: int):
         self.progress_bar.setValue(job_number)
+
+    def _receiveExceptionFromDownloader(self, exception: Exception):
+        try: 
+            raise exception
+        except Exception:
+            ErrorMessageBox(self).exec()
