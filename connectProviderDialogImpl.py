@@ -72,7 +72,7 @@ class ConnectProviderDialog(QDialog, Ui_ConnectProviderDialog):
         self.repaint()
         voices = []
         try:
-            voices = self._tts.getVoices(tts.Provider.GOOGLE)
+            voices = self._tts.getVoices(self._provider)
         except Exception:
             ErrorMessageBox(self).exec()
             self.status_bar.clearMessage()

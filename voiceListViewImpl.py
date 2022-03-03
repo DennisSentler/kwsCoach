@@ -58,7 +58,7 @@ class VoiceListView(QtWidgets.QTreeView):
         # FIXME: get checked voices
         voices = []
         for row in range(self.model.rowCount()):
-            item_checkbox = self.model.item(row)
+            item_checkbox = self.model.item(row, 0) #get checkbox
             if item_checkbox.checkState() == Qt.Checked:
                 items_from_row = []
                 for header in range(len(self.headers)):
