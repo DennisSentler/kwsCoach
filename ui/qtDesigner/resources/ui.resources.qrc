@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons8">
+    <file>icons8/refresh_30px_white.png</file>
     <file>icons8/submit_progress_30px.png</file>
     <file>icons8/submit_progress_30px_white.png</file>
     <file>icons8/info_30px_white.png</file>

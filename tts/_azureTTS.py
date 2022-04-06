@@ -1,7 +1,8 @@
-from email import header
 import os
 import json
 import requests
+from requests.adapters import HTTPAdapter, Retry
+
 from . import myTypes
 
 def _prettyJson(json_string: str):
@@ -57,11 +58,18 @@ def synthesizeSpeech(text: str, voice: myTypes.Voice, path: str):
                 "Ocp-Apim-Subscription-Key": __subscription_key,
                 "Content-Type": "application/ssml+xml",
             }
-    response = requests.post(
+    s = requests.Session()
+    retries = Retry(total=15,
+                backoff_factor=10,
+                status_forcelist=[ 429 ],
+                method_whitelist=["POST"])
+    s.mount("https://", HTTPAdapter(max_retries=retries))
+    response = s.post(
         url=f"{__service_url}/v1",
         headers=headers,
-        data=req_body
+        data=req_body,
         )
+    
     response.raise_for_status()
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "wb") as f:

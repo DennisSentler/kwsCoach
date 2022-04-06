@@ -1,7 +1,10 @@
 # system modules
+from logging import root
 import sys, os
+from numpy import average
 from pyparsing import col
 # foreign modules
+import librosa
 import qdarkstyle
 from ast import literal_eval
 
@@ -9,10 +12,10 @@ from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QDialog, QFileDialog, QTreeWidgetItem, QSizePolicy
 )
 from PyQt5.QtGui import QIcon
-from synthesisDialogImpl import SynthesisDialog
 # qt designer modules
 from ui.mainWindow import Ui_myApp
 # own modules
+from synthesisDialogImpl import SynthesisDialog
 from voiceListViewImpl import VoiceListView
 from messageBoxImpl import ErrorMessageBox, InfoMessageBox
 from addNewWordDialogImpl import AddNewWordDialog
@@ -30,6 +33,7 @@ class MyApp(QMainWindow, Ui_myApp):
         #create voice list view
         default_directory = os.path.abspath(os.path.dirname(__file__))
         self.path_input_text.setText(default_directory)
+        self.dataset_path_input_text.setText(str(default_directory)+"/synthesis")
         self.voice_list_view = VoiceListView(parent=self)
         self.voice_list_view.setObjectName("voice_list_view")
         self.gridLayout_4.addWidget(self.voice_list_view, 1, 0, 1, 5)
@@ -114,6 +118,7 @@ class MyApp(QMainWindow, Ui_myApp):
         dir = QFileDialog.getExistingDirectory(self, 'Select Directory')
         if dir != "":
             self.path_input_text.setText(str(dir))
+            self.dataset_path_input_text.setText(str(dir)+"/synthesis")
             self._tts.changeDirectory(dir)
 
     def openAddNewWordListDialog(self):
@@ -139,12 +144,11 @@ class MyApp(QMainWindow, Ui_myApp):
         for item in items:
             index = self.words_list_widget.indexOfTopLevelItem(item)
             self.words_list_widget.takeTopLevelItem(index)
-        self.ifSynthesisReadyActivateButton()
 
     def getWordsFromList(self) -> list[tts.Word]:
         words = []
         for row in range(self.words_list_widget.topLevelItemCount()):
-            word_widget_item = (self.words_list_widget.itemAt(row, 0))
+            word_widget_item = self.words_list_widget.topLevelItem(row)
             word_name = word_widget_item.data(1,0)
             word_languages = literal_eval(word_widget_item.data(2,0))
             words.append(tts.Word(word_name, word_languages))
@@ -160,8 +164,65 @@ class MyApp(QMainWindow, Ui_myApp):
             return
         synthesis = SynthesisDialog(self, words, voices, self._tts)
         synthesis.exec()
-    # augmentation page
 
+    # augmentation page
+    def openDatasetDirectorySelectDialog(self):
+        dir = QFileDialog.getExistingDirectory(self, 'Select Dataset Directory')
+        if dir != "":
+            self.dataset_path_input_text.setText(str(dir))
+
+    def toggleNormalization(self, state):
+        if state > 0:
+            self.normalization_dial.setEnabled(True)
+        else:
+            self.normalization_dial.setEnabled(False)
+
+    def toggleRandMovement(self, state):
+        if state > 0:
+            self.rand_move_dial.setEnabled(True)
+        else:
+            self.rand_move_dial.setEnabled(False)
+
+    def toggleRandBackgroundNoise(self, state):
+        if state > 0:
+            self.path_background_input.setEnabled(True)
+            self.path_background_button.setEnabled(True)
+        else:
+            self.path_background_input.setEnabled(False)
+            self.path_background_button.setEnabled(False)
+
+
+    def writeDatasetInfo(self):
+        self.status_bar.showMessage("reading dataset information ...")
+        dataset_dir = self.dataset_path_input_text.text()
+        if (dataset_dir == ""):
+            self.status_bar.showMessage("no dataset directory selected! please select a parent directory, with subfolders for each category.", 5000)
+            return
+        number_files = 0
+        number_categories = 0
+        durations = []
+        try:
+            for root_dir, category_dirs, files in os.walk(dataset_dir):
+                if len(category_dirs) != 0:
+                    if number_categories == 0:
+                        number_categories = len(category_dirs)
+                    else:
+                        raise Exception("Wrong directory structure, please use only a root directory and subdirectories for each category")
+                
+                for file in files:
+                    durations.append(librosa.get_duration(filename=f"{root_dir}/{file}"))
+                number_files += len(files)
+        except Exception:
+            ErrorMessageBox(self).exec()
+        self.num_files_label.setText(str(number_files))
+        self.num_categories_label.setText(str(number_categories))
+        longest_audio = int(max(durations) * 1000)
+        self.longest_audio_length_label.setText(str(longest_audio) + "ms")
+        shortest_audio = int(min(durations) * 1000)
+        self.shortest_audio_length_label.setText(str(shortest_audio) + "ms")
+        average_audio = int(sum(durations) / len(durations) * 1000)
+        self.average_audio_length_label.setText(str(average_audio) + "ms")
+        self.status_bar.clearMessage()
     # training page
 
 

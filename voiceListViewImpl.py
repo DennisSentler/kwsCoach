@@ -55,7 +55,6 @@ class VoiceListView(QtWidgets.QTreeView):
             self.resizeColumnToContents(i)
 
     def getCheckedVoices(self) -> list[Voice]:
-        # FIXME: get checked voices
         voices = []
         for row in range(self.model.rowCount()):
             item_checkbox = self.model.item(row, 0) #get checkbox
