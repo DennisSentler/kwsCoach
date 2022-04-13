@@ -1,4 +1,5 @@
 # system modules
+from locale import normalize
 from logging import root
 import sys, os
 from numpy import average
@@ -9,9 +10,11 @@ import qdarkstyle
 from ast import literal_eval
 
 from PyQt5.QtWidgets import (
-    QApplication, QMainWindow, QDialog, QFileDialog, QTreeWidgetItem, QSizePolicy
+    QApplication, QMainWindow, QDialog, QFileDialog, QTreeWidgetItem, QSizePolicy, QMessageBox
 )
 from PyQt5.QtGui import QIcon
+from augmentationDialogImpl import AugmentationDialog
+from tts.myTypes import Augmentation, AugmentationType
 # qt designer modules
 from ui.mainWindow import Ui_myApp
 # own modules
@@ -177,11 +180,11 @@ class MyApp(QMainWindow, Ui_myApp):
         else:
             self.normalization_dial.setEnabled(False)
 
-    def toggleRandMovement(self, state):
+    def toggleRandTimeShift(self, state):
         if state > 0:
-            self.rand_move_dial.setEnabled(True)
+            self.time_shift_dial.setEnabled(True)
         else:
-            self.rand_move_dial.setEnabled(False)
+            self.time_shift_dial.setEnabled(False)
 
     def toggleRandBackgroundNoise(self, state):
         if state > 0:
@@ -191,6 +194,11 @@ class MyApp(QMainWindow, Ui_myApp):
             self.path_background_input.setEnabled(False)
             self.path_background_button.setEnabled(False)
 
+    def toggleTrimSilence(self, state):
+        if state > 0:
+            self.trim_silence_db_threshhold_dial.setEnabled(True)
+        else:
+            self.trim_silence_db_threshhold_dial.setEnabled(False)
 
     def writeDatasetInfo(self):
         self.status_bar.showMessage("reading dataset information ...")
@@ -210,7 +218,9 @@ class MyApp(QMainWindow, Ui_myApp):
                         raise Exception("Wrong directory structure, please use only a root directory and subdirectories for each category")
                 
                 for file in files:
-                    durations.append(librosa.get_duration(filename=f"{root_dir}/{file}"))
+                    file_dur_sec = librosa.get_duration(filename=f"{root_dir}/{file}")
+                    durations.append(file_dur_sec)
+
                 number_files += len(files)
         except Exception:
             ErrorMessageBox(self).exec()
@@ -223,6 +233,43 @@ class MyApp(QMainWindow, Ui_myApp):
         average_audio = int(sum(durations) / len(durations) * 1000)
         self.average_audio_length_label.setText(str(average_audio) + "ms")
         self.status_bar.clearMessage()
+
+    def openAugmentationDialog(self):
+        augmentations = []
+        if self.trim_silence_checkBox.isChecked():
+            db_threshold = self.trim_silence_db_threshhold_dial.value()
+            augmentations.append(Augmentation(AugmentationType.TRIM_SILENCE, [db_threshold]))
+        if self.normalization_checkBox.isChecked():
+            normalize_duration_ms = self.normalization_dial.value()
+            augmentations.append(Augmentation(AugmentationType.NORMALIZE_DURATION, [normalize_duration_ms]))
+        if self.time_shift_checkBox.isChecked():
+            shift_ms = self.time_shift_dial.value()
+            augmentations.append(Augmentation(AugmentationType.TIME_SHIFT, [shift_ms]))
+
+        if len(augmentations) == 0:
+            self.status_bar.showMessage("no data augmentations selected", 5000)
+            return
+
+        user_info = """
+        Your audio records will be permanently changed by this operation, there is no way to undo the adjustments.\r\n
+        Please backup your dataset before continue.
+        """
+        if InfoMessageBox(self, user_info).exec() == QMessageBox.Ok:
+            try:
+                dataset_dir = self.dataset_path_input_text.text()
+                if (dataset_dir == ""):
+                    self.status_bar.showMessage("no dataset directory selected! please select a parent directory, with subfolders for each category.", 5000)
+                    return
+                file_paths = []
+                for root_dir, _, files in os.walk(dataset_dir):
+                    for file in files:
+                        file_paths.append(f"{root_dir}/{file}")
+            except Exception:
+                ErrorMessageBox(self).exec()
+            
+            if AugmentationDialog(self, file_paths, augmentations).exec():
+                self.writeDatasetInfo()
+            
     # training page
 
 

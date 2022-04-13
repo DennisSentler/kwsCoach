@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ui/qtDesigner/synthesisDialog.ui'
+# Form implementation generated from reading ui file 'ui/qtDesigner/progressDialog.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #
@@ -11,23 +11,24 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_SynthesisDialog(object):
-    def setupUi(self, SynthesisDialog):
-        SynthesisDialog.setObjectName("SynthesisDialog")
-        SynthesisDialog.resize(603, 311)
-        self.gridLayout_2 = QtWidgets.QGridLayout(SynthesisDialog)
+class Ui_ProgressDialog(object):
+    def setupUi(self, ProgressDialog):
+        ProgressDialog.setObjectName("ProgressDialog")
+        ProgressDialog.resize(603, 297)
+        self.gridLayout_2 = QtWidgets.QGridLayout(ProgressDialog)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setObjectName("gridLayout")
-        self.label = QtWidgets.QLabel(SynthesisDialog)
+        self.label = QtWidgets.QLabel(ProgressDialog)
         self.label.setObjectName("label")
         self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
-        self.log_textedit = QtWidgets.QPlainTextEdit(SynthesisDialog)
+        self.log_textedit = QtWidgets.QPlainTextEdit(ProgressDialog)
         self.log_textedit.setAutoFillBackground(False)
         self.log_textedit.setReadOnly(True)
+        self.log_textedit.setPlainText("")
         self.log_textedit.setObjectName("log_textedit")
         self.gridLayout.addWidget(self.log_textedit, 1, 0, 1, 2)
-        self.progress_bar = QtWidgets.QProgressBar(SynthesisDialog)
+        self.progress_bar = QtWidgets.QProgressBar(ProgressDialog)
         self.progress_bar.setProperty("value", 0)
         self.progress_bar.setTextVisible(True)
         self.progress_bar.setOrientation(QtCore.Qt.Horizontal)
@@ -39,12 +40,12 @@ class Ui_SynthesisDialog(object):
         self.horizontalLayout.setObjectName("horizontalLayout")
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem)
-        self.ok_button = QtWidgets.QPushButton(SynthesisDialog)
+        self.ok_button = QtWidgets.QPushButton(ProgressDialog)
         self.ok_button.setEnabled(False)
         self.ok_button.setMinimumSize(QtCore.QSize(75, 0))
         self.ok_button.setObjectName("ok_button")
         self.horizontalLayout.addWidget(self.ok_button)
-        self.close_button = QtWidgets.QPushButton(SynthesisDialog)
+        self.close_button = QtWidgets.QPushButton(ProgressDialog)
         self.close_button.setMinimumSize(QtCore.QSize(75, 0))
         self.close_button.setObjectName("close_button")
         self.horizontalLayout.addWidget(self.close_button)
@@ -53,14 +54,14 @@ class Ui_SynthesisDialog(object):
         self.gridLayout.addLayout(self.horizontalLayout, 3, 0, 1, 2)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
 
-        self.retranslateUi(SynthesisDialog)
-        self.close_button.clicked.connect(SynthesisDialog.reject) # type: ignore
-        self.ok_button.clicked.connect(SynthesisDialog.accept) # type: ignore
-        QtCore.QMetaObject.connectSlotsByName(SynthesisDialog)
+        self.retranslateUi(ProgressDialog)
+        self.close_button.clicked.connect(ProgressDialog.reject) # type: ignore
+        self.ok_button.clicked.connect(ProgressDialog.accept) # type: ignore
+        QtCore.QMetaObject.connectSlotsByName(ProgressDialog)
 
-    def retranslateUi(self, SynthesisDialog):
+    def retranslateUi(self, ProgressDialog):
         _translate = QtCore.QCoreApplication.translate
-        SynthesisDialog.setWindowTitle(_translate("SynthesisDialog", "Synthesis in progress"))
-        self.label.setText(_translate("SynthesisDialog", "Log"))
-        self.ok_button.setText(_translate("SynthesisDialog", "OK"))
-        self.close_button.setText(_translate("SynthesisDialog", "Cancel"))
+        ProgressDialog.setWindowTitle(_translate("ProgressDialog", "Work in progress"))
+        self.label.setText(_translate("ProgressDialog", "Log"))
+        self.ok_button.setText(_translate("ProgressDialog", "OK"))
+        self.close_button.setText(_translate("ProgressDialog", "Cancel"))

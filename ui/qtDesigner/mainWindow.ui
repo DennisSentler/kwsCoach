@@ -746,10 +746,10 @@
        </layout>
       </widget>
       <widget class="QWidget" name="augmentation_page">
-       <layout class="QGridLayout" name="gridLayout_20">
+       <layout class="QGridLayout" name="gridLayout_15">
         <item row="0" column="0">
-         <layout class="QGridLayout" name="gridLayout_17">
-          <item row="0" column="0">
+         <layout class="QVBoxLayout" name="verticalLayout_4" stretch="0,10,0">
+          <item>
            <widget class="QGroupBox" name="dir_box_2">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
@@ -794,12 +794,12 @@
             </layout>
            </widget>
           </item>
-          <item row="1" column="0">
+          <item>
            <widget class="QGroupBox" name="groupBox_2">
             <property name="title">
              <string>Augmentation</string>
             </property>
-            <layout class="QFormLayout" name="formLayout">
+            <layout class="QFormLayout" name="formLayout_2">
              <item row="0" column="0">
               <widget class="QFrame" name="frame_3">
                <property name="sizePolicy">
@@ -819,22 +819,29 @@
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_3">
                 <item>
+                 <widget class="QCheckBox" name="trim_silence_checkBox">
+                  <property name="text">
+                   <string>Trim Silence</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QCheckBox" name="normalization_checkBox">
                   <property name="toolTip">
                    <string>This option adjusts all your audio files to a defined length in milliseconds. Be sure to choose a size greater than the minimal length of your longest audio.</string>
                   </property>
                   <property name="text">
-                   <string>Normalization</string>
+                   <string>Length Normalization</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QCheckBox" name="rand_move_checkBox">
+                 <widget class="QCheckBox" name="time_shift_checkBox">
                   <property name="toolTip">
                    <string>This option moves the audio content on the Timeline. Either left or right. It randomly chooses a shift up to your defined maximum amount.</string>
                   </property>
                   <property name="text">
-                   <string>Random Movement (Time Axis)</string>
+                   <string>Time shift</string>
                   </property>
                  </widget>
                 </item>
@@ -864,6 +871,25 @@
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_5">
                 <item>
+                 <widget class="QSpinBox" name="trim_silence_db_threshhold_dial">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="suffix">
+                   <string> db</string>
+                  </property>
+                  <property name="prefix">
+                   <string>&lt; </string>
+                  </property>
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="value">
+                   <number>60</number>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QSpinBox" name="normalization_dial">
                   <property name="enabled">
                    <bool>false</bool>
@@ -890,7 +916,7 @@
                    <enum>QAbstractSpinBox::UpDownArrows</enum>
                   </property>
                   <property name="suffix">
-                   <string>ms</string>
+                   <string> ms</string>
                   </property>
                   <property name="minimum">
                    <number>100</number>
@@ -907,7 +933,7 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QSpinBox" name="rand_move_dial">
+                 <widget class="QSpinBox" name="time_shift_dial">
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
@@ -915,7 +941,7 @@
                    <string>This option moves the audio content on the Timeline. Either left or right. It randomly chooses a shift up to your defined maximum amount.</string>
                   </property>
                   <property name="suffix">
-                   <string>ms</string>
+                   <string> ms</string>
                   </property>
                   <property name="prefix">
                    <string>+/- </string>
@@ -975,66 +1001,95 @@
                </layout>
               </widget>
              </item>
-             <item row="1" column="1">
-              <widget class="QPushButton" name="pushButton">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>28</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>100</width>
-                 <height>100</height>
-                </size>
-               </property>
-               <property name="autoFillBackground">
-                <bool>false</bool>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset resource="resources/ui.resources.qrc">
-                 <normaloff>:/icons8/icons8/refresh_30px_white.png</normaloff>:/icons8/icons8/refresh_30px_white.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>20</width>
-                 <height>20</height>
-                </size>
-               </property>
-               <property name="flat">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
             </layout>
            </widget>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <property name="sizeConstraint">
+             <enum>QLayout::SetMinimumSize</enum>
+            </property>
+            <item>
+             <spacer name="horizontalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::MinimumExpanding</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_2">
+              <property name="minimumSize">
+               <size>
+                <width>100</width>
+                <height>35</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+               </font>
+              </property>
+              <property name="text">
+               <string>Apply</string>
+              </property>
+              <property name="icon">
+               <iconset resource="resources/ui.resources.qrc">
+                <normaloff>:/icons8/icons8/wrench_30px_white.png</normaloff>:/icons8/icons8/wrench_30px_white.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::MinimumExpanding</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
           </item>
          </layout>
         </item>
         <item row="0" column="1">
-         <layout class="QGridLayout" name="gridLayout_19">
-          <item row="0" column="0">
-           <widget class="QGroupBox" name="groupBox">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="title">
-             <string>Dataset Information</string>
-            </property>
-            <layout class="QFormLayout" name="formLayout_2">
+         <widget class="QGroupBox" name="groupBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="title">
+           <string>Dataset Information</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <property name="sizeConstraint">
+            <enum>QLayout::SetMinimumSize</enum>
+           </property>
+           <item>
+            <layout class="QFormLayout" name="formLayout">
              <item row="0" column="0">
               <widget class="QLabel" name="label_2">
                <property name="text">
@@ -1136,9 +1191,70 @@
               </widget>
              </item>
             </layout>
-           </widget>
-          </item>
-         </layout>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_2">
+             <property name="sizeConstraint">
+              <enum>QLayout::SetMinimumSize</enum>
+             </property>
+             <item alignment="Qt::AlignRight">
+              <widget class="QPushButton" name="pushButton">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="autoFillBackground">
+                <bool>false</bool>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="resources/ui.resources.qrc">
+                 <normaloff>:/icons8/icons8/refresh_30px_white.png</normaloff>:/icons8/icons8/refresh_30px_white.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+               <property name="flat">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="verticalSpacer">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -1268,8 +1384,8 @@
    <slot>openConnectWatsonDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>340</x>
-     <y>170</y>
+     <x>46</x>
+     <y>90</y>
     </hint>
     <hint type="destinationlabel">
      <x>152</x>
@@ -1284,8 +1400,8 @@
    <slot>openConnectAzureDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>513</x>
-     <y>170</y>
+     <x>53</x>
+     <y>90</y>
     </hint>
     <hint type="destinationlabel">
      <x>538</x>
@@ -1300,8 +1416,8 @@
    <slot>openDirectorySelectDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>542</x>
-     <y>656</y>
+     <x>44</x>
+     <y>92</y>
     </hint>
     <hint type="destinationlabel">
      <x>940</x>
@@ -1316,8 +1432,8 @@
    <slot>openAddNewWordListDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>796</x>
-     <y>605</y>
+     <x>77</x>
+     <y>79</y>
     </hint>
     <hint type="destinationlabel">
      <x>797</x>
@@ -1332,8 +1448,8 @@
    <slot>removeWordFromList()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1027</x>
-     <y>605</y>
+     <x>87</x>
+     <y>79</y>
     </hint>
     <hint type="destinationlabel">
      <x>940</x>
@@ -1412,8 +1528,8 @@
    <slot>openConnectGoogleDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>108</x>
-     <y>167</y>
+     <x>39</x>
+     <y>90</y>
     </hint>
     <hint type="destinationlabel">
      <x>418</x>
@@ -1428,8 +1544,8 @@
    <slot>openSynthesisDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>869</x>
-     <y>656</y>
+     <x>219</x>
+     <y>120</y>
     </hint>
     <hint type="destinationlabel">
      <x>937</x>
@@ -1460,8 +1576,8 @@
    <slot>writeDatasetInfo()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>315</x>
-     <y>289</y>
+     <x>1028</x>
+     <y>111</y>
     </hint>
     <hint type="destinationlabel">
      <x>1006</x>
@@ -1476,8 +1592,8 @@
    <slot>toggleNormalization()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>92</x>
-     <y>177</y>
+     <x>121</x>
+     <y>199</y>
     </hint>
     <hint type="destinationlabel">
      <x>87</x>
@@ -1486,14 +1602,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>rand_move_checkBox</sender>
+   <sender>time_shift_checkBox</sender>
    <signal>stateChanged(int)</signal>
    <receiver>myApp</receiver>
-   <slot>toggleRandMovement()</slot>
+   <slot>toggleRandTimeShift()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>239</x>
-     <y>220</y>
+     <x>187</x>
+     <y>225</y>
     </hint>
     <hint type="destinationlabel">
      <x>242</x>
@@ -1517,6 +1633,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>trim_silence_checkBox</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>myApp</receiver>
+   <slot>toggleTrimSilence()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>81</x>
+     <y>164</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>587</x>
+     <y>687</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>myApp</receiver>
+   <slot>openAugmentationDialog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>415</x>
+     <y>647</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>734</x>
+     <y>685</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>openConnectGoogleDialog()</slot>
@@ -1533,7 +1681,9 @@
   <slot>writeDatasetInfo()</slot>
   <slot>openDatasetDirectorySelectDialog()</slot>
   <slot>toggleNormalization()</slot>
-  <slot>toggleRandMovement()</slot>
   <slot>toggleRandBackgroundNoise()</slot>
+  <slot>toggleTrimSilence()</slot>
+  <slot>openAugmentationDialog()</slot>
+  <slot>toggleRandTimeShift()</slot>
  </slots>
 </ui>

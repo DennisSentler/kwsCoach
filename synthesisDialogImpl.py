@@ -1,17 +1,14 @@
-from itertools import count
-from signal import raise_signal
-from time import sleep
 from PyQt5.QtWidgets import (
-    QDialog, QListWidgetItem
+    QDialog
 )
 from PyQt5.QtCore import (
-    Qt, QTimer, QObject, QThread, pyqtSignal
+    QObject, QThread, pyqtSignal
 )
 from messageBoxImpl import ErrorMessageBox
 
 from tts.ttsServiceHandler import TTSServiceHandler 
 
-from ui.synthesisDialog import Ui_SynthesisDialog
+from ui.progressDialog import Ui_ProgressDialog
 from tts.myTypes import Voice, Word
 
 class Downloader(QObject):
@@ -51,7 +48,7 @@ class Downloader(QObject):
             self.finished.emit()
 
 
-class SynthesisDialog(QDialog, Ui_SynthesisDialog):
+class SynthesisDialog(QDialog, Ui_ProgressDialog):
     def __init__(self, parent, words: list[Word], voices: list[Voice], ttsHandler: TTSServiceHandler):
         super().__init__(parent)
         self.setupUi(self)

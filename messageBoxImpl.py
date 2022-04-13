@@ -15,4 +15,5 @@ class InfoMessageBox(QMessageBox):
         super().__init__(parent)
         self.setWindowTitle("Info")
         self.setText(text)
+        self.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
         self.setIcon(QMessageBox.Information)

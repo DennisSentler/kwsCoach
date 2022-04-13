@@ -36,7 +36,8 @@ def synthesizeSpeech(text: str, voice: myTypes.Voice, path: str):
                 language_code=voice.language, name=voice.name
             )
     audio_config = texttospeech.AudioConfig(
-        audio_encoding=texttospeech.AudioEncoding.LINEAR16
+        audio_encoding=texttospeech.AudioEncoding.LINEAR16,
+        sample_rate_hertz = 16000
     )
     response = __client.synthesize_speech(input=input_text, voice=voice_config, audio_config=audio_config)
     os.makedirs(os.path.dirname(path), exist_ok=True)

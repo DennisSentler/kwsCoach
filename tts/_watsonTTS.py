@@ -30,7 +30,10 @@ def getVoices() -> list[myTypes.Voice]:
     return generic_voices
 
 def synthesizeSpeech(text: str, voice: myTypes.Voice, path: str):
-    response = __client.synthesize(text=text, voice=voice.name, accept="audio/wav")
+    response = __client.synthesize(
+        text=text, 
+        voice=voice.name, 
+        accept="audio/wav;rate=16000")
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "wb") as f:
         f.write(response.get_result().content)
