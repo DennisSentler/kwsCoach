@@ -10,10 +10,11 @@ import qdarkstyle
 from ast import literal_eval
 
 from PyQt5.QtWidgets import (
-    QApplication, QMainWindow, QDialog, QFileDialog, QTreeWidgetItem, QSizePolicy, QMessageBox
+    QApplication, QMainWindow, QDialog, QFileDialog, QTreeWidgetItem, QSizePolicy, QMessageBox, QFileSystemModel
 )
 from PyQt5.QtGui import QIcon
 from augmentationDialogImpl import AugmentationDialog
+from datasetFileModel import DatasetFileModel
 from tts.myTypes import Augmentation, AugmentationType
 # qt designer modules
 from ui.mainWindow import Ui_myApp
@@ -173,6 +174,18 @@ class MyApp(QMainWindow, Ui_myApp):
         dir = QFileDialog.getExistingDirectory(self, 'Select Dataset Directory')
         if dir != "":
             self.dataset_path_input_text.setText(str(dir))
+            self.writeDatasetInfo()
+
+    def setFilesViewContent(self, path: str):
+        model = DatasetFileModel()
+        model.setRootPath(path)
+        self.files_view.setModel(model)
+        self.files_view.setRootIndex(model.index(path))
+        self.files_view.hideColumn(1)
+        self.files_view.hideColumn(3)
+        #resize columns
+        for i in range(model.columnCount()):
+            self.files_view.resizeColumnToContents(i)
 
     def toggleNormalization(self, state):
         if state > 0:
@@ -210,28 +223,18 @@ class MyApp(QMainWindow, Ui_myApp):
         number_categories = 0
         durations = []
         try:
+            self.setFilesViewContent(dataset_dir)
             for root_dir, category_dirs, files in os.walk(dataset_dir):
                 if len(category_dirs) != 0:
                     if number_categories == 0:
                         number_categories = len(category_dirs)
                     else:
                         raise Exception("Wrong directory structure, please use only a root directory and subdirectories for each category")
-                
-                for file in files:
-                    file_dur_sec = librosa.get_duration(filename=f"{root_dir}/{file}")
-                    durations.append(file_dur_sec)
-
                 number_files += len(files)
         except Exception:
             ErrorMessageBox(self).exec()
         self.num_files_label.setText(str(number_files))
         self.num_categories_label.setText(str(number_categories))
-        longest_audio = int(max(durations) * 1000)
-        self.longest_audio_length_label.setText(str(longest_audio) + "ms")
-        shortest_audio = int(min(durations) * 1000)
-        self.shortest_audio_length_label.setText(str(shortest_audio) + "ms")
-        average_audio = int(sum(durations) / len(durations) * 1000)
-        self.average_audio_length_label.setText(str(average_audio) + "ms")
         self.status_bar.clearMessage()
 
     def openAugmentationDialog(self):

@@ -16,7 +16,8 @@ class Gender(Enum):
 class AugmentationType(IntEnum):
     TRIM_SILENCE = 1
     NORMALIZE_DURATION = 2
-    TIME_SHIFT = 3
+    REPLICATION = 3
+    TIME_SHIFT = 4
 
 @dataclass
 class Voice:
