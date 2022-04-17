@@ -849,7 +849,7 @@
                   <item>
                    <widget class="QCheckBox" name="replication_checkBox">
                     <property name="text">
-                     <string>3. Replication Faktor</string>
+                     <string>3. Replication Factor</string>
                     </property>
                    </widget>
                   </item>
@@ -966,6 +966,9 @@
                     <property name="enabled">
                      <bool>false</bool>
                     </property>
+                    <property name="suffix">
+                     <string> (+1 original)</string>
+                    </property>
                     <property name="minimum">
                      <number>1</number>
                     </property>
@@ -983,19 +986,19 @@
                      <string>This option moves the audio content on the Timeline. Either left or right. It randomly chooses a shift up to your defined maximum amount.</string>
                     </property>
                     <property name="suffix">
-                     <string> ms</string>
+                     <string>%</string>
                     </property>
                     <property name="prefix">
-                     <string>+/- </string>
+                     <string>max. +/- </string>
                     </property>
                     <property name="maximum">
-                     <number>10000</number>
-                    </property>
-                    <property name="singleStep">
                      <number>100</number>
                     </property>
+                    <property name="singleStep">
+                     <number>10</number>
+                    </property>
                     <property name="value">
-                     <number>200</number>
+                     <number>40</number>
                     </property>
                     <property name="displayIntegerBase">
                      <number>10</number>
@@ -1003,13 +1006,93 @@
                    </widget>
                   </item>
                   <item>
-                   <widget class="QSpinBox" name="spinBox"/>
+                   <widget class="QSpinBox" name="pitch_dial">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="suffix">
+                     <string> semitone</string>
+                    </property>
+                    <property name="prefix">
+                     <string>max. +/- </string>
+                    </property>
+                    <property name="maximum">
+                     <number>10</number>
+                    </property>
+                    <property name="value">
+                     <number>4</number>
+                    </property>
+                   </widget>
                   </item>
                   <item>
-                   <widget class="QSpinBox" name="spinBox_2"/>
+                   <layout class="QHBoxLayout" name="horizontalLayout_8">
+                    <item>
+                     <widget class="QSpinBox" name="time_stretch_min_dial">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
+                      <property name="suffix">
+                       <string>%</string>
+                      </property>
+                      <property name="prefix">
+                       <string>min. </string>
+                      </property>
+                      <property name="minimum">
+                       <number>0</number>
+                      </property>
+                      <property name="maximum">
+                       <number>1000</number>
+                      </property>
+                      <property name="singleStep">
+                       <number>5</number>
+                      </property>
+                      <property name="value">
+                       <number>80</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QSpinBox" name="time_stretch_max_dial">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
+                      <property name="suffix">
+                       <string>%</string>
+                      </property>
+                      <property name="prefix">
+                       <string>max. </string>
+                      </property>
+                      <property name="minimum">
+                       <number>0</number>
+                      </property>
+                      <property name="maximum">
+                       <number>1000</number>
+                      </property>
+                      <property name="singleStep">
+                       <number>5</number>
+                      </property>
+                      <property name="value">
+                       <number>125</number>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
                   </item>
                   <item>
-                   <widget class="QSpinBox" name="spinBox_3"/>
+                   <widget class="QSpinBox" name="volume_dial">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="suffix">
+                     <string> db</string>
+                    </property>
+                    <property name="prefix">
+                     <string>max. +/- </string>
+                    </property>
+                    <property name="value">
+                     <number>15</number>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
                 </widget>
@@ -1042,10 +1125,13 @@
                <item row="1" column="0">
                 <widget class="QFrame" name="frame">
                  <property name="frameShape">
-                  <enum>QFrame::StyledPanel</enum>
+                  <enum>QFrame::NoFrame</enum>
                  </property>
                  <property name="frameShadow">
                   <enum>QFrame::Raised</enum>
+                 </property>
+                 <property name="lineWidth">
+                  <number>0</number>
                  </property>
                  <layout class="QVBoxLayout" name="verticalLayout_6">
                   <item>
@@ -1078,14 +1164,21 @@
                <item row="1" column="1">
                 <widget class="QFrame" name="frame_2">
                  <property name="frameShape">
-                  <enum>QFrame::StyledPanel</enum>
+                  <enum>QFrame::NoFrame</enum>
                  </property>
                  <property name="frameShadow">
                   <enum>QFrame::Raised</enum>
                  </property>
+                 <property name="lineWidth">
+                  <number>0</number>
+                 </property>
                  <layout class="QVBoxLayout" name="verticalLayout_7">
                   <item>
-                   <widget class="QSpinBox" name="spinBox_4"/>
+                   <widget class="QSpinBox" name="gaussian_noise_dial">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
                   </item>
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -1538,8 +1631,8 @@
    <slot>openConnectWatsonDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>251</x>
-     <y>185</y>
+     <x>117</x>
+     <y>87</y>
     </hint>
     <hint type="destinationlabel">
      <x>152</x>
@@ -1554,8 +1647,8 @@
    <slot>openConnectAzureDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>432</x>
-     <y>185</y>
+     <x>117</x>
+     <y>87</y>
     </hint>
     <hint type="destinationlabel">
      <x>538</x>
@@ -1570,8 +1663,8 @@
    <slot>openDirectorySelectDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>506</x>
-     <y>657</y>
+     <x>117</x>
+     <y>87</y>
     </hint>
     <hint type="destinationlabel">
      <x>940</x>
@@ -1586,8 +1679,8 @@
    <slot>openAddNewWordListDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>642</x>
-     <y>605</y>
+     <x>117</x>
+     <y>87</y>
     </hint>
     <hint type="destinationlabel">
      <x>797</x>
@@ -1602,8 +1695,8 @@
    <slot>removeWordFromList()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>882</x>
-     <y>605</y>
+     <x>117</x>
+     <y>87</y>
     </hint>
     <hint type="destinationlabel">
      <x>940</x>
@@ -1682,8 +1775,8 @@
    <slot>openConnectGoogleDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>70</x>
-     <y>185</y>
+     <x>79</x>
+     <y>87</y>
     </hint>
     <hint type="destinationlabel">
      <x>418</x>
@@ -1698,8 +1791,8 @@
    <slot>openSynthesisDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>870</x>
-     <y>656</y>
+     <x>157</x>
+     <y>92</y>
     </hint>
     <hint type="destinationlabel">
      <x>937</x>
@@ -1714,8 +1807,8 @@
    <slot>openDatasetDirectorySelectDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>747</x>
-     <y>104</y>
+     <x>616</x>
+     <y>105</y>
     </hint>
     <hint type="destinationlabel">
      <x>782</x>
@@ -1730,8 +1823,8 @@
    <slot>writeDatasetInfo()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1028</x>
-     <y>111</y>
+     <x>1027</x>
+     <y>112</y>
     </hint>
     <hint type="destinationlabel">
      <x>1006</x>
@@ -1810,12 +1903,108 @@
    <slot>openAugmentationDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>415</x>
-     <y>647</y>
+     <x>372</x>
+     <y>658</y>
     </hint>
     <hint type="destinationlabel">
      <x>734</x>
      <y>685</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>replication_checkBox</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>myApp</receiver>
+   <slot>toggleReplicationFaktor()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>79</x>
+     <y>239</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>879</x>
+     <y>687</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pitch_checkBox</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>myApp</receiver>
+   <slot>togglePitch()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>98</x>
+     <y>288</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1009</x>
+     <y>685</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>time_stretch_checkBox</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>myApp</receiver>
+   <slot>toggleTimeStretch()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>88</x>
+     <y>309</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>188</x>
+     <y>47</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>volume_checkBox</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>myApp</receiver>
+   <slot>toggleVolume()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>125</x>
+     <y>329</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>312</x>
+     <y>48</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>guassian_noise_checkBox</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>myApp</receiver>
+   <slot>toggleGaussianNoise()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>134</x>
+     <y>422</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>404</x>
+     <y>47</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>short_noises_checkBox</sender>
+   <signal>stateChanged(int)</signal>
+   <receiver>myApp</receiver>
+   <slot>toggleShortNoise()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>160</x>
+     <y>473</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>573</x>
+     <y>45</y>
     </hint>
    </hints>
   </connection>
@@ -1839,5 +2028,11 @@
   <slot>toggleTrimSilence()</slot>
   <slot>openAugmentationDialog()</slot>
   <slot>toggleRandTimeShift()</slot>
+  <slot>toggleReplicationFaktor()</slot>
+  <slot>togglePitch()</slot>
+  <slot>toggleTimeStretch()</slot>
+  <slot>toggleVolume()</slot>
+  <slot>toggleGaussianNoise()</slot>
+  <slot>toggleShortNoise()</slot>
  </slots>
 </ui>

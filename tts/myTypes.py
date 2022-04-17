@@ -16,8 +16,14 @@ class Gender(Enum):
 class AugmentationType(IntEnum):
     TRIM_SILENCE = 1
     NORMALIZE_DURATION = 2
-    REPLICATION = 3
+    REPLICATION_FACTOR = 3
     TIME_SHIFT = 4
+    PITCH = 5
+    TIME_STRETCH = 6
+    VOLUME = 7
+    GAUSSIAN_NOISE = 8
+    BACKGROUND_NOISE = 9
+    SHORT_NOISE = 10
 
 @dataclass
 class Voice:
@@ -36,21 +42,3 @@ class Word:
     
     def __str__(self):
         return f"{self.text} - {self.languages}"
-
-@dataclass
-class Augmentation:
-    type: AugmentationType
-    parameter: list[int]
-
-    def __eq__(self, other):
-        if isinstance(other, Augmentation):
-            return self.type == other.type
-        return False
-
-    def __lt__(self, other):
-        return self.type < other.type
-
-    def __str__(self):
-        return f"{self.type.name} {self.parameter}"
-
-    

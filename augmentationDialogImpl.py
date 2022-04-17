@@ -2,6 +2,9 @@ import librosa
 import soundfile
 import numpy as np
 import math
+import random
+from audiomentations import Compose, AddGaussianNoise, TimeStretch, PitchShift, Shift, Gain
+import ptvsd
 
 from PyQt5.QtWidgets import (
     QDialog
@@ -10,17 +13,16 @@ from PyQt5.QtCore import (
     QObject, QThread, pyqtSignal
 )
 from messageBoxImpl import ErrorMessageBox
-from tts.myTypes import Augmentation, AugmentationType
+from tts.myTypes import AugmentationType as t
 
 
 from ui.progressDialog import Ui_ProgressDialog
 
 class AugmentationWorker(QObject):
 
-    def config(self, file_paths: list[str], augmentations: list[Augmentation]):
+    def config(self, file_paths: list[str], augmentations: dict):
         self.file_paths = file_paths
         self.augmentations = augmentations
-        self.augmentations.sort()
 
     finished = pyqtSignal()
     progress = pyqtSignal(int)
@@ -28,28 +30,68 @@ class AugmentationWorker(QObject):
     exception = pyqtSignal(Exception)
 
     def run(self):
+        ptvsd.debug_this_thread()
         ops_counter = 0
         try:
             for file_path in self.file_paths:
                 self.logs.emit(f"loading file: '{file_path}'")
                 audio, sample_rate = librosa.load(file_path, sr=None)
-                for augmentation in self.augmentations:
-                    self.logs.emit(f" + performing {augmentation}")
-                    if augmentation.type == AugmentationType.TRIM_SILENCE:
-                        audio, _ = librosa.effects.trim(audio, top_db=augmentation.parameter[0])
 
-                    if augmentation.type == AugmentationType.NORMALIZE_DURATION:
-                        normalized_duration_sec = augmentation.parameter[0] / 1000
-                        audio = self._padOrTrimToSize(audio, int(sample_rate * normalized_duration_sec))
+                trim = self.augmentations[t.TRIM_SILENCE]
+                if trim["use"]:
+                    self.logs.emit(f" + performing {trim}")
+                    audio, _ = librosa.effects.trim(audio, top_db=trim["db_threshold"])
 
-                    if augmentation.type == AugmentationType.TIME_SHIFT:
-                        shift_ms = augmentation.parameter[0]
+                normalize = self.augmentations[t.NORMALIZE_DURATION]
+                if normalize["use"]:
+                    self.logs.emit(f" + performing {normalize}")
+                    normalized_duration_sec = normalize["norm_duration_ms"] / 1000
+                    audio = self._padOrTrimToSize(audio, int(sample_rate * normalized_duration_sec))
 
+                replicate = self.augmentations[t.REPLICATION_FACTOR]
+                if replicate["use"]:
+                    for replication in range(replicate["factor"]):
+                        self.logs.emit(f" + performing replication no.: {replication+1}")
+                        audio_replica = audio
+                        replica_path = f"{file_path.replace('.wav', '')}_rep{replication+1}"
 
-                    ops_counter = ops_counter + 1
-                    self.progress.emit(ops_counter)
+                        time_shift = self.augmentations[t.TIME_SHIFT]
+                        if time_shift["use"]:
+                            max_shift = time_shift["max_shift"] / 100
+                            shift_op = Shift(-max_shift, max_shift, rollover=False, fade=True, p=1)
+                            audio_replica = shift_op(audio_replica, sample_rate)
+                            shifted = shift_op.serialize_parameters()["num_places_to_shift"]
+                            replica_path = f"{replica_path}_sh{shifted}"
 
+                        pitch = self.augmentations[t.PITCH]
+                        if pitch["use"]:
+                            pitch_op = PitchShift(-pitch["semitones"], pitch["semitones"], p=1)
+                            audio_replica = pitch_op(audio_replica, sample_rate)
+                            pitched = pitch_op.serialize_parameters()["num_semitones"]
+                            replica_path = f"{replica_path}_str{pitched:.3f}"
+
+                        time_stretch = self.augmentations[t.TIME_STRETCH]
+                        if time_stretch["use"]:
+                            time_stretch_op = TimeStretch(time_stretch["min"]/100, time_stretch["max"]/100, p=1)
+                            audio_replica = time_stretch_op(audio_replica, sample_rate)
+                            stretched = time_stretch_op.serialize_parameters()["rate"]
+                            replica_path = f"{replica_path}_str{stretched:.3f}"
+                        
+                        volume = self.augmentations[t.VOLUME]
+                        if volume["use"]:
+                            volume_op = Gain(-volume["volume_gain"], volume["volume_gain"], p=1)
+                            audio_replica = volume_op(audio_replica, sample_rate)
+                            gained = volume_op.serialize_parameters()["amplitude_ratio"]
+                            replica_path = f"{replica_path}_vol{gained:.3f}"
+
+                        soundfile.write(replica_path+".wav", data=audio_replica, samplerate=sample_rate)
+
+                
                 soundfile.write(file_path, data=audio, samplerate=sample_rate)
+
+                ops_counter = ops_counter + 1
+                self.progress.emit(ops_counter)
+
             self.finished.emit()
         except Exception as exc:
             self.exception.emit(exc)
@@ -73,10 +115,10 @@ class AugmentationWorker(QObject):
             raise Exception(f"Your audio file was not normalized correctly.")
 
 class AugmentationDialog(QDialog, Ui_ProgressDialog):
-    def __init__(self, parent, file_paths: list[str], augmentations: list[Augmentation]):
+    def __init__(self, parent, file_paths: list[str], augmentations: dict):
         super().__init__(parent)
         self.setupUi(self)
-        total_ops = len(file_paths) * len(augmentations)
+        total_ops = len(file_paths)
         self.progress_bar.setMaximum(total_ops)
         self.log_textedit.appendPlainText(f"starting augmentations on dataset")
 

@@ -15,7 +15,7 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtGui import QIcon
 from augmentationDialogImpl import AugmentationDialog
 from datasetFileModel import DatasetFileModel
-from tts.myTypes import Augmentation, AugmentationType
+from tts.myTypes import AugmentationType
 # qt designer modules
 from ui.mainWindow import Ui_myApp
 # own modules
@@ -213,6 +213,46 @@ class MyApp(QMainWindow, Ui_myApp):
         else:
             self.trim_silence_db_threshhold_dial.setEnabled(False)
 
+    def toggleReplicationFaktor(self, state):
+        if state > 0:
+            self.replication_dial.setEnabled(True)
+        else:
+            self.replication_dial.setEnabled(False)
+
+    def togglePitch(self, state):
+        if state > 0:
+            self.pitch_dial.setEnabled(True)
+        else:
+            self.pitch_dial.setEnabled(False)
+
+    def toggleTimeStretch(self, state):
+        if state > 0:
+            self.time_stretch_min_dial.setEnabled(True)
+            self.time_stretch_max_dial.setEnabled(True)
+        else:
+            self.time_stretch_min_dial.setEnabled(False)
+            self.time_stretch_max_dial.setEnabled(False)
+
+    def toggleVolume(self, state):
+        if state > 0:
+            self.volume_dial.setEnabled(True)
+        else:
+            self.volume_dial.setEnabled(False)
+
+    def toggleGaussianNoise(self, state):
+        if state > 0:
+            self.gaussian_noise_dial.setEnabled(True)
+        else:
+            self.gaussian_noise_dial.setEnabled(False)
+
+    def toggleShortNoise(self, state):
+        if state > 0:
+            self.path_short_noises_button.setEnabled(True)
+            self.path_short_noises_input.setEnabled(True)
+        else:
+            self.path_short_noises_button.setEnabled(False)
+            self.path_short_noises_input.setEnabled(False)
+
     def writeDatasetInfo(self):
         self.status_bar.showMessage("reading dataset information ...")
         dataset_dir = self.dataset_path_input_text.text()
@@ -238,20 +278,14 @@ class MyApp(QMainWindow, Ui_myApp):
         self.status_bar.clearMessage()
 
     def openAugmentationDialog(self):
-        augmentations = []
-        if self.trim_silence_checkBox.isChecked():
-            db_threshold = self.trim_silence_db_threshhold_dial.value()
-            augmentations.append(Augmentation(AugmentationType.TRIM_SILENCE, [db_threshold]))
-        if self.normalization_checkBox.isChecked():
-            normalize_duration_ms = self.normalization_dial.value()
-            augmentations.append(Augmentation(AugmentationType.NORMALIZE_DURATION, [normalize_duration_ms]))
-        if self.time_shift_checkBox.isChecked():
-            shift_ms = self.time_shift_dial.value()
-            augmentations.append(Augmentation(AugmentationType.TIME_SHIFT, [shift_ms]))
-
-        if len(augmentations) == 0:
-            self.status_bar.showMessage("no data augmentations selected", 5000)
-            return
+        augmentations = {}
+        augmentations[AugmentationType.TRIM_SILENCE] = {"use": self.trim_silence_checkBox.isChecked(), "db_threshold": self.trim_silence_db_threshhold_dial.value()}
+        augmentations[AugmentationType.NORMALIZE_DURATION] = {"use": self.normalization_checkBox.isChecked(), "norm_duration_ms": self.normalization_dial.value()}
+        augmentations[AugmentationType.REPLICATION_FACTOR] = {"use": self.replication_checkBox.isChecked(), "factor": self.replication_dial.value()}
+        augmentations[AugmentationType.TIME_SHIFT] = {"use": self.time_shift_checkBox.isChecked(), "max_shift": self.time_shift_dial.value()}
+        augmentations[AugmentationType.PITCH] = {"use": self.pitch_checkBox.isChecked(), "semitones": self.pitch_dial.value()}
+        augmentations[AugmentationType.TIME_STRETCH] = {"use": self.time_stretch_checkBox.isChecked(), "min": self.time_stretch_min_dial.value(), "max": self.time_stretch_max_dial.value()}
+        augmentations[AugmentationType.VOLUME] = {"use": self.volume_checkBox.isChecked(), "volume_gain": self.volume_dial.value()}
 
         user_info = """
         Your audio records will be permanently changed by this operation, there is no way to undo the adjustments.\r\n
