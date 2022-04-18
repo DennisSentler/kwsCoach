@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1058</width>
-    <height>709</height>
+    <height>782</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -550,7 +550,11 @@
                 </widget>
                </item>
                <item row="0" column="1">
-                <widget class="QLineEdit" name="path_input_text"/>
+                <widget class="QLineEdit" name="path_input_text">
+                 <property name="readOnly">
+                  <bool>true</bool>
+                 </property>
+                </widget>
                </item>
                <item row="0" column="2">
                 <widget class="QPushButton" name="select_path_button">
@@ -746,29 +750,51 @@
        </layout>
       </widget>
       <widget class="QWidget" name="augmentation_page">
-       <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="3,2">
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout_10">
-          <item>
-           <widget class="QGroupBox" name="dir_box_2">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
-              <horstretch>10</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="title">
-             <string>Dataset Directory</string>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_14" rowstretch="0">
-             <property name="sizeConstraint">
-              <enum>QLayout::SetMaximumSize</enum>
-             </property>
-             <item row="0" column="1">
-              <widget class="QLineEdit" name="dataset_path_input_text"/>
+       <layout class="QGridLayout" name="gridLayout_14" columnstretch="4,3">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="dir_box_2">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>10</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="title">
+           <string>Dataset Directory</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_10">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <item>
+              <widget class="QLabel" name="path_text_2">
+               <property name="minimumSize">
+                <size>
+                 <width>130</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Source Path:</string>
+               </property>
+              </widget>
              </item>
-             <item row="0" column="2">
-              <widget class="QPushButton" name="select_dataset_path_button_2">
+             <item>
+              <widget class="QLineEdit" name="dataset_src_path_input_text">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="select_dataset_src_path_button_2">
                <property name="font">
                 <font>
                  <pointsize>10</pointsize>
@@ -779,729 +805,705 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="path_text_2">
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_9">
+             <item>
+              <widget class="QLabel" name="path_text_5">
+               <property name="minimumSize">
+                <size>
+                 <width>130</width>
+                 <height>0</height>
+                </size>
+               </property>
                <property name="font">
                 <font>
                  <pointsize>10</pointsize>
                 </font>
                </property>
                <property name="text">
-                <string>Path:</string>
+                <string>Destination Path:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="dataset_dest_path_input_text_2">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="select_dataset_dest_path_button_3">
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Select</string>
                </property>
               </widget>
              </item>
             </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QGroupBox" name="groupBox_2">
-            <property name="title">
-             <string>Augmentation</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-            </property>
-            <property name="flat">
-             <bool>false</bool>
-            </property>
-            <property name="checkable">
-             <bool>false</bool>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_4">
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="1" rowspan="2">
+         <widget class="QGroupBox" name="groupBox_3">
+          <property name="title">
+           <string>Dataset Information</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_10">
              <item>
-              <layout class="QFormLayout" name="foreground_form">
-               <item row="1" column="0">
-                <widget class="QFrame" name="frame_3">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="frameShape">
-                  <enum>QFrame::NoFrame</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Raised</enum>
-                 </property>
-                 <property name="lineWidth">
-                  <number>0</number>
-                 </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_3">
+              <widget class="QLabel" name="label_6">
+               <property name="text">
+                <string>Source</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_5">
+               <property name="text">
+                <string>Target</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QFormLayout" name="formLayout">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_2">
+               <property name="text">
+                <string>Total Categories</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="num_categories_label">
+               <property name="minimumSize">
+                <size>
+                 <width>80</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>0</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_4">
+               <property name="text">
+                <string>Total Files</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLabel" name="num_files_label">
+               <property name="minimumSize">
+                <size>
+                 <width>80</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>0</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QTreeView" name="files_view"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QGroupBox" name="groupBox_2">
+          <property name="title">
+           <string>Augmentation</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_4">
+           <item>
+            <layout class="QFormLayout" name="foreground_form">
+             <item row="1" column="0">
+              <widget class="QFrame" name="frame_3">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::NoFrame</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <property name="lineWidth">
+                <number>0</number>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_3">
+                <item>
+                 <widget class="QCheckBox" name="trim_silence_checkBox">
+                  <property name="text">
+                   <string>1. Trim Silence</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="normalization_checkBox">
+                  <property name="toolTip">
+                   <string>This option adjusts all your audio files to a defined length in milliseconds. Be sure to choose a size greater than the minimal length of your longest audio.</string>
+                  </property>
+                  <property name="text">
+                   <string>2. Length Normalization</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="replication_checkBox">
+                  <property name="text">
+                   <string>3. Replication Factor</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="time_shift_checkBox">
+                  <property name="toolTip">
+                   <string>This option moves the audio content on the Timeline. Either left or right. It randomly chooses a shift up to your defined maximum amount.</string>
+                  </property>
+                  <property name="text">
+                   <string>4. Random Time Shift</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="pitch_checkBox">
+                  <property name="text">
+                   <string>5. Random Pitch</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="time_stretch_checkBox">
+                  <property name="text">
+                   <string>6. Random Time Stretch (Speed)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="volume_checkBox">
+                  <property name="text">
+                   <string>7. Random Volume</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QFrame" name="frame_4">
+               <property name="frameShape">
+                <enum>QFrame::NoFrame</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <property name="lineWidth">
+                <number>0</number>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_5">
+                <item>
+                 <widget class="QSpinBox" name="trim_silence_db_threshhold_dial">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="suffix">
+                   <string> db</string>
+                  </property>
+                  <property name="prefix">
+                   <string>&lt; </string>
+                  </property>
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="value">
+                   <number>60</number>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="normalization_dial">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>100</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>This option adjusts all your audio files to a defined length in milliseconds. Be sure to choose a size greater than the minimal length of your longest audio.</string>
+                  </property>
+                  <property name="frame">
+                   <bool>true</bool>
+                  </property>
+                  <property name="buttonSymbols">
+                   <enum>QAbstractSpinBox::UpDownArrows</enum>
+                  </property>
+                  <property name="suffix">
+                   <string> ms</string>
+                  </property>
+                  <property name="minimum">
+                   <number>100</number>
+                  </property>
+                  <property name="maximum">
+                   <number>10000</number>
+                  </property>
+                  <property name="singleStep">
+                   <number>100</number>
+                  </property>
+                  <property name="value">
+                   <number>1500</number>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="replication_dial">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="suffix">
+                   <string> (+1 original)</string>
+                  </property>
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>10</number>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="time_shift_dial">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="toolTip">
+                   <string>This option moves the audio content on the Timeline. Either left or right. It randomly chooses a shift up to your defined maximum amount.</string>
+                  </property>
+                  <property name="suffix">
+                   <string>%</string>
+                  </property>
+                  <property name="prefix">
+                   <string>max. +/- </string>
+                  </property>
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                  <property name="singleStep">
+                   <number>10</number>
+                  </property>
+                  <property name="value">
+                   <number>40</number>
+                  </property>
+                  <property name="displayIntegerBase">
+                   <number>10</number>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="pitch_dial">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="suffix">
+                   <string> semitone</string>
+                  </property>
+                  <property name="prefix">
+                   <string>max. +/- </string>
+                  </property>
+                  <property name="maximum">
+                   <number>10</number>
+                  </property>
+                  <property name="value">
+                   <number>4</number>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_8">
                   <item>
-                   <widget class="QCheckBox" name="trim_silence_checkBox">
-                    <property name="text">
-                     <string>1. Trim Silence</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="normalization_checkBox">
-                    <property name="toolTip">
-                     <string>This option adjusts all your audio files to a defined length in milliseconds. Be sure to choose a size greater than the minimal length of your longest audio.</string>
-                    </property>
-                    <property name="text">
-                     <string>2. Length Normalization</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="replication_checkBox">
-                    <property name="text">
-                     <string>3. Replication Factor</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="time_shift_checkBox">
-                    <property name="toolTip">
-                     <string>This option moves the audio content on the Timeline. Either left or right. It randomly chooses a shift up to your defined maximum amount.</string>
-                    </property>
-                    <property name="text">
-                     <string>4. Random Time Shift</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="pitch_checkBox">
-                    <property name="text">
-                     <string>5. Random Pitch</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="time_stretch_checkBox">
-                    <property name="text">
-                     <string>6. Random Time Stretch (Speed)</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="volume_checkBox">
-                    <property name="text">
-                     <string>7. Random Volume</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QFrame" name="frame_4">
-                 <property name="frameShape">
-                  <enum>QFrame::NoFrame</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Raised</enum>
-                 </property>
-                 <property name="lineWidth">
-                  <number>0</number>
-                 </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_5">
-                  <item>
-                   <widget class="QSpinBox" name="trim_silence_db_threshhold_dial">
+                   <widget class="QSpinBox" name="time_stretch_min_dial">
                     <property name="enabled">
                      <bool>false</bool>
-                    </property>
-                    <property name="suffix">
-                     <string> db</string>
-                    </property>
-                    <property name="prefix">
-                     <string>&lt; </string>
-                    </property>
-                    <property name="minimum">
-                     <number>1</number>
-                    </property>
-                    <property name="value">
-                     <number>60</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QSpinBox" name="normalization_dial">
-                    <property name="enabled">
-                     <bool>false</bool>
-                    </property>
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="minimumSize">
-                     <size>
-                      <width>100</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="toolTip">
-                     <string>This option adjusts all your audio files to a defined length in milliseconds. Be sure to choose a size greater than the minimal length of your longest audio.</string>
-                    </property>
-                    <property name="frame">
-                     <bool>true</bool>
-                    </property>
-                    <property name="buttonSymbols">
-                     <enum>QAbstractSpinBox::UpDownArrows</enum>
-                    </property>
-                    <property name="suffix">
-                     <string> ms</string>
-                    </property>
-                    <property name="minimum">
-                     <number>100</number>
-                    </property>
-                    <property name="maximum">
-                     <number>10000</number>
-                    </property>
-                    <property name="singleStep">
-                     <number>100</number>
-                    </property>
-                    <property name="value">
-                     <number>1500</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QSpinBox" name="replication_dial">
-                    <property name="enabled">
-                     <bool>false</bool>
-                    </property>
-                    <property name="suffix">
-                     <string> (+1 original)</string>
-                    </property>
-                    <property name="minimum">
-                     <number>1</number>
-                    </property>
-                    <property name="maximum">
-                     <number>10</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QSpinBox" name="time_shift_dial">
-                    <property name="enabled">
-                     <bool>false</bool>
-                    </property>
-                    <property name="toolTip">
-                     <string>This option moves the audio content on the Timeline. Either left or right. It randomly chooses a shift up to your defined maximum amount.</string>
                     </property>
                     <property name="suffix">
                      <string>%</string>
                     </property>
                     <property name="prefix">
-                     <string>max. +/- </string>
+                     <string>min. </string>
+                    </property>
+                    <property name="minimum">
+                     <number>0</number>
                     </property>
                     <property name="maximum">
-                     <number>100</number>
+                     <number>1000</number>
                     </property>
                     <property name="singleStep">
-                     <number>10</number>
+                     <number>5</number>
                     </property>
                     <property name="value">
-                     <number>40</number>
-                    </property>
-                    <property name="displayIntegerBase">
-                     <number>10</number>
+                     <number>80</number>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QSpinBox" name="pitch_dial">
+                   <widget class="QSpinBox" name="time_stretch_max_dial">
                     <property name="enabled">
                      <bool>false</bool>
                     </property>
                     <property name="suffix">
-                     <string> semitone</string>
+                     <string>%</string>
                     </property>
                     <property name="prefix">
-                     <string>max. +/- </string>
+                     <string>max. </string>
+                    </property>
+                    <property name="minimum">
+                     <number>0</number>
                     </property>
                     <property name="maximum">
-                     <number>10</number>
+                     <number>1000</number>
+                    </property>
+                    <property name="singleStep">
+                     <number>5</number>
                     </property>
                     <property name="value">
-                     <number>4</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_8">
-                    <item>
-                     <widget class="QSpinBox" name="time_stretch_min_dial">
-                      <property name="enabled">
-                       <bool>false</bool>
-                      </property>
-                      <property name="suffix">
-                       <string>%</string>
-                      </property>
-                      <property name="prefix">
-                       <string>min. </string>
-                      </property>
-                      <property name="minimum">
-                       <number>0</number>
-                      </property>
-                      <property name="maximum">
-                       <number>1000</number>
-                      </property>
-                      <property name="singleStep">
-                       <number>5</number>
-                      </property>
-                      <property name="value">
-                       <number>80</number>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QSpinBox" name="time_stretch_max_dial">
-                      <property name="enabled">
-                       <bool>false</bool>
-                      </property>
-                      <property name="suffix">
-                       <string>%</string>
-                      </property>
-                      <property name="prefix">
-                       <string>max. </string>
-                      </property>
-                      <property name="minimum">
-                       <number>0</number>
-                      </property>
-                      <property name="maximum">
-                       <number>1000</number>
-                      </property>
-                      <property name="singleStep">
-                       <number>5</number>
-                      </property>
-                      <property name="value">
-                       <number>125</number>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <widget class="QSpinBox" name="volume_dial">
-                    <property name="enabled">
-                     <bool>false</bool>
-                    </property>
-                    <property name="suffix">
-                     <string> db</string>
-                    </property>
-                    <property name="prefix">
-                     <string>max. +/- </string>
-                    </property>
-                    <property name="value">
-                     <number>15</number>
+                     <number>125</number>
                     </property>
                    </widget>
                   </item>
                  </layout>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_7">
-                 <property name="text">
-                  <string>Foreground</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLabel" name="label_9">
-                 <property name="text">
-                  <string>Parameter</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="volume_dial">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="suffix">
+                   <string> db</string>
+                  </property>
+                  <property name="prefix">
+                   <string>max. +/- </string>
+                  </property>
+                  <property name="value">
+                   <number>15</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
              </item>
-             <item>
-              <widget class="Line" name="line_5">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_7">
+               <property name="text">
+                <string>Foreground</string>
                </property>
               </widget>
              </item>
-             <item>
-              <layout class="QFormLayout" name="background_form">
-               <item row="1" column="0">
-                <widget class="QFrame" name="frame">
-                 <property name="frameShape">
-                  <enum>QFrame::NoFrame</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Raised</enum>
-                 </property>
-                 <property name="lineWidth">
-                  <number>0</number>
-                 </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_6">
+             <item row="0" column="1">
+              <widget class="QLabel" name="label_9">
+               <property name="text">
+                <string>Parameter</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="Line" name="line_5">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QFormLayout" name="background_form">
+             <item row="1" column="0">
+              <widget class="QFrame" name="frame">
+               <property name="frameShape">
+                <enum>QFrame::NoFrame</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <property name="lineWidth">
+                <number>0</number>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_6">
+                <item>
+                 <widget class="QCheckBox" name="guassian_noise_checkBox">
+                  <property name="text">
+                   <string>8. Random Gaussian Noise</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="rand_background_checkBox">
+                  <property name="toolTip">
+                   <string>This option adds random background noise to your clean audio content. Choose this option only if you know that your dataset contains no background noise.</string>
+                  </property>
+                  <property name="text">
+                   <string>9. Background Noise</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="short_noises_checkBox">
+                  <property name="text">
+                   <string>10. Random Short Noises</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QFrame" name="frame_2">
+               <property name="frameShape">
+                <enum>QFrame::NoFrame</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <property name="lineWidth">
+                <number>0</number>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_7">
+                <item>
+                 <widget class="QSpinBox" name="gaussian_noise_dial">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_3">
                   <item>
-                   <widget class="QCheckBox" name="guassian_noise_checkBox">
+                   <widget class="QLabel" name="path_text_3">
+                    <property name="font">
+                     <font>
+                      <pointsize>10</pointsize>
+                     </font>
+                    </property>
                     <property name="text">
-                     <string>8. Random Gaussian Noise</string>
+                     <string>Path:</string>
                     </property>
                    </widget>
                   </item>
                   <item>
-                   <widget class="QCheckBox" name="rand_background_checkBox">
-                    <property name="toolTip">
-                     <string>This option adds random background noise to your clean audio content. Choose this option only if you know that your dataset contains no background noise.</string>
-                    </property>
-                    <property name="text">
-                     <string>9. Background Noise</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QCheckBox" name="short_noises_checkBox">
-                    <property name="text">
-                     <string>10. Random Short Noises</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QFrame" name="frame_2">
-                 <property name="frameShape">
-                  <enum>QFrame::NoFrame</enum>
-                 </property>
-                 <property name="frameShadow">
-                  <enum>QFrame::Raised</enum>
-                 </property>
-                 <property name="lineWidth">
-                  <number>0</number>
-                 </property>
-                 <layout class="QVBoxLayout" name="verticalLayout_7">
-                  <item>
-                   <widget class="QSpinBox" name="gaussian_noise_dial">
+                   <widget class="QLineEdit" name="path_background_input">
                     <property name="enabled">
                      <bool>false</bool>
                     </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
+                    </property>
                    </widget>
                   </item>
                   <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_3">
-                    <item>
-                     <widget class="QLabel" name="path_text_3">
-                      <property name="font">
-                       <font>
-                        <pointsize>10</pointsize>
-                       </font>
-                      </property>
-                      <property name="text">
-                       <string>Path:</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLineEdit" name="path_background_input">
-                      <property name="enabled">
-                       <bool>false</bool>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="path_background_button">
-                      <property name="enabled">
-                       <bool>false</bool>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <pointsize>10</pointsize>
-                       </font>
-                      </property>
-                      <property name="text">
-                       <string>Select</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_6">
-                    <item>
-                     <widget class="QLabel" name="path_text_4">
-                      <property name="font">
-                       <font>
-                        <pointsize>10</pointsize>
-                       </font>
-                      </property>
-                      <property name="text">
-                       <string>Path:</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QLineEdit" name="path_short_noises_input">
-                      <property name="enabled">
-                       <bool>false</bool>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QPushButton" name="path_short_noises_button">
-                      <property name="enabled">
-                       <bool>false</bool>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <pointsize>10</pointsize>
-                       </font>
-                      </property>
-                      <property name="text">
-                       <string>Select</string>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
+                   <widget class="QPushButton" name="path_background_button">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>10</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Select</string>
+                    </property>
+                   </widget>
                   </item>
                  </layout>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_8">
-                 <property name="text">
-                  <string>Background</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLabel" name="label_10">
-                 <property name="text">
-                  <string>Parameter</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_6">
+                  <item>
+                   <widget class="QLabel" name="path_text_4">
+                    <property name="font">
+                     <font>
+                      <pointsize>10</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Path:</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="path_short_noises_input">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="readOnly">
+                     <bool>true</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="path_short_noises_button">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>10</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>Select</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
              </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_8">
+               <property name="text">
+                <string>Background</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLabel" name="label_10">
+               <property name="text">
+                <string>Parameter</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="Line" name="line_6">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_5">
              <item>
-              <spacer name="verticalSpacer_2">
+              <spacer name="horizontalSpacer_4">
                <property name="orientation">
-                <enum>Qt::Vertical</enum>
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::MinimumExpanding</enum>
                </property>
                <property name="sizeHint" stdset="0">
                 <size>
-                 <width>20</width>
-                 <height>40</height>
+                 <width>40</width>
+                 <height>20</height>
                 </size>
                </property>
               </spacer>
              </item>
              <item>
-              <widget class="Line" name="line_6">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+              <widget class="QPushButton" name="pushButton_2">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Apply</string>
+               </property>
+               <property name="icon">
+                <iconset resource="resources/ui.resources.qrc">
+                 <normaloff>:/icons8/icons8/wrench_30px_white.png</normaloff>:/icons8/icons8/wrench_30px_white.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
                </property>
               </widget>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_5">
-               <item>
-                <spacer name="horizontalSpacer_4">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeType">
-                  <enum>QSizePolicy::MinimumExpanding</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item>
-                <widget class="QPushButton" name="pushButton_2">
-                 <property name="minimumSize">
-                  <size>
-                   <width>100</width>
-                   <height>35</height>
-                  </size>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <pointsize>10</pointsize>
-                  </font>
-                 </property>
-                 <property name="text">
-                  <string>Apply</string>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="resources/ui.resources.qrc">
-                   <normaloff>:/icons8/icons8/wrench_30px_white.png</normaloff>:/icons8/icons8/wrench_30px_white.png</iconset>
-                 </property>
-                 <property name="iconSize">
-                  <size>
-                   <width>20</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <spacer name="horizontalSpacer_5">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeType">
-                  <enum>QSizePolicy::MinimumExpanding</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-              </layout>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout_9" stretch="2,10">
-          <item>
-           <widget class="QGroupBox" name="groupBox">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="title">
-             <string>Dataset Information</string>
-            </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_4">
-             <property name="sizeConstraint">
-              <enum>QLayout::SetMinimumSize</enum>
-             </property>
-             <item>
-              <layout class="QFormLayout" name="formLayout">
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_2">
-                 <property name="text">
-                  <string>Total Categories</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLabel" name="num_categories_label">
-                 <property name="minimumSize">
-                  <size>
-                   <width>80</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>0</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_4">
-                 <property name="text">
-                  <string>Total Files</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QLabel" name="num_files_label">
-                 <property name="minimumSize">
-                  <size>
-                   <width>80</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>0</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QVBoxLayout" name="verticalLayout_2">
-               <property name="sizeConstraint">
-                <enum>QLayout::SetMinimumSize</enum>
+              <spacer name="horizontalSpacer_5">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
                </property>
-               <item alignment="Qt::AlignRight">
-                <widget class="QPushButton" name="pushButton">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>30</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>30</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                 <property name="autoFillBackground">
-                  <bool>false</bool>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="resources/ui.resources.qrc">
-                   <normaloff>:/icons8/icons8/refresh_30px_white.png</normaloff>:/icons8/icons8/refresh_30px_white.png</iconset>
-                 </property>
-                 <property name="iconSize">
-                  <size>
-                   <width>20</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                 <property name="flat">
-                  <bool>false</bool>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <spacer name="verticalSpacer">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-              </layout>
+               <property name="sizeType">
+                <enum>QSizePolicy::MinimumExpanding</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QGroupBox" name="groupBox_3">
-            <property name="title">
-             <string>Dataset Directory</string>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_8">
-             <item>
-              <widget class="QTreeView" name="files_view"/>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
+           </item>
+          </layout>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -1631,8 +1633,8 @@
    <slot>openConnectWatsonDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>117</x>
-     <y>87</y>
+     <x>46</x>
+     <y>90</y>
     </hint>
     <hint type="destinationlabel">
      <x>152</x>
@@ -1647,8 +1649,8 @@
    <slot>openConnectAzureDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>117</x>
-     <y>87</y>
+     <x>53</x>
+     <y>90</y>
     </hint>
     <hint type="destinationlabel">
      <x>538</x>
@@ -1663,8 +1665,8 @@
    <slot>openDirectorySelectDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>117</x>
-     <y>87</y>
+     <x>44</x>
+     <y>92</y>
     </hint>
     <hint type="destinationlabel">
      <x>940</x>
@@ -1679,8 +1681,8 @@
    <slot>openAddNewWordListDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>117</x>
-     <y>87</y>
+     <x>77</x>
+     <y>79</y>
     </hint>
     <hint type="destinationlabel">
      <x>797</x>
@@ -1695,8 +1697,8 @@
    <slot>removeWordFromList()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>117</x>
-     <y>87</y>
+     <x>87</x>
+     <y>79</y>
     </hint>
     <hint type="destinationlabel">
      <x>940</x>
@@ -1775,8 +1777,8 @@
    <slot>openConnectGoogleDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>79</x>
-     <y>87</y>
+     <x>39</x>
+     <y>90</y>
     </hint>
     <hint type="destinationlabel">
      <x>418</x>
@@ -1801,34 +1803,18 @@
    </hints>
   </connection>
   <connection>
-   <sender>select_dataset_path_button_2</sender>
+   <sender>select_dataset_src_path_button_2</sender>
    <signal>clicked()</signal>
    <receiver>myApp</receiver>
-   <slot>openDatasetDirectorySelectDialog()</slot>
+   <slot>openSrcDatasetDirectorySelectDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>616</x>
+     <x>744</x>
      <y>105</y>
     </hint>
     <hint type="destinationlabel">
      <x>782</x>
      <y>45</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>myApp</receiver>
-   <slot>writeDatasetInfo()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1027</x>
-     <y>112</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1006</x>
-     <y>48</y>
     </hint>
    </hints>
   </connection>
@@ -1839,8 +1825,8 @@
    <slot>toggleNormalization()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>150</x>
-     <y>217</y>
+     <x>179</x>
+     <y>250</y>
     </hint>
     <hint type="destinationlabel">
      <x>87</x>
@@ -1856,7 +1842,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>216</x>
-     <y>267</y>
+     <y>300</y>
     </hint>
     <hint type="destinationlabel">
      <x>242</x>
@@ -1871,8 +1857,8 @@
    <slot>toggleRandBackgroundNoise()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>166</x>
-     <y>452</y>
+     <x>187</x>
+     <y>488</y>
     </hint>
     <hint type="destinationlabel">
      <x>426</x>
@@ -1887,8 +1873,8 @@
    <slot>toggleTrimSilence()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>110</x>
-     <y>192</y>
+     <x>139</x>
+     <y>225</y>
     </hint>
     <hint type="destinationlabel">
      <x>587</x>
@@ -1919,8 +1905,8 @@
    <slot>toggleReplicationFaktor()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>79</x>
-     <y>239</y>
+     <x>108</x>
+     <y>275</y>
     </hint>
     <hint type="destinationlabel">
      <x>879</x>
@@ -1935,8 +1921,8 @@
    <slot>togglePitch()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>98</x>
-     <y>288</y>
+     <x>127</x>
+     <y>325</y>
     </hint>
     <hint type="destinationlabel">
      <x>1009</x>
@@ -1951,8 +1937,8 @@
    <slot>toggleTimeStretch()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>88</x>
-     <y>309</y>
+     <x>117</x>
+     <y>350</y>
     </hint>
     <hint type="destinationlabel">
      <x>188</x>
@@ -1967,8 +1953,8 @@
    <slot>toggleVolume()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>125</x>
-     <y>329</y>
+     <x>154</x>
+     <y>375</y>
     </hint>
     <hint type="destinationlabel">
      <x>312</x>
@@ -1983,8 +1969,8 @@
    <slot>toggleGaussianNoise()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>134</x>
-     <y>422</y>
+     <x>163</x>
+     <y>460</y>
     </hint>
     <hint type="destinationlabel">
      <x>404</x>
@@ -1999,12 +1985,28 @@
    <slot>toggleShortNoise()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>160</x>
-     <y>473</y>
+     <x>187</x>
+     <y>516</y>
     </hint>
     <hint type="destinationlabel">
      <x>573</x>
      <y>45</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>select_dataset_dest_path_button_3</sender>
+   <signal>clicked()</signal>
+   <receiver>myApp</receiver>
+   <slot>openDestDatasetDirectorySelectDialog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>695</x>
+     <y>119</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>729</x>
+     <y>47</y>
     </hint>
    </hints>
   </connection>
@@ -2022,7 +2024,6 @@
   <slot>switchToAbout()</slot>
   <slot>openSynthesisDialog()</slot>
   <slot>writeDatasetInfo()</slot>
-  <slot>openDatasetDirectorySelectDialog()</slot>
   <slot>toggleNormalization()</slot>
   <slot>toggleRandBackgroundNoise()</slot>
   <slot>toggleTrimSilence()</slot>
@@ -2034,5 +2035,7 @@
   <slot>toggleVolume()</slot>
   <slot>toggleGaussianNoise()</slot>
   <slot>toggleShortNoise()</slot>
+  <slot>openSrcDatasetDirectorySelectDialog()</slot>
+  <slot>openDestDatasetDirectorySelectDialog()</slot>
  </slots>
 </ui>

@@ -5,6 +5,7 @@ import math
 import random
 from audiomentations import Compose, AddGaussianNoise, TimeStretch, PitchShift, Shift, Gain
 import ptvsd
+from pathlib import Path
 
 from PyQt5.QtWidgets import (
     QDialog
@@ -20,7 +21,9 @@ from ui.progressDialog import Ui_ProgressDialog
 
 class AugmentationWorker(QObject):
 
-    def config(self, file_paths: list[str], augmentations: dict):
+    def config(self, file_paths: list[str], source_path: str, destination_path: str, augmentations: dict):
+        self.source_path = source_path
+        self.destination_path = destination_path
         self.file_paths = file_paths
         self.augmentations = augmentations
 
@@ -34,8 +37,8 @@ class AugmentationWorker(QObject):
         ops_counter = 0
         try:
             for file_path in self.file_paths:
-                self.logs.emit(f"loading file: '{file_path}'")
-                audio, sample_rate = librosa.load(file_path, sr=None)
+                self.logs.emit(f"loading file: '{self.source_path}{file_path}'")
+                audio, sample_rate = librosa.load(f"{self.source_path}{file_path}", sr=None)
 
                 trim = self.augmentations[t.TRIM_SILENCE]
                 if trim["use"]:
@@ -84,11 +87,11 @@ class AugmentationWorker(QObject):
                             gained = volume_op.serialize_parameters()["amplitude_ratio"]
                             replica_path = f"{replica_path}_vol{gained:.3f}"
 
-                        soundfile.write(replica_path+".wav", data=audio_replica, samplerate=sample_rate)
-
+                        audio_dest = f"{self.destination_path}{replica_path}.wav"
+                        self._writeFileToDirectory(audio_dest, audio_replica, sample_rate)
                 
-                soundfile.write(file_path, data=audio, samplerate=sample_rate)
-
+                audio_dest = f"{self.destination_path}{file_path}"
+                self._writeFileToDirectory(audio_dest, audio, sample_rate)
                 ops_counter = ops_counter + 1
                 self.progress.emit(ops_counter)
 
@@ -96,6 +99,12 @@ class AugmentationWorker(QObject):
         except Exception as exc:
             self.exception.emit(exc)
             self.finished.emit()
+
+    def _writeFileToDirectory(self, path, audio, sample_rate):
+        path = Path(path)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        soundfile.write(path, data=audio, samplerate=sample_rate)
+
 
     def _padOrTrimToSize(self, audio: np.ndarray, norm_size: int):
         if audio.size < norm_size:
@@ -115,7 +124,7 @@ class AugmentationWorker(QObject):
             raise Exception(f"Your audio file was not normalized correctly.")
 
 class AugmentationDialog(QDialog, Ui_ProgressDialog):
-    def __init__(self, parent, file_paths: list[str], augmentations: dict):
+    def __init__(self, parent, file_paths: list[str], source_path: str, destination_path: str, augmentations: dict):
         super().__init__(parent)
         self.setupUi(self)
         total_ops = len(file_paths)
@@ -125,7 +134,7 @@ class AugmentationDialog(QDialog, Ui_ProgressDialog):
         # create own thread for parallel augmentations
         self.thread = QThread()
         self.aug_worker = AugmentationWorker()
-        self.aug_worker.config(file_paths, augmentations)
+        self.aug_worker.config(file_paths, source_path, destination_path, augmentations)
         self.aug_worker.moveToThread(self.thread)
         # Connect signals and slots
         self.thread.started.connect(self.aug_worker.run)

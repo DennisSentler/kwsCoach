@@ -1,8 +1,8 @@
 # system modules
 from locale import normalize
 from logging import root
-import sys, os
-from numpy import average
+import sys, os, re
+from numpy import TooHardError, average
 from pyparsing import col
 # foreign modules
 import librosa
@@ -12,7 +12,9 @@ from ast import literal_eval
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QDialog, QFileDialog, QTreeWidgetItem, QSizePolicy, QMessageBox, QFileSystemModel
 )
+from qtwidgets import Toggle
 from PyQt5.QtGui import QIcon
+from PyQt5.Qt import Qt
 from augmentationDialogImpl import AugmentationDialog
 from datasetFileModel import DatasetFileModel
 from tts.myTypes import AugmentationType
@@ -37,7 +39,8 @@ class MyApp(QMainWindow, Ui_myApp):
         #create voice list view
         default_directory = os.path.abspath(os.path.dirname(__file__))
         self.path_input_text.setText(default_directory)
-        self.dataset_path_input_text.setText(str(default_directory)+"/synthesis")
+        self.dataset_src_path_input_text.setText(str(default_directory)+"/synthesis")
+        self.dataset_dest_path_input_text_2.setText(str(default_directory)+"/synthesis")
         self.voice_list_view = VoiceListView(parent=self)
         self.voice_list_view.setObjectName("voice_list_view")
         self.gridLayout_4.addWidget(self.voice_list_view, 1, 0, 1, 5)
@@ -46,6 +49,11 @@ class MyApp(QMainWindow, Ui_myApp):
         self._voices = []
         self._tts = tts.TTSServiceHandler(default_directory)
         self.words_counter = 0
+
+        #create toggle slider
+        self.slider_dataset = Toggle(parent=self)
+        self.slider_dataset.stateChanged['int'].connect(self.toggleDatasetDirectory)
+        self.horizontalLayout_10.insertWidget(1,self.slider_dataset)
         
     # menu
     def switchToSynthesis(self):
@@ -122,7 +130,8 @@ class MyApp(QMainWindow, Ui_myApp):
         dir = QFileDialog.getExistingDirectory(self, 'Select Directory')
         if dir != "":
             self.path_input_text.setText(str(dir))
-            self.dataset_path_input_text.setText(str(dir)+"/synthesis")
+            self.dataset_src_path_input_text.setText(str(dir)+"/synthesis")
+            self.dataset_dest_path_input_text_2.setText(str(dir)+"/synthesis")
             self._tts.changeDirectory(dir)
 
     def openAddNewWordListDialog(self):
@@ -170,11 +179,20 @@ class MyApp(QMainWindow, Ui_myApp):
         synthesis.exec()
 
     # augmentation page
-    def openDatasetDirectorySelectDialog(self):
-        dir = QFileDialog.getExistingDirectory(self, 'Select Dataset Directory')
+    def openSrcDatasetDirectorySelectDialog(self):
+        dir = QFileDialog.getExistingDirectory(self, 'Select Source Dataset Directory')
         if dir != "":
-            self.dataset_path_input_text.setText(str(dir))
-            self.writeDatasetInfo()
+            self.dataset_src_path_input_text.setText(str(dir))
+            self.slider_dataset.setCheckState(Qt.Checked) # workaround, for making sure, that the state changes
+            self.slider_dataset.setCheckState(Qt.Unchecked)
+
+    def openDestDatasetDirectorySelectDialog(self):
+        dir = QFileDialog.getExistingDirectory(self, 'Select Target Dataset Directory')
+        if dir != "":
+            self.dataset_dest_path_input_text_2.setText(str(dir))
+            self.slider_dataset.setCheckState(Qt.Unchecked) # workaround, for making sure, that the state changes
+            self.slider_dataset.setCheckState(Qt.Checked)
+
 
     def setFilesViewContent(self, path: str):
         model = DatasetFileModel()
@@ -253,12 +271,8 @@ class MyApp(QMainWindow, Ui_myApp):
             self.path_short_noises_button.setEnabled(False)
             self.path_short_noises_input.setEnabled(False)
 
-    def writeDatasetInfo(self):
+    def writeDatasetInfo(self, dataset_dir: str):
         self.status_bar.showMessage("reading dataset information ...")
-        dataset_dir = self.dataset_path_input_text.text()
-        if (dataset_dir == ""):
-            self.status_bar.showMessage("no dataset directory selected! please select a parent directory, with subfolders for each category.", 5000)
-            return
         number_files = 0
         number_categories = 0
         durations = []
@@ -277,6 +291,20 @@ class MyApp(QMainWindow, Ui_myApp):
         self.num_categories_label.setText(str(number_categories))
         self.status_bar.clearMessage()
 
+    def toggleDatasetDirectory(self, state):
+        dataset_dir = ""
+        if state > 0:
+            dataset_dir = self.dataset_dest_path_input_text_2.text()
+            if (dataset_dir == ""):
+                self.status_bar.showMessage("no source dataset directory selected! please select a parent directory, with subfolders for each category.", 5000)
+                return
+        else:
+            dataset_dir = self.dataset_src_path_input_text.text()
+            if (dataset_dir == ""):
+                self.status_bar.showMessage("no destination dataset directory selected! please select a parent directory, with subfolders for each category.", 5000)
+                return
+        self.writeDatasetInfo(dataset_dir)
+
     def openAugmentationDialog(self):
         augmentations = {}
         augmentations[AugmentationType.TRIM_SILENCE] = {"use": self.trim_silence_checkBox.isChecked(), "db_threshold": self.trim_silence_db_threshhold_dial.value()}
@@ -293,19 +321,24 @@ class MyApp(QMainWindow, Ui_myApp):
         """
         if InfoMessageBox(self, user_info).exec() == QMessageBox.Ok:
             try:
-                dataset_dir = self.dataset_path_input_text.text()
-                if (dataset_dir == ""):
-                    self.status_bar.showMessage("no dataset directory selected! please select a parent directory, with subfolders for each category.", 5000)
+                src_dataset_dir = self.dataset_src_path_input_text.text()
+                if (src_dataset_dir == ""):
+                    self.status_bar.showMessage("no source dataset directory selected! please select a parent directory, with subfolders for each category.", 5000)
+                    return
+                dest_dataset_dir = self.dataset_dest_path_input_text_2.text()
+                if (dest_dataset_dir == ""):
+                    self.status_bar.showMessage("no destination dataset directory selected! please select a parent directory, with subfolders for each category.", 5000)
                     return
                 file_paths = []
-                for root_dir, _, files in os.walk(dataset_dir):
+                for root_dir, _, files in os.walk(src_dataset_dir):
                     for file in files:
-                        file_paths.append(f"{root_dir}/{file}")
+                        category_dir = re.search("\/[^\/]*$",root_dir).group()
+                        file_paths.append(f"{category_dir}/{file}")
             except Exception:
                 ErrorMessageBox(self).exec()
             
-            if AugmentationDialog(self, file_paths, augmentations).exec():
-                self.writeDatasetInfo()
+            if AugmentationDialog(self, file_paths, src_dataset_dir, dest_dataset_dir, augmentations).exec():
+                self.toggleDatasetDirectory(2)
             
     # training page
 
