@@ -30,7 +30,7 @@ class TTSServiceHandler():
         getVoices = switcher.get(provider, lambda: "Service not found")
         return getVoices()
 
-    def synthesizeSpeech(self, provider: myTypes.Provider, text: str, voice: myTypes.Voice, testonly: bool=False) -> str:
+    def synthesizeSpeech(self, provider: myTypes.Provider, text: str, voice: myTypes.Voice, testonly: bool=False, unknown_class: bool=False) -> str:
         switcher = {
             myTypes.Provider.GOOGLE: _googleTTS.synthesizeSpeech,
             myTypes.Provider.WATSON: _watsonTTS.synthesizeSpeech,
@@ -40,7 +40,10 @@ class TTSServiceHandler():
         if testonly:
             synthesis_path = f"{self.dir}/.app_cache/{text}_{str(voice)}.wav"
         else:
-            synthesis_path = f"{self.dir}/synthesis/{text}/{text}_{str(voice)}.wav"
+            if unknown_class:
+                synthesis_path = f"{self.dir}/synthesis/_unknown_/{text}_{str(voice)}.wav"
+            else:
+                synthesis_path = f"{self.dir}/synthesis/{text}/{text}_{str(voice)}.wav"
 
         synthesizeSpeech(text, voice, synthesis_path)
         return synthesis_path

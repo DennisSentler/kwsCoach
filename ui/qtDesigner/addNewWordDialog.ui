@@ -6,35 +6,172 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>234</width>
-    <height>334</height>
+    <width>326</width>
+    <height>755</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Add new word</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
-    <widget class="QLabel" name="label">
-     <property name="text">
-      <string>Word</string>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <widget class="QFrame" name="frame">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
      </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QRadioButton" name="single_word_radioButton">
+          <property name="text">
+           <string>Word</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="new_word_textedit"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QRadioButton" name="random_word_radioButton">
+          <property name="toolTip">
+           <string>A new-line-separated list of different words. Without spaces. A word list with German words is provided in the project: &quot;dictionary/german.txt&quot;.</string>
+          </property>
+          <property name="text">
+           <string>Random Words (unknwon class)</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="toolTip">
+           <string>A new-line-separated list of different words. Without spaces. A word list with German words is provided in the project: &quot;dictionary/german.txt&quot;.</string>
+          </property>
+          <property name="text">
+           <string>qty:</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSpinBox" name="random_word_quantity_dial">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>60</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="toolTip">
+           <string>A new-line-separated list of different words. Without spaces. A word list with German words is provided in the project: &quot;dictionary/german.txt&quot;.</string>
+          </property>
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>1000</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLabel" name="path_text_5">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="toolTip">
+           <string>A new-line-separated list of different words. Without spaces. A word list with German words is provided in the project: &quot;dictionary/german.txt&quot;.</string>
+          </property>
+          <property name="text">
+           <string>Path:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="wordlist_path_input">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="toolTip">
+           <string>A new-line-separated list of different words. Without spaces. A word list with German words is provided in the project: &quot;dictionary/german.txt&quot;.</string>
+          </property>
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="wordlist_path_select_button">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+          <property name="font">
+           <font>
+            <pointsize>10</pointsize>
+           </font>
+          </property>
+          <property name="toolTip">
+           <string>A new-line-separated list of different words. Without spaces. A word list with German words is provided in the project: &quot;dictionary/german.txt&quot;.</string>
+          </property>
+          <property name="text">
+           <string>Select</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
     </widget>
    </item>
-   <item row="1" column="0">
-    <widget class="QLineEdit" name="new_word_textedit"/>
-   </item>
-   <item row="2" column="0">
+   <item>
     <widget class="QLabel" name="label_2">
      <property name="text">
       <string>Languages (multiple possible)</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="0">
+   <item>
     <widget class="QListWidget" name="language_list_view"/>
    </item>
-   <item row="4" column="0">
+   <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <spacer name="horizontalSpacer">
@@ -82,8 +219,8 @@
    <slot>confirmSelection()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>115</x>
-     <y>310</y>
+     <x>200</x>
+     <y>744</y>
     </hint>
     <hint type="destinationlabel">
      <x>211</x>
@@ -91,8 +228,59 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>single_word_radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>AddNewWordDialog</receiver>
+   <slot>toggleWordRadioButtonSelected()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>48</x>
+     <y>26</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>7</x>
+     <y>72</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>random_word_radioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>AddNewWordDialog</receiver>
+   <slot>toggleRandomWordRadioButtonSelected()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>70</x>
+     <y>67</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>6</x>
+     <y>129</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>wordlist_path_select_button</sender>
+   <signal>clicked()</signal>
+   <receiver>AddNewWordDialog</receiver>
+   <slot>openWordlistSelectDialog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>270</x>
+     <y>94</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>319</x>
+     <y>167</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>confirmSelection()</slot>
+  <slot>toggleWordRadioButtonSelected()</slot>
+  <slot>toggleRandomWordRadioButtonSelected()</slot>
+  <slot>openWordlistSelectDialog()</slot>
  </slots>
 </ui>

@@ -478,6 +478,7 @@ class Ui_myApp(object):
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.num_files_label)
         self.verticalLayout_2.addLayout(self.formLayout)
         self.files_view = QtWidgets.QTreeView(self.groupBox_3)
+        self.files_view.setSortingEnabled(True)
         self.files_view.setObjectName("files_view")
         self.verticalLayout_2.addWidget(self.files_view)
         self.gridLayout_14.addWidget(self.groupBox_3, 0, 1, 2, 1)

@@ -17,7 +17,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.Qt import Qt
 from augmentationDialogImpl import AugmentationDialog
 from datasetFileModel import DatasetFileModel
-from tts.myTypes import AugmentationType
+from tts.myTypes import AugmentationType, Word
 # qt designer modules
 from ui.mainWindow import Ui_myApp
 # own modules
@@ -48,7 +48,7 @@ class MyApp(QMainWindow, Ui_myApp):
         # create tts service handler
         self._voices = []
         self._tts = tts.TTSServiceHandler(default_directory)
-        self.words_counter = 0
+        self._words_to_synthesize = []
 
         #create toggle slider
         self.slider_dataset = Toggle(parent=self)
@@ -143,34 +143,41 @@ class MyApp(QMainWindow, Ui_myApp):
         all_languages.sort()
         dialog = AddNewWordDialog(self, all_languages)
         if dialog.exec():
-            self.words_counter += 1
-            word_item = QTreeWidgetItem(self.words_list_widget)
-            word_item.setData(0, 0, self.words_counter)
-            word_item.setData(1, 0, dialog.word)
-            word_item.setData(2, 0, str(dialog.selected_languages))
-            self.words_list_widget.addTopLevelItem(word_item)
-            for column in range(self.words_list_widget.columnCount()):
-                self.words_list_widget.resizeColumnToContents(column)
+            self._words_to_synthesize.append(
+                Word(dialog.word, 
+                    dialog.selected_languages, 
+                    is_random=dialog.random_word_radioButton.isChecked(),
+                    quantity=dialog.random_word_quantity_dial.value()
+                    )
+                )
+            self.refreshWordListWidget()
 
     def removeWordFromList(self):
         items = self.words_list_widget.selectedItems()
         for item in items:
             index = self.words_list_widget.indexOfTopLevelItem(item)
-            self.words_list_widget.takeTopLevelItem(index)
+            del self._words_to_synthesize[index]
+        self.refreshWordListWidget()
 
-    def getWordsFromList(self) -> list[tts.Word]:
-        words = []
-        for row in range(self.words_list_widget.topLevelItemCount()):
-            word_widget_item = self.words_list_widget.topLevelItem(row)
-            word_name = word_widget_item.data(1,0)
-            word_languages = literal_eval(word_widget_item.data(2,0))
-            words.append(tts.Word(word_name, word_languages))
-        return words
+    def refreshWordListWidget(self):
+        self.words_list_widget.clear()
+        for index, word in enumerate(self._words_to_synthesize):
+            word_item = QTreeWidgetItem(self.words_list_widget)
+            word_item.setData(0, 0, index+1)
+            if word.is_random:
+                word_item.setData(1, 0, f"...{word.text[-15:]} (qty: {word.quantity})")
+            else:
+                word_item.setData(1, 0, word.text)
+            word_item.setData(2, 0, str(word.languages))
+            self.words_list_widget.addTopLevelItem(word_item)
+
+        for column in range(self.words_list_widget.columnCount()):
+            self.words_list_widget.resizeColumnToContents(column)
 
     def openSynthesisDialog(self):
         self.status_bar.showMessage("checking synthesis requirements ...")
         voices = self.voice_list_view.getCheckedVoices()
-        words = self.getWordsFromList()
+        words = self._words_to_synthesize
         self.status_bar.clearMessage()
         if (len(words) == 0 or len(voices) == 0):
             self.status_bar.showMessage("condition not met! please select at least one voice and one word!", 5000)

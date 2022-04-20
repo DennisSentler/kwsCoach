@@ -39,6 +39,8 @@ class Voice:
 class Word:
     text: str
     languages: list[str]
+    is_random: bool = False
+    quantity: int = 1
     
     def __str__(self):
         return f"{self.text} - {self.languages}"

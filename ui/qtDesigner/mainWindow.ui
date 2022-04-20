@@ -926,7 +926,11 @@
             </layout>
            </item>
            <item>
-            <widget class="QTreeView" name="files_view"/>
+            <widget class="QTreeView" name="files_view">
+             <property name="sortingEnabled">
+              <bool>true</bool>
+             </property>
+            </widget>
            </item>
           </layout>
          </widget>

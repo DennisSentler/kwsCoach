@@ -6,8 +6,6 @@ from PyQt5.QtWidgets import (
 
 from PyQt5 import QtCore
 
-
-
 class DatasetFileModel(QFileSystemModel):
     def __init__(self):
         super(DatasetFileModel, self).__init__()
