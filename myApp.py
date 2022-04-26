@@ -10,7 +10,7 @@ import qdarkstyle
 from ast import literal_eval
 
 from PyQt5.QtWidgets import (
-    QApplication, QMainWindow, QDialog, QFileDialog, QTreeWidgetItem, QSizePolicy, QMessageBox, QFileSystemModel
+    QApplication, QMainWindow, QDialog, QFileDialog, QTreeWidgetItem, QSizePolicy, QMessageBox, QFileSystemModel, QMenu, QAction
 )
 from qtwidgets import Toggle
 from PyQt5.QtGui import QIcon
@@ -36,7 +36,8 @@ class MyApp(QMainWindow, Ui_myApp):
         super().__init__(parent)
         self.setupUi(self)
         QIcon.setThemeName("ubuntu-mono-dark")
-        #create voice list view
+        ## setup synthesis page
+        # create voice list view
         default_directory = os.path.abspath(os.path.dirname(__file__))
         self.path_input_text.setText(default_directory)
         self.dataset_src_path_input_text.setText(str(default_directory)+"/synthesis")
@@ -44,18 +45,18 @@ class MyApp(QMainWindow, Ui_myApp):
         self.voice_list_view = VoiceListView(parent=self)
         self.voice_list_view.setObjectName("voice_list_view")
         self.gridLayout_4.addWidget(self.voice_list_view, 1, 0, 1, 5)
-
         # create tts service handler
         self._voices = []
         self._tts = tts.TTSServiceHandler(default_directory)
         self._words_to_synthesize = []
 
-        #create toggle slider
+        ## setup argumentation page
+        # create toggle slider
         self.slider_dataset = Toggle(parent=self)
         self.slider_dataset.stateChanged['int'].connect(self.toggleDatasetDirectory)
         self.horizontalLayout_10.insertWidget(1,self.slider_dataset)
-        
-    # menu
+
+    # menu bar
     def switchToSynthesis(self):
         self.stackedWidget.setCurrentIndex(0)
         self.menu_action_sythesis.setChecked(True)
@@ -348,6 +349,31 @@ class MyApp(QMainWindow, Ui_myApp):
                 self.toggleDatasetDirectory(2)
             
     # training page
+    def openTrainingDatasetSelectDialog(self):
+        dir = QFileDialog.getExistingDirectory(self, 'Select Training Dataset Directory')
+        if dir != "":
+            self.train_dataset_path_input.setText(str(dir))
+            words = self._readTrainingDatasetFolders(dir)
+            self.showTrainingWordsList(words)
+
+    def openModelDestinationSelectDialog(self):
+        dir = QFileDialog.getExistingDirectory(self, 'Select Model Destination')
+        if dir != "":
+            self.model_destination_input.setText(str(dir))
+
+    def startTraining(self):
+        # TODO: implement training call
+        pass
+
+    def _readTrainingDatasetFolders(self, dir: str):
+        sub_folders = [name for name in os.listdir(dir) if os.path.isdir(os.path.join(dir, name))]
+        return sub_folders
+
+    def showTrainingWordsList(self, words):
+        self.train_words_list.clear()
+        words.append("_silence_")
+        words.sort()
+        self.train_words_list.addItems(words)
 
 
 def clearApplicationCache(workingDirectory: str):

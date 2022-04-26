@@ -43,7 +43,7 @@
        <enum>QFrame::NoFrame</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="synthesis_page">
        <layout class="QGridLayout" name="gridLayout_13">
@@ -1511,7 +1511,498 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="training_page"/>
+      <widget class="QWidget" name="training_page">
+       <layout class="QGridLayout" name="gridLayout_17">
+        <item row="0" column="0">
+         <widget class="QGroupBox" name="dir_box_3">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Maximum">
+            <horstretch>10</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="title">
+           <string>Directory</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_11">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_11">
+             <item>
+              <widget class="QLabel" name="path_text_6">
+               <property name="minimumSize">
+                <size>
+                 <width>130</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Dataset Path:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="train_dataset_path_input">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="select_train_dataset_path_button">
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Select</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_12">
+             <item>
+              <widget class="QLabel" name="path_text_7">
+               <property name="minimumSize">
+                <size>
+                 <width>130</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Destination Path:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="model_destination_input">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+               <property name="readOnly">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="select_model_destination_button">
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Select</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="0" column="1" rowspan="2">
+         <widget class="QGroupBox" name="groupBox">
+          <property name="title">
+           <string>Words</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_16">
+           <item row="0" column="0">
+            <widget class="QListWidget" name="train_words_list"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QGroupBox" name="groupBox_4">
+          <property name="title">
+           <string>Parameters</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
+          </property>
+          <property name="checkable">
+           <bool>false</bool>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_15">
+           <item row="0" column="0">
+            <layout class="QFormLayout" name="formLayout_2">
+             <item row="0" column="0">
+              <widget class="QFrame" name="frame_5">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::NoFrame</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <property name="lineWidth">
+                <number>0</number>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_8">
+                <item>
+                 <widget class="QLabel" name="label_11">
+                  <property name="text">
+                   <string>Audio Sample Rate</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_12">
+                  <property name="text">
+                   <string>Audio Lenght</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_17">
+                  <property name="text">
+                   <string>Dataset Unknown Percentage</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_18">
+                  <property name="text">
+                   <string>Dataset Silence Percentage</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_13">
+                  <property name="text">
+                   <string>Model Architecture</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_14">
+                  <property name="text">
+                   <string>MFCC Features</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_15">
+                  <property name="text">
+                   <string>MFCC Window Size</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_16">
+                  <property name="text">
+                   <string>MFCC Window Stride</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QFrame" name="frame_6">
+               <property name="frameShape">
+                <enum>QFrame::NoFrame</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+               <property name="lineWidth">
+                <number>0</number>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_9">
+                <item>
+                 <widget class="QSpinBox" name="sample_rate_dial">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="suffix">
+                   <string> Hz</string>
+                  </property>
+                  <property name="prefix">
+                   <string/>
+                  </property>
+                  <property name="minimum">
+                   <number>10000</number>
+                  </property>
+                  <property name="maximum">
+                   <number>44100</number>
+                  </property>
+                  <property name="singleStep">
+                   <number>100</number>
+                  </property>
+                  <property name="value">
+                   <number>16000</number>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="audio_length_dial">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>100</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>This option adjusts all your audio files to a defined length in milliseconds. Be sure to choose a size greater than the minimal length of your longest audio.</string>
+                  </property>
+                  <property name="frame">
+                   <bool>true</bool>
+                  </property>
+                  <property name="buttonSymbols">
+                   <enum>QAbstractSpinBox::UpDownArrows</enum>
+                  </property>
+                  <property name="suffix">
+                   <string> ms</string>
+                  </property>
+                  <property name="minimum">
+                   <number>100</number>
+                  </property>
+                  <property name="maximum">
+                   <number>10000</number>
+                  </property>
+                  <property name="singleStep">
+                   <number>100</number>
+                  </property>
+                  <property name="value">
+                   <number>1500</number>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="unknown_percentage_dial">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="suffix">
+                   <string> %</string>
+                  </property>
+                  <property name="minimum">
+                   <number>0</number>
+                  </property>
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                  <property name="value">
+                   <number>40</number>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="silence_percentage_dial">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="suffix">
+                   <string> %</string>
+                  </property>
+                  <property name="minimum">
+                   <number>0</number>
+                  </property>
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                  <property name="value">
+                   <number>10</number>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="model_architecture_combobox">
+                  <property name="iconSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>DS-CNN (S)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>DS-CNN (M)</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>DS-CNN (L)</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="mfcc_features_dial">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="suffix">
+                   <string/>
+                  </property>
+                  <property name="minimum">
+                   <number>5</number>
+                  </property>
+                  <property name="maximum">
+                   <number>40</number>
+                  </property>
+                  <property name="value">
+                   <number>10</number>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="mfcc_window_size_dial">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="suffix">
+                   <string> ms</string>
+                  </property>
+                  <property name="minimum">
+                   <number>10</number>
+                  </property>
+                  <property name="maximum">
+                   <number>60</number>
+                  </property>
+                  <property name="value">
+                   <number>40</number>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="mfcc_window_stride_dial">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                  <property name="suffix">
+                   <string> ms</string>
+                  </property>
+                  <property name="minimum">
+                   <number>5</number>
+                  </property>
+                  <property name="maximum">
+                   <number>60</number>
+                  </property>
+                  <property name="value">
+                   <number>20</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item row="1" column="0">
+            <layout class="QHBoxLayout" name="horizontalLayout_15">
+             <item>
+              <spacer name="horizontalSpacer_6">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::MinimumExpanding</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="train_button">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Train</string>
+               </property>
+               <property name="icon">
+                <iconset resource="resources/ui.resources.qrc">
+                 <normaloff>:/icons8/icons8/train_30px_white.png</normaloff>:/icons8/icons8/train_30px_white.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_7">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::MinimumExpanding</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item row="2" column="0" colspan="2">
+         <widget class="QPlainTextEdit" name="training_log_textedit">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="about_page"/>
      </widget>
     </item>
@@ -1637,8 +2128,8 @@
    <slot>openConnectWatsonDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>46</x>
-     <y>90</y>
+     <x>250</x>
+     <y>185</y>
     </hint>
     <hint type="destinationlabel">
      <x>152</x>
@@ -1653,8 +2144,8 @@
    <slot>openConnectAzureDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>53</x>
-     <y>90</y>
+     <x>430</x>
+     <y>185</y>
     </hint>
     <hint type="destinationlabel">
      <x>538</x>
@@ -1669,8 +2160,8 @@
    <slot>openDirectorySelectDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>44</x>
-     <y>92</y>
+     <x>503</x>
+     <y>731</y>
     </hint>
     <hint type="destinationlabel">
      <x>940</x>
@@ -1685,8 +2176,8 @@
    <slot>openAddNewWordListDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>77</x>
-     <y>79</y>
+     <x>639</x>
+     <y>679</y>
     </hint>
     <hint type="destinationlabel">
      <x>797</x>
@@ -1701,8 +2192,8 @@
    <slot>removeWordFromList()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>87</x>
-     <y>79</y>
+     <x>881</x>
+     <y>679</y>
     </hint>
     <hint type="destinationlabel">
      <x>940</x>
@@ -1781,8 +2272,8 @@
    <slot>openConnectGoogleDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>39</x>
-     <y>90</y>
+     <x>70</x>
+     <y>185</y>
     </hint>
     <hint type="destinationlabel">
      <x>418</x>
@@ -1797,8 +2288,8 @@
    <slot>openSynthesisDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>157</x>
-     <y>92</y>
+     <x>869</x>
+     <y>730</y>
     </hint>
     <hint type="destinationlabel">
      <x>937</x>
@@ -1813,7 +2304,7 @@
    <slot>openSrcDatasetDirectorySelectDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>744</x>
+     <x>587</x>
      <y>105</y>
     </hint>
     <hint type="destinationlabel">
@@ -1893,8 +2384,8 @@
    <slot>openAugmentationDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>372</x>
-     <y>658</y>
+     <x>358</x>
+     <y>732</y>
     </hint>
     <hint type="destinationlabel">
      <x>734</x>
@@ -2005,12 +2496,60 @@
    <slot>openDestDatasetDirectorySelectDialog()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>695</x>
-     <y>119</y>
+     <x>587</x>
+     <y>137</y>
     </hint>
     <hint type="destinationlabel">
      <x>729</x>
      <y>47</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>select_train_dataset_path_button</sender>
+   <signal>clicked()</signal>
+   <receiver>myApp</receiver>
+   <slot>openTrainingDatasetSelectDialog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>693</x>
+     <y>93</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>785</x>
+     <y>758</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>select_model_destination_button</sender>
+   <signal>clicked()</signal>
+   <receiver>myApp</receiver>
+   <slot>openModelDestinationSelectDialog()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>709</x>
+     <y>132</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>643</x>
+     <y>753</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>train_button</sender>
+   <signal>clicked()</signal>
+   <receiver>myApp</receiver>
+   <slot>startTraining()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>382</x>
+     <y>426</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>243</x>
+     <y>758</y>
     </hint>
    </hints>
   </connection>
@@ -2041,5 +2580,8 @@
   <slot>toggleShortNoise()</slot>
   <slot>openSrcDatasetDirectorySelectDialog()</slot>
   <slot>openDestDatasetDirectorySelectDialog()</slot>
+  <slot>openTrainingDatasetSelectDialog()</slot>
+  <slot>openModelDestinationSelectDialog()</slot>
+  <slot>startTraining()</slot>
  </slots>
 </ui>

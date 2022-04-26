@@ -4,7 +4,7 @@ import numpy as np
 import math
 import random
 from audiomentations import Compose, AddGaussianNoise, TimeStretch, PitchShift, Shift, Gain
-import ptvsd
+#import ptvsd
 from pathlib import Path
 
 from PyQt5.QtWidgets import (
@@ -33,7 +33,7 @@ class AugmentationWorker(QObject):
     exception = pyqtSignal(Exception)
 
     def run(self):
-        ptvsd.debug_this_thread()
+        #ptvsd.debug_this_thread()
         ops_counter = 0
         try:
             for file_path in self.file_paths:
