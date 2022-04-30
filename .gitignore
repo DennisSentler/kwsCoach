@@ -7,6 +7,7 @@ credentials/*
 .app_cache/*
 synthesis/*
 augmentation/*
+models/*
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
