@@ -26,9 +26,6 @@ class TrainingScriptWrapper():
         self.progressbar_epochs = progressbar_epochs
         self.progressbar_steps.setValue(0)
         self.progressbar_epochs.setValue(0)
-        # "unkwnown" dataset is collected from all other folders remaining, except the wanted words.
-        if "_unknown_" in wanted_words:
-            wanted_words.remove("_unknown_")
         
         # make a comma seperated list string
         words_string = ','.join([str(item) for item in wanted_words]) 
@@ -40,7 +37,7 @@ class TrainingScriptWrapper():
                                  "--window_size_ms", mfcc_window_size_ms,
                                  "--window_stride_ms", mfcc_window_stride_ms,
                                  "--learning_rate", "0.0005,0.0001,0.00002",
-                                 "--how_many_training_steps", "400,400,400",
+                                 "--how_many_training_steps", "1000,1000,1000",
                                  "--summaries_dir", f"{destination_path}/{model_architecture}/retrain_logs",
                                  "--train_dir", f"{destination_path}/{model_architecture}/training",
                                  "--time_shift_ms", "0",

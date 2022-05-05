@@ -446,8 +446,8 @@ class MyApp(QMainWindow, Ui_myApp):
 
     def _readTrainingDatasetFolders(self, dir: str):
         try:
-            sub_folders = [name for name in os.listdir(
-                dir) if os.path.isdir(os.path.join(dir, name))]
+            sub_folders = [name for name in os.listdir(dir) 
+                if os.path.isdir(os.path.join(dir, name)) and not name.startswith("_")]
             return sub_folders
         except Exception:
             ErrorMessageBox(self).exec()
