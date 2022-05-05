@@ -32,7 +32,7 @@ from voiceTestDialogImpl import VoiceTestDialog
 import tts
 
 
-class MyApp(QMainWindow, Ui_myApp):
+class kwsCoachApp(QMainWindow, Ui_myApp):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
@@ -468,7 +468,7 @@ def clearApplicationCache(workingDirectory: str):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setStyleSheet(qdarkstyle.load_stylesheet(qt_api='pyqt5'))
-    win = MyApp()
+    win = kwsCoachApp()
     win.show()
     app.exec()
 
