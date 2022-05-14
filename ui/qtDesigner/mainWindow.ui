@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>myApp</class>
- <widget class="QMainWindow" name="myApp">
+ <class>kwsCoach</class>
+ <widget class="QMainWindow" name="kwsCoach">
   <property name="enabled">
    <bool>true</bool>
   </property>
@@ -17,11 +17,11 @@
    <enum>Qt::NoContextMenu</enum>
   </property>
   <property name="windowTitle">
-   <string>myApp tbd</string>
+   <string>kwsCoach</string>
   </property>
   <property name="windowIcon">
    <iconset resource="resources/ui.resources.qrc">
-    <normaloff>:/app-icon/app-icon/icons8_bmo.ico</normaloff>:/app-icon/app-icon/icons8_bmo.ico</iconset>
+    <normaloff>:/app-icon/app-icon/icons8-bmo.svg</normaloff>:/app-icon/app-icon/icons8-bmo.svg</iconset>
   </property>
   <property name="toolButtonStyle">
    <enum>Qt::ToolButtonTextBesideIcon</enum>
@@ -2160,7 +2160,7 @@
   <connection>
    <sender>connect_button_watson</sender>
    <signal>clicked()</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>openConnectWatsonDialog()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2176,7 +2176,7 @@
   <connection>
    <sender>connect_button_azure</sender>
    <signal>clicked()</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>openConnectAzureDialog()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2192,7 +2192,7 @@
   <connection>
    <sender>select_path_button</sender>
    <signal>clicked()</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>openDirectorySelectDialog()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2208,7 +2208,7 @@
   <connection>
    <sender>add_word_button</sender>
    <signal>clicked()</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>openAddNewWordListDialog()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2224,7 +2224,7 @@
   <connection>
    <sender>remove_word_button</sender>
    <signal>clicked()</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>removeWordFromList()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2240,7 +2240,7 @@
   <connection>
    <sender>menu_action_sythesis</sender>
    <signal>triggered()</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>switchToSynthesis()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2256,7 +2256,7 @@
   <connection>
    <sender>menu_action_dataset</sender>
    <signal>triggered()</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>switchToDataset()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2272,7 +2272,7 @@
   <connection>
    <sender>menu_action_training</sender>
    <signal>triggered()</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>switchToTraining()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2288,7 +2288,7 @@
   <connection>
    <sender>menu_action_about</sender>
    <signal>triggered()</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>switchToAbout()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2304,7 +2304,7 @@
   <connection>
    <sender>connect_button_google</sender>
    <signal>clicked()</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>openConnectGoogleDialog()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2320,7 +2320,7 @@
   <connection>
    <sender>start_synthesis_button</sender>
    <signal>clicked()</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>openSynthesisDialog()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2336,7 +2336,7 @@
   <connection>
    <sender>select_dataset_src_path_button_2</sender>
    <signal>clicked()</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>openSrcDatasetDirectorySelectDialog()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2352,7 +2352,7 @@
   <connection>
    <sender>normalization_checkBox</sender>
    <signal>stateChanged(int)</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>toggleNormalization()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2368,7 +2368,7 @@
   <connection>
    <sender>time_shift_checkBox</sender>
    <signal>stateChanged(int)</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>toggleRandTimeShift()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2384,7 +2384,7 @@
   <connection>
    <sender>rand_background_checkBox</sender>
    <signal>stateChanged(int)</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>toggleRandBackgroundNoise()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2400,7 +2400,7 @@
   <connection>
    <sender>trim_silence_checkBox</sender>
    <signal>stateChanged(int)</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>toggleTrimSilence()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2416,7 +2416,7 @@
   <connection>
    <sender>pushButton_2</sender>
    <signal>clicked()</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>openAugmentationDialog()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2432,7 +2432,7 @@
   <connection>
    <sender>replication_checkBox</sender>
    <signal>stateChanged(int)</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>toggleReplicationFaktor()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2448,7 +2448,7 @@
   <connection>
    <sender>pitch_checkBox</sender>
    <signal>stateChanged(int)</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>togglePitch()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2464,7 +2464,7 @@
   <connection>
    <sender>time_stretch_checkBox</sender>
    <signal>stateChanged(int)</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>toggleTimeStretch()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2480,7 +2480,7 @@
   <connection>
    <sender>volume_checkBox</sender>
    <signal>stateChanged(int)</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>toggleVolume()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2496,7 +2496,7 @@
   <connection>
    <sender>guassian_noise_checkBox</sender>
    <signal>stateChanged(int)</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>toggleGaussianNoise()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2512,7 +2512,7 @@
   <connection>
    <sender>short_noises_checkBox</sender>
    <signal>stateChanged(int)</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>toggleShortNoise()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2528,7 +2528,7 @@
   <connection>
    <sender>select_dataset_dest_path_button_3</sender>
    <signal>clicked()</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>openDestDatasetDirectorySelectDialog()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2544,7 +2544,7 @@
   <connection>
    <sender>select_train_dataset_path_button</sender>
    <signal>clicked()</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>openTrainingDatasetSelectDialog()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2560,7 +2560,7 @@
   <connection>
    <sender>select_model_destination_button</sender>
    <signal>clicked()</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>openModelDestinationSelectDialog()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2576,7 +2576,7 @@
   <connection>
    <sender>train_button</sender>
    <signal>clicked()</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>startTraining()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -2592,7 +2592,7 @@
   <connection>
    <sender>stop_training_button</sender>
    <signal>clicked()</signal>
-   <receiver>myApp</receiver>
+   <receiver>kwsCoach</receiver>
    <slot>stopTraining()</slot>
    <hints>
     <hint type="sourcelabel">

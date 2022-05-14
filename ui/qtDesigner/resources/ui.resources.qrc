@@ -23,6 +23,6 @@
     <file>provider/icons8-ibm.svg</file>
   </qresource>
   <qresource prefix="app-icon">
-    <file>app-icon/icons8_bmo.ico</file>
+    <file>app-icon/icons8-bmo.svg</file>
   </qresource>
 </RCC>

@@ -4,7 +4,6 @@ import sys
 import os
 import re
 import yaml
-from pyparsing import col
 # foreign modules
 import qdarkstyle
 
@@ -18,7 +17,7 @@ from augmentationDialogImpl import AugmentationDialog
 from datasetFileModel import DatasetFileModel
 from tts.myTypes import AugmentationType, Word
 # qt designer modules
-from ui.mainWindow import Ui_myApp
+from ui.mainWindow import Ui_kwsCoach
 # own modules
 from synthesisDialogImpl import SynthesisDialog
 from voiceListViewImpl import VoiceListView
@@ -32,7 +31,7 @@ from voiceTestDialogImpl import VoiceTestDialog
 import tts
 
 
-class kwsCoachApp(QMainWindow, Ui_myApp):
+class kwsCoachApp(QMainWindow, Ui_kwsCoach):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
