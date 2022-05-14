@@ -100,6 +100,8 @@ class ConnectGoogleDialog(ConnectProviderDialog):
                 credentials = f.read()
                 self.credentials_textedit.setText(prettyJson(credentials))
             self.exportCredentials()
+            if self.isConnected():
+                self.status_bar.showMessage(f"already connected to {self._provider.name}")
         except:
             pass
     
@@ -124,6 +126,8 @@ class ConnectWatsonDialog(ConnectProviderDialog):
                 credentials = f.read()
                 self.credentials_textedit.setText(credentials)
             self.exportCredentials()
+            if self.isConnected():
+                self.status_bar.showMessage(f"already connected to {self._provider.name}")
         except:
             pass
         
@@ -150,6 +154,8 @@ class ConnectAzureDialog(ConnectProviderDialog):
                 credentials = f.read()
                 self.credentials_textedit.setText(prettyJson(credentials))
                 self._tts.connect(Provider.AZURE)
+                if self.isConnected():
+                    self.status_bar.showMessage(f"already connected to {self._provider.name}")
         except:
             pass
 
