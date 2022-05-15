@@ -29,7 +29,7 @@ class TrainingScriptWrapper():
         
         # make a comma seperated list string
         words_string = ','.join([str(item) for item in wanted_words]) 
-        self.script_args = ["/home/dsentler/ARM-software/ds_cnn/train.py",
+        self.script_args = ["ds-cnn-for-kws/train.py",
                             "--model_architecture", model_architecture,
                             "--model_size_info"]
         self.script_args.extend(model_size)
