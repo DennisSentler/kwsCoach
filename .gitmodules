@@ -1,0 +1,3 @@
+[submodule "ds-cnn-for-kws"]
+	path = ds-cnn-for-kws
+	url = https://github.com/DennisSentler/ds-cnn-for-kws.git
